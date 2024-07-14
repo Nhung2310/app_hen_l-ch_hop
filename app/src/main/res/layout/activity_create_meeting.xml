@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fillViewport="true"
+    tools:context=".CreateMeetingActivity">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginBottom="200dp"
+        app:cardCornerRadius="30dp"
+        app:cardElevation="20dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:padding="20dp"
+            android:background="@drawable/lavender_border" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Upload Data"
+                android:textSize="30sp"
+                android:textAlignment="center"
+                android:textColor="@color/Lavender"/>
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@drawable/uploadimg"
+                android:id="@+id/uploadImage"
+                android:layout_marginTop="10dp"
+                android:scaleType="fitXY"/>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/uploadTimeButton"
+                android:background="@drawable/lavender_button_border"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:text="Chọn ngày"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/Lavender"
+                android:textSize="16sp"
+                android:scrollbars="vertical" />
+
+
+
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/uploadLocation"
+                android:background="@drawable/lavender_border"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:hint="Địa điểm"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/Lavender" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/uploadTopic"
+                android:background="@drawable/lavender_border"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:hint="Vấn đề"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/Lavender" />
+
+
+
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/uploadResult"
+                android:background="@drawable/lavender_border"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:hint="Kết quả phải đạt"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/Lavender" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/uploadParticipants"
+                android:background="@drawable/lavender_border"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:hint="Các thành viên tham dự"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/Lavender" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chọn thời gian bắt đầu"
+                android:background="@drawable/lavender_button_border"
+                android:id="@+id/startTimeButton"
+                android:textSize="18sp"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/Lavender" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Chọn thời gian kết thúc"
+                android:background="@drawable/lavender_button_border"
+                android:id="@+id/endTimeButton"
+                android:textSize="18sp"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/Lavender" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/uploadDocsButton"
+                android:background="@drawable/lavender_button_border"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:text="Tải lên tài liệu họp"
+                android:gravity="start|center_vertical"
+                android:textColor="@color/Lavender"
+                android:textSize="16sp"
+                android:scrollbars="vertical" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/selectedFilesTextView"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:textColor="@color/Lavender"
+                android:textSize="16sp"
+                android:gravity="start|center_vertical" />
+
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tạo cuộc họp"
+                android:backgroundTint="@color/Lavender"
+                android:id="@+id/saveButton"
+                android:textSize="18sp"
+                android:layout_marginTop="20dp"
+                app:cornerRadius = "20dp"
+                android:layout_marginBottom="50dp"
+                />
+        </LinearLayout>
+
+            
+
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</ScrollView>
