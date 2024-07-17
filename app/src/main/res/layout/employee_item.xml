@@ -6,26 +6,26 @@
     android:padding="8dp">
 
     <TextView
+
         android:id="@+id/fullNameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:textColor="@android:color/black"
-        android:padding="4dp"
-        android:background="@drawable/lavender_border"
         android:layout_marginTop="20dp"
+        android:gravity="start|center_vertical"
         android:hint="Tên đầy đủ"
-        android:gravity="start|center_vertical" />
+        android:padding="4dp"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/emailTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="16sp"
-        android:textColor="@android:color/black"
-        android:padding="4dp"
-        android:background="@drawable/lavender_border"
         android:layout_marginTop="20dp"
+        android:gravity="start|center_vertical"
         android:hint="Email"
-        android:gravity="start|center_vertical" />
+        android:padding="4dp"
+        android:textColor="#757575"
+        android:textSize="16sp" />
 </LinearLayout>

@@ -92,20 +92,32 @@
                 android:gravity="start|center_vertical"
                 android:textColor="@color/Lavender"
                 android:enabled="false"/>
-
-            <!-- Nút chia sẻ -->
             <Button
-                android:id="@+id/shareButton"
+                android:id="@+id/summaryButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="20dp"
-                android:padding="16dp"
-                android:background="@drawable/lavender_button_border"
-                android:text="Chia sẻ"
-                android:gravity="center"
-                android:textColor="@color/Lavender"
+                android:layout_marginEnd="16dp"
+                android:text="Kết luận cuộc họp"
                 android:textSize="18sp"
-                android:onClick="showEmailDialog"/>
+                android:textColor="@color/Lavender"
+                android:background="@drawable/lavender_button_border"
+                android:onClick="showSummaryActivity" />
+            <!-- Nút chia sẻ -->
+            <ImageButton
+                android:id="@+id/shareButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="250dp"
+                android:layout_marginTop="20dp"
+                android:contentDescription="Share Button"
+                android:onClick="showEmailDialog"
+                android:padding="16dp"
+                android:scaleType="centerInside"
+                android:src="@drawable/baseline_arrow_forward_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

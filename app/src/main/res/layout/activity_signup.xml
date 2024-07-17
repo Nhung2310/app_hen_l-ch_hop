@@ -33,12 +33,33 @@
                 android:textColor="@color/Lavender"
                 android:textSize="36sp"
                 android:textStyle="bold" />
-
+            <EditText
+                android:id="@+id/signup_full_name"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom_edittext"
+                android:drawableLeft="@drawable/baseline_person_24"
+                android:drawablePadding="8dp"
+                android:hint="Họ và tên"
+                android:padding="8dp"
+                android:textColor="@color/black" />
+            <EditText
+                android:id="@+id/signup_username"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/custom_edittext"
+                android:drawableLeft="@drawable/baseline_person_24"
+                android:drawablePadding="8dp"
+                android:hint="Tên đăng nhập"
+                android:padding="8dp"
+                android:textColor="@color/black" />
             <EditText
                 android:id="@+id/signup_email"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="20dp"
                 android:background="@drawable/custom_edittext"
                 android:drawableLeft="@drawable/baseline_person_24"
                 android:drawablePadding="8dp"

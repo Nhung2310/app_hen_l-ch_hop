@@ -2,7 +2,10 @@ package com.example.doanthuctap;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -32,5 +35,20 @@ public class MeetingListActivity extends AppCompatActivity {
         // Tạo adapter và gán cho ListView
         meetingAdapter = new MeetingAdapter(this, meetingList);
         meetingListView.setAdapter(meetingAdapter);
+
+        // Bắt sự kiện click trên ListView
+        meetingListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // Lấy ra đối tượng Meeting được click
+                Meeting selectedMeeting = meetingList.get(position);
+
+                // Chuyển sang MeetingDetailsActivity và truyền dữ liệu
+                Intent intent = new Intent(MeetingListActivity.this, MeetingDetailsActivity.class);
+                intent.putExtra("meeting_title", selectedMeeting.getTitle());
+                intent.putExtra("meeting_time", selectedMeeting.getMeetingTime());
+                startActivity(intent);
+            }
+        });
     }
 }
