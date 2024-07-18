@@ -17,7 +17,9 @@ db.User = require('./user')(sequelize, DataTypes);
 db.Meeting = require('./meetings')(sequelize, DataTypes);
 db.MeetingReminder = require('./meetingreminders')(sequelize, DataTypes);
 db.MeetingResult = require('./meetingresults')(sequelize, DataTypes);
-
+db.Participant=require('./participants')(sequelize, DataTypes);
+db.Summary =require('./summaries')(sequelize, DataTypes);
+db.SummaryApproval=require('./summaryapproval')(sequelize, DataTypes);
 
 // Setup associations
 Object.keys(db).forEach(modelName => {
