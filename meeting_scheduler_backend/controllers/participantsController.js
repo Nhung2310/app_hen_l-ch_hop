@@ -65,3 +65,25 @@ exports.deleteParticipant = async (req, res) => {
     res.status(500).json({ error: 'Delete participant failed' });
   }
 };
+
+exports.getParticipantRole = async (req, res) => {
+  const userId = req.params.userId;
+
+  try {
+    // Tìm participant có userId và lấy vai trò (role)
+    const participant = await Participant.findOne({
+      where: {
+        user_id: userId
+      }
+    });
+
+    if (participant) {
+      res.json({ role: participant.role });
+    } else {
+      res.status(404).json({ error: 'Participant not found' });
+    }
+  } catch (error) {
+    console.error('Error retrieving participant role:', error);
+    res.status(500).json({ error: 'Server error' });
+  }
+};

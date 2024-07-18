@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const participantsController = require('../controllers/participantsController');
 
-router.get('/meetings',participantsController.getAllParticipants );
+router.get('/participants',participantsController.getAllParticipants );
+router.get('/participants',participantsController.getParticipantRole );
 
 module.exports = router;

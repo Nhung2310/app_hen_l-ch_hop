@@ -4,4 +4,5 @@ const meetingremindersController = require('../controllers/meetingremindersContr
 
 router.get('/meetingreminders', meetingremindersController.getAllMeetingReminders);
 
+
 module.exports = router;

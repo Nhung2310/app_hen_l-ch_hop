@@ -1,3 +1,4 @@
+// Define the User model using Sequelize
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
     user_id: {
@@ -21,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
     full_name: {
       type: DataTypes.STRING(255),
       allowNull: true
+    },
+    role: {
+      type: DataTypes.ENUM('manager', 'member'),
+      defaultValue: 'member'
     },
     created_at: {
       type: DataTypes.DATE,

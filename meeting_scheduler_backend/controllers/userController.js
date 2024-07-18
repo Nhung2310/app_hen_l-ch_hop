@@ -68,3 +68,20 @@ exports.deleteUser = async (req, res) => {
   await user.destroy();
   res.json({ message: 'User deleted' });
 };
+exports.getUserRole = async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const user = await User.findByPk(userId);
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Giả sử vai trò của người dùng được lưu trong cột 'role' của bảng user
+    const role = user.role;
+    res.json(role);
+  } catch (error) {
+    console.error('Error while fetching user role:', error);
+    res.status(500).json({ error: 'Failed to fetch user role' });
+  }
+};

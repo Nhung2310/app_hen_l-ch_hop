@@ -2,6 +2,7 @@ package com.example.doanthuctap;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -51,14 +52,36 @@ public class LoginActivity extends AppCompatActivity {
                 userApi.login(loginRequest).enqueue(new Callback<User>() {
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
-                        if(!response.isSuccessful()){
+                        if (!response.isSuccessful()) {
                             Toast.makeText(getApplicationContext(), "Login thất bại!", Toast.LENGTH_SHORT).show();
                             return;
                         }
 
                         User user = response.body();
-                        Toast.makeText(getApplicationContext(), "Login thành công với email: " + user.email, Toast.LENGTH_SHORT).show();
+                        if (user != null) {
+                            String role = user.getRole();
+                            if (role != null) {
+                                if (role.equals("manage")) {
+                                    // Chuyển hướng sang AdminActivity
+                                    Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                                    startActivity(intent);
+                                    finish(); // Kết thúc LoginActivity sau khi chuyển hướng
+                                } else if (role.equals("member")) {
+                                    // Chuyển hướng sang MemberActivity
+                                    Intent intent = new Intent(LoginActivity.this, MemberActivity.class);
+                                    startActivity(intent);
+                                    finish(); // Kết thúc LoginActivity sau khi chuyển hướng
+                                } else {
+                                    Toast.makeText(getApplicationContext(), "Vai trò không xác định!", Toast.LENGTH_SHORT).show();
+                                }
+                            } else {
+                                Toast.makeText(getApplicationContext(), "Không thể lấy vai trò từ server!", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Không thể lấy thông tin người dùng từ server!", Toast.LENGTH_SHORT).show();
+                        }
                     }
+
 
                     @Override
                     public void onFailure(Call<User> call, Throwable t) {
