@@ -6,19 +6,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.doanthuctap.Employee;
 import com.example.doanthuctap.R;
+import com.example.doanthuctap.entity.User;
 
 import java.util.List;
 
 public class EmployeeAdapter extends BaseAdapter {
     private Context context;
-    private List<Employee> employeeList;
+    private List<User> employeeList;
 
-    public EmployeeAdapter(Context context, List<Employee> employeeList) {
+    public EmployeeAdapter(Context context, List<User> employeeList) {
         this.context = context;
         this.employeeList = employeeList;
     }
@@ -44,16 +42,20 @@ public class EmployeeAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.employee_item, parent, false);
         }
 
-        TextView fullName = convertView.findViewById(R.id.fullNameTextView);
-        TextView email = convertView.findViewById(R.id.emailTextView);
 
-        Employee employee = employeeList.get(position);
+        TextView fullNameTextView = convertView.findViewById(R.id.fullNameTextView);
+        TextView usernameTextView = convertView.findViewById(R.id.usernameTextView);
+        TextView emailTextView = convertView.findViewById(R.id.emailTextView);
+        TextView roleTextView = convertView.findViewById(R.id.roleTextView);
 
-        fullName.setText(employee.getFullName());
-        email.setText(employee.getEmail());
+        User user = employeeList.get(position);
+
+
+        fullNameTextView.setText("Full Name: " + user.getFullName());
+        usernameTextView.setText("Username: " + user.getUsername());
+        emailTextView.setText("Email: " + user.getEmail());
+        roleTextView.setText("Role: " + user.getRole());
 
         return convertView;
     }
-
 }
-

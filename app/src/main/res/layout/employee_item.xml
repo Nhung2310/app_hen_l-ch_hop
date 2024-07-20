@@ -5,27 +5,44 @@
     android:orientation="vertical"
     android:padding="8dp">
 
+    <!-- Full Name TextView -->
     <TextView
-
         android:id="@+id/fullNameTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="start|center_vertical"
-        android:hint="Tên đầy đủ"
-        android:padding="4dp"
+        android:textSize="16sp"
         android:textColor="@android:color/black"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+        android:paddingBottom="4dp"
+        android:text="Full Name: " />
 
+    <!-- Username TextView -->
+    <TextView
+        android:id="@+id/usernameTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@android:color/darker_gray"
+        android:paddingBottom="4dp"
+        android:text="Username: " />
+
+    <!-- Email TextView -->
     <TextView
         android:id="@+id/emailTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:gravity="start|center_vertical"
-        android:hint="Email"
-        android:padding="4dp"
-        android:textColor="#757575"
-        android:textSize="16sp" />
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        android:paddingBottom="4dp"
+        android:text="Email: " />
+
+    <!-- Role TextView -->
+    <TextView
+        android:id="@+id/roleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@android:color/holo_red_light"
+        android:paddingBottom="4dp"
+        android:text="Role: " />
+
 </LinearLayout>

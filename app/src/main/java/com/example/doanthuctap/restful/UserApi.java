@@ -15,7 +15,7 @@ public interface UserApi {
     @POST("/api/user/login")
     Call<User> login(@Body LoginRequest loginRequest);
 
-    @GET("/api/user/all")
+    @GET("/api/user/users")
     Call<List<User>> getAllUsers();
 
 

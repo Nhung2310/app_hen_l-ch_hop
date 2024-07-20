@@ -2,14 +2,31 @@ package com.example.doanthuctap.entity;
 
 import java.sql.Timestamp;
 
+import com.google.gson.annotations.SerializedName;
+
 public class User {
+    @SerializedName("user_id")
     private int userId;
+
+    @SerializedName("username")
     private String username;
+
+    @SerializedName("password")
     private String password;
+
+    @SerializedName("email")
     private String email;
+
+    @SerializedName("full_name")
     private String fullName;
+
+    @SerializedName("role")
     private String role;
+
+    @SerializedName("created_at")
     private Timestamp createdAt;
+
+    @SerializedName("updated_at")
     private Timestamp updatedAt;
 
     // Constructors
