@@ -1,4 +1,4 @@
-package com.example.doanthuctap;
+package com.example.doanthuctap.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,10 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.doanthuctap.Employee;
+import com.example.doanthuctap.R;
+
 import java.util.List;
 
 public class EmployeeAdapter extends BaseAdapter {

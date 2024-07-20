@@ -1,4 +1,4 @@
-package com.example.doanthuctap;
+package com.example.doanthuctap.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+
+import com.example.doanthuctap.Meeting;
+import com.example.doanthuctap.R;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

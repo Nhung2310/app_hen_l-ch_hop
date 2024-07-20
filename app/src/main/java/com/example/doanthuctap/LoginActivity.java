@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -50,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
                 loginRequest.password = editPassword.getText().toString();
 
                 userApi.login(loginRequest).enqueue(new Callback<User>() {
+                   
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
                         if (!response.isSuccessful()) {
@@ -61,7 +63,8 @@ public class LoginActivity extends AppCompatActivity {
                         if (user != null) {
                             String role = user.getRole();
                             if (role != null) {
-                                if (role.equals("manage")) {
+                                Log.d("LoginActivity", "Role: " + role);  // Thêm dòng này để in ra role
+                                if (role.equals("manager")) {
                                     // Chuyển hướng sang AdminActivity
                                     Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
                                     startActivity(intent);
@@ -75,9 +78,11 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), "Vai trò không xác định!", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
+                                Log.d("LoginActivity", "Role is null");  // Thêm dòng này để in ra khi role là null
                                 Toast.makeText(getApplicationContext(), "Không thể lấy vai trò từ server!", Toast.LENGTH_SHORT).show();
                             }
                         } else {
+                            Log.d("LoginActivity", "User is null");  // Thêm dòng này để in ra khi user là null
                             Toast.makeText(getApplicationContext(), "Không thể lấy thông tin người dùng từ server!", Toast.LENGTH_SHORT).show();
                         }
                     }
