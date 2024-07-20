@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.doanthuctap"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -40,4 +40,5 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     compileOnly("org.projectlombok:lombok:1.18.28")
     annotationProcessor("org.projectlombok:lombok:1.18.28")
+    implementation ("com.jakewharton.threetenabp:threetenabp:1.4.4")
 }

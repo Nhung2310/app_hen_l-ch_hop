@@ -36,5 +36,4 @@
         android:contentDescription="Next"
         android:layout_gravity="end"
         android:layout_marginStart="8dp" />
-
 </LinearLayout>

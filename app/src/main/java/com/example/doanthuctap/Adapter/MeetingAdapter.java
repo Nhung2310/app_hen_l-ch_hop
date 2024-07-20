@@ -4,38 +4,26 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.doanthuctap.Meeting;
 import com.example.doanthuctap.R;
+import com.example.doanthuctap.entity.Meeting;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import org.threeten.bp.format.DateTimeFormatter;
+import org.threeten.bp.LocalTime;
+
 import java.util.List;
 
-public class MeetingAdapter extends BaseAdapter {
-    private Context context;
-    private List<Meeting> meetingList;
+public class MeetingAdapter extends ArrayAdapter<Meeting> {
+    private final Context context;
+    private final List<Meeting> meetings;
+    private final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 
-    public MeetingAdapter(Context context, List<Meeting> meetingList) {
+    public MeetingAdapter(Context context, List<Meeting> meetings) {
+        super(context, R.layout.item_meeting, meetings);
         this.context = context;
-        this.meetingList = meetingList;
-    }
-
-    @Override
-    public int getCount() {
-        return meetingList.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return meetingList.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
+        this.meetings = meetings;
     }
 
     @Override
@@ -44,13 +32,26 @@ public class MeetingAdapter extends BaseAdapter {
             convertView = LayoutInflater.from(context).inflate(R.layout.item_meeting, parent, false);
         }
 
-        Meeting meeting = (Meeting) getItem(position);
+        Meeting meeting = meetings.get(position);
 
         TextView titleTextView = convertView.findViewById(R.id.titleTextView);
         TextView timeTextView = convertView.findViewById(R.id.timeTextView);
 
         titleTextView.setText(meeting.getTitle());
-        timeTextView.setText(meeting.getMeetingTime());
+
+        // Định dạng thời gian
+        String startTime = "N/A";
+        String endTime = "N/A";
+
+        if (meeting.getStartTime() != null) {
+            startTime = meeting.getStartTime();
+        }
+
+        if (meeting.getEndTime() != null) {
+            endTime = meeting.getEndTime();
+        }
+
+        timeTextView.setText(startTime + " - " + endTime);
 
         return convertView;
     }
