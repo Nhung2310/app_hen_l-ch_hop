@@ -149,17 +149,21 @@
                 android:textColor="@color/Lavender"
                 android:textSize="16sp"
                 android:scrollbars="vertical" />
-
-            <EditText
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/uploadparticipants"
                 android:background="@drawable/lavender_border"
                 android:layout_marginTop="20dp"
                 android:padding="16dp"
-                android:hint="Các thành viên tham dự"
+                android:hint="Thành viên tham dự"
                 android:gravity="start|center_vertical"
-                android:textColor="@color/Lavender" />
+                android:textColor="@color/Lavender"/>
+            <Button
+                android:id="@+id/selectParticipantsButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chọn Thành Viên" />
 
             <Button
                 android:layout_width="match_parent"

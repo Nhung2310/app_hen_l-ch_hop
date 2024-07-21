@@ -1,6 +1,7 @@
 package com.example.doanthuctap;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
@@ -15,32 +16,43 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.doanthuctap.Adapter.EmployeeSelectionAdapter;
 import com.example.doanthuctap.Retrofit.Constant;
 import com.example.doanthuctap.entity.Meeting;
+import com.example.doanthuctap.entity.User;
 import com.example.doanthuctap.restful.MeetingApi;
+import com.example.doanthuctap.restful.UserApi;
 import com.example.doanthuctap.util.GsonProvider;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 public class CreateMeetingActivity extends AppCompatActivity {
 
-    private EditText uploadLocation, uploadAgenda, uploadResult, uploadParticipants, title;
-    private Button startTimeButton, endTimeButton, uploadDocsButton, saveButton, meetingDateButton, nextMeetingTimeButton;
-    private TextView selectedFilesTextView;
+    private EditText uploadLocation, uploadAgenda, uploadResult,  title;
+    private Button startTimeButton, endTimeButton, uploadDocsButton, saveButton, meetingDateButton, nextMeetingTimeButton,selectParticipantsButton;
+    private TextView selectedFilesTextView,uploadParticipants;
     private int startHour = -1, startMinute = -1, endHour = -1, endMinute = -1;
     private static final int PICK_DOCS_REQUEST_CODE = 1;
     private MeetingApi meetingApi;
+
+    private UserApi userApi;
+    private List<User> userList;
+    private List<User> selectedUsers = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,19 +67,30 @@ public class CreateMeetingActivity extends AppCompatActivity {
 
         meetingApi = retrofit.create(MeetingApi.class);
 
+        // Initialize Retrofit for User API
+        Retrofit userRetrofit = new Retrofit.Builder()
+                .baseUrl(Constant.URL + "/api/user/users/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        userApi = userRetrofit.create(UserApi.class);
+
         // Initialize views
         title = findViewById(R.id.uploadtitle);
         uploadLocation = findViewById(R.id.uploadlocation);
         uploadAgenda = findViewById(R.id.uploadagenda);
         uploadDocsButton = findViewById(R.id.uploadocsButton);
         uploadResult = findViewById(R.id.uploadresult);
-        uploadParticipants = findViewById(R.id.uploadparticipants);
+        selectParticipantsButton = findViewById(R.id.selectParticipantsButton);
+
         startTimeButton = findViewById(R.id.starttime);
         endTimeButton = findViewById(R.id.endtime);
         saveButton = findViewById(R.id.savebutton);
         meetingDateButton = findViewById(R.id.meetingdate);
         nextMeetingTimeButton = findViewById(R.id.nextmeetingtime);
         selectedFilesTextView = findViewById(R.id.selectedfilesTextView);
+        uploadParticipants = findViewById(R.id.uploadparticipants);
+
+
 
         // Set listeners
         meetingDateButton.setOnClickListener(view -> showDatePickerDialog());
@@ -76,6 +99,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
         uploadDocsButton.setOnClickListener(view -> openFileChooser());
         nextMeetingTimeButton.setOnClickListener(view -> showDateTimePickerDialog());
         saveButton.setOnClickListener(view -> saveData());
+        selectParticipantsButton.setOnClickListener(view -> showEmployeeSelectionDialog());
     }
 
     private void showDatePickerDialog() {
@@ -166,6 +190,68 @@ public class CreateMeetingActivity extends AppCompatActivity {
         timePickerDialog.show();
     }
 
+    private void showEmployeeSelectionDialog() {
+        if (userList == null) {
+            fetchEmployees();  // Đảm bảo fetchEmployees() khởi tạo userList
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Chọn thành viên tham dự");
+
+        ListView listView = new ListView(this);
+        EmployeeSelectionAdapter adapter = new EmployeeSelectionAdapter(this, userList, selectedUsers);
+        listView.setAdapter(adapter);
+
+        builder.setView(listView);
+
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            StringBuilder participants = new StringBuilder();
+            for (User user : selectedUsers) {
+                participants.append(user.getFullName()).append(", ");
+            }
+            uploadParticipants.setText(participants.toString());
+        });
+
+        builder.setNegativeButton("Hủy", (dialog, which) -> dialog.dismiss());
+
+        builder.show();
+    }
+
+
+    private void fetchEmployees() {
+        userApi.getAllUsers().enqueue(new Callback<List<User>>() {
+            @Override
+            public void onResponse(Call<List<User>> call, Response<List<User>> response) {
+                if (!response.isSuccessful()) {
+                    Log.e("API Error", "Code: " + response.code() + " Message: " + response.message());
+                    Toast.makeText(getApplicationContext(), "Failed to fetch employees!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                List<User> users = response.body();
+                if (users != null) {
+                    // Filter out managers
+                    userList = new ArrayList<>();
+                    for (User user : users) {
+                        Log.d("Employee", "FullName: " + user.getFullName()); // Log giá trị fullName
+                        if (!"manager".equals(user.getRole())) {
+                            userList.add(user);
+                        }
+                    }
+
+                    // Gọi hàm để hiển thị danh sách
+                    showEmployeeSelectionDialog();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<User>> call, Throwable t) {
+                Toast.makeText(getApplicationContext(), "Failed to fetch employees!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
     private void openFileChooser() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.setType("*/*");
@@ -235,14 +321,14 @@ public class CreateMeetingActivity extends AppCompatActivity {
         String meetingLocation = uploadLocation.getText().toString().trim();
         String meetingAgenda = uploadAgenda.getText().toString().trim();
         String meetingResult = uploadResult.getText().toString().trim();
-        String meetingParticipants = uploadParticipants.getText().toString().trim();
+       // String meetingParticipants = .getText().toString().trim();
         String meetingDate = meetingDateButton.getText().toString().trim();
         String startTime = startTimeButton.getText().toString().trim();
         String endTime = endTimeButton.getText().toString().trim();
         String nextMeetingTime = nextMeetingTimeButton.getText().toString().trim();
 
         if (meetingTitle.isEmpty() || meetingLocation.isEmpty() || meetingAgenda.isEmpty() ||
-                meetingResult.isEmpty() || meetingParticipants.isEmpty() || meetingDate.isEmpty() ||
+                meetingResult.isEmpty()  || meetingDate.isEmpty() ||
                 startTime.isEmpty() || endTime.isEmpty() || nextMeetingTime.isEmpty()) {
             Toast.makeText(CreateMeetingActivity.this, "Vui lòng điền tất cả các trường.", Toast.LENGTH_SHORT).show();
             return;
