@@ -1,113 +1,83 @@
 package com.example.doanthuctap;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.provider.OpenableColumns;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
+import com.example.doanthuctap.Retrofit.Constant;
+import com.example.doanthuctap.entity.Meeting;
+import com.example.doanthuctap.restful.MeetingApi;
+import com.example.doanthuctap.util.GsonProvider;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class CreateMeetingActivity extends AppCompatActivity {
 
+    private EditText uploadLocation, uploadAgenda, uploadResult, uploadParticipants, title;
+    private Button startTimeButton, endTimeButton, uploadDocsButton, saveButton, meetingDateButton, nextMeetingTimeButton;
     private TextView selectedFilesTextView;
-
-    ImageView uploadImage;
-    Button saveButton, startTimeButton, endTimeButton;
-    private int startHour, startMinute, endHour, endMinute;
+    private int startHour = -1, startMinute = -1, endHour = -1, endMinute = -1;
     private static final int PICK_DOCS_REQUEST_CODE = 1;
-    Button uploadDocsButton;
-    EditText uploadLocation, uploadTopic,  uploadResult, uploadParticipants;
-    Uri uri;
-    String imagePath;
-
-
-    Button uploadTimeButton;
+    private MeetingApi meetingApi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_meeting);
-        uploadImage = findViewById(R.id.uploadImage);
-        uploadLocation = findViewById(R.id.uploadLocation);
-        uploadTopic = findViewById(R.id.uploadTopic);
-        uploadDocsButton = findViewById(R.id.uploadDocsButton);
-        uploadResult = findViewById(R.id.uploadResult);
-        uploadParticipants = findViewById(R.id.uploadParticipants);
-        startTimeButton = findViewById(R.id.startTimeButton);
-        endTimeButton = findViewById(R.id.endTimeButton);
-        saveButton = findViewById(R.id.saveButton);
 
-        uploadTimeButton = findViewById(R.id.uploadTimeButton);
-// chọn ngày
-        uploadTimeButton.setOnClickListener(view -> showDatePickerDialog());
-// chọn thời gian bắt đầu vaf kết thúc
+        // Initialize Retrofit
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constant.URL + "/api/meeting/meetings/")
+                .addConverterFactory(GsonConverterFactory.create(GsonProvider.getGson()))
+                .build();
+
+        meetingApi = retrofit.create(MeetingApi.class);
+
+        // Initialize views
+        title = findViewById(R.id.uploadtitle);
+        uploadLocation = findViewById(R.id.uploadlocation);
+        uploadAgenda = findViewById(R.id.uploadagenda);
+        uploadDocsButton = findViewById(R.id.uploadocsButton);
+        uploadResult = findViewById(R.id.uploadresult);
+        uploadParticipants = findViewById(R.id.uploadparticipants);
+        startTimeButton = findViewById(R.id.starttime);
+        endTimeButton = findViewById(R.id.endtime);
+        saveButton = findViewById(R.id.savebutton);
+        meetingDateButton = findViewById(R.id.meetingdate);
+        nextMeetingTimeButton = findViewById(R.id.nextmeetingtime);
+        selectedFilesTextView = findViewById(R.id.selectedfilesTextView);
+
+        // Set listeners
+        meetingDateButton.setOnClickListener(view -> showDatePickerDialog());
         startTimeButton.setOnClickListener(view -> showTimePickerDialog(true));
         endTimeButton.setOnClickListener(view -> showTimePickerDialog(false));
-         // upload tài liệu lên
-        uploadDocsButton = findViewById(R.id.uploadDocsButton);
-        selectedFilesTextView = findViewById(R.id.selectedFilesTextView);
-
         uploadDocsButton.setOnClickListener(view -> openFileChooser());
-
-        ActivityResultLauncher<Intent> activityResultLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                    @Override
-                    public void onActivityResult(ActivityResult result) {
-                        if (result.getResultCode() == Activity.RESULT_OK) {
-                            Intent data = result.getData();
-                            uri = data.getData();
-                            uploadImage.setImageURI(uri);
-                        } else {
-                            Toast.makeText(CreateMeetingActivity.this, "No Image Selected", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                }
-        );
-
-        uploadImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent photoPicker = new Intent(Intent.ACTION_PICK);
-                photoPicker.setType("image/*");
-                activityResultLauncher.launch(photoPicker);
-            }
-        });
-
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                saveData();
-            }
-        });
+        nextMeetingTimeButton.setOnClickListener(view -> showDateTimePickerDialog());
+        saveButton.setOnClickListener(view -> saveData());
     }
+
     private void showDatePickerDialog() {
         final Calendar calendar = Calendar.getInstance();
         int year = calendar.get(Calendar.YEAR);
@@ -115,7 +85,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
         int day = calendar.get(Calendar.DAY_OF_MONTH);
 
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
-                (DatePicker view, int selectedYear, int selectedMonth, int selectedDay) -> {
+                (view, selectedYear, selectedMonth, selectedDay) -> {
                     Calendar selectedDate = Calendar.getInstance();
                     selectedDate.set(selectedYear, selectedMonth, selectedDay);
 
@@ -123,20 +93,57 @@ public class CreateMeetingActivity extends AppCompatActivity {
                     if (selectedDate.before(today)) {
                         Toast.makeText(CreateMeetingActivity.this, "Vui lòng chọn ngày hôm nay hoặc tương lai.", Toast.LENGTH_SHORT).show();
                     } else {
-                        uploadTimeButton.setText(String.format("%02d/%02d/%04d", selectedDay, selectedMonth + 1, selectedYear));
+                        meetingDateButton.setText(String.format("%02d/%02d/%04d", selectedDay, selectedMonth + 1, selectedYear));
                     }
                 }, year, month, day);
 
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
     }
+
+    private void showDateTimePickerDialog() {
+        final Calendar calendar = Calendar.getInstance();
+        int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                (view, selectedYear, selectedMonth, selectedDay) -> {
+                    Calendar selectedDate = Calendar.getInstance();
+                    selectedDate.set(selectedYear, selectedMonth, selectedDay);
+
+                    Calendar today = Calendar.getInstance();
+                    if (selectedDate.before(today)) {
+                        Toast.makeText(CreateMeetingActivity.this, "Vui lòng chọn ngày hôm nay hoặc tương lai.", Toast.LENGTH_SHORT).show();
+                    } else {
+                        showTimePickerDialogForNextMeeting(selectedYear, selectedMonth, selectedDay);
+                    }
+                }, year, month, day);
+
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        datePickerDialog.show();
+    }
+
+    private void showTimePickerDialogForNextMeeting(int year, int month, int day) {
+        final Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this,
+                (view, hourOfDay, selectedMinute) -> {
+                    String nextMeetingTime = String.format("%02d/%02d/%04d %02d:%02d", day, month + 1, year, hourOfDay, selectedMinute);
+                    nextMeetingTimeButton.setText(nextMeetingTime);
+                }, hour, minute, true);
+        timePickerDialog.show();
+    }
+
     private void showTimePickerDialog(boolean isStartTime) {
         final Calendar calendar = Calendar.getInstance();
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int minute = calendar.get(Calendar.MINUTE);
 
         TimePickerDialog timePickerDialog = new TimePickerDialog(this,
-                (TimePicker view, int hourOfDay, int selectedMinute) -> {
+                (view, hourOfDay, selectedMinute) -> {
                     if (isStartTime) {
                         startHour = hourOfDay;
                         startMinute = selectedMinute;
@@ -166,7 +173,6 @@ public class CreateMeetingActivity extends AppCompatActivity {
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         startActivityForResult(Intent.createChooser(intent, "Chọn tài liệu"), PICK_DOCS_REQUEST_CODE);
-
     }
 
     @Override
@@ -199,14 +205,18 @@ public class CreateMeetingActivity extends AppCompatActivity {
         selectedFilesTextView.setText(fileNames.toString());
     }
 
-
     @SuppressLint("Range")
     private String getFileName(Uri uri) {
         String result = null;
         if (uri.getScheme().equals("content")) {
-            try (Cursor cursor = getContentResolver().query(uri, null, null, null, null)) {
-                if (cursor != null && cursor.moveToFirst()) {
-                    result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+            Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+            if (cursor != null) {
+                try {
+                    if (cursor.moveToFirst()) {
+                        result = cursor.getString(cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME));
+                    }
+                } finally {
+                    cursor.close();
                 }
             }
         }
@@ -219,35 +229,70 @@ public class CreateMeetingActivity extends AppCompatActivity {
         }
         return result;
     }
-    public void saveData() {
-        if (uri == null) {
-            Toast.makeText(this, "No Image Selected", Toast.LENGTH_SHORT).show();
+
+    private void saveData() {
+        String meetingTitle = title.getText().toString().trim();
+        String meetingLocation = uploadLocation.getText().toString().trim();
+        String meetingAgenda = uploadAgenda.getText().toString().trim();
+        String meetingResult = uploadResult.getText().toString().trim();
+        String meetingParticipants = uploadParticipants.getText().toString().trim();
+        String meetingDate = meetingDateButton.getText().toString().trim();
+        String startTime = startTimeButton.getText().toString().trim();
+        String endTime = endTimeButton.getText().toString().trim();
+        String nextMeetingTime = nextMeetingTimeButton.getText().toString().trim();
+
+        if (meetingTitle.isEmpty() || meetingLocation.isEmpty() || meetingAgenda.isEmpty() ||
+                meetingResult.isEmpty() || meetingParticipants.isEmpty() || meetingDate.isEmpty() ||
+                startTime.isEmpty() || endTime.isEmpty() || nextMeetingTime.isEmpty()) {
+            Toast.makeText(CreateMeetingActivity.this, "Vui lòng điền tất cả các trường.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        try {
-            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
-            File file = new File(getExternalFilesDir(null), System.currentTimeMillis() + ".jpg");
-            FileOutputStream fos = new FileOutputStream(file);
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-            fos.close();
-            imagePath = file.getAbsolutePath();
+        Meeting meeting = new Meeting();
+        meeting.setTitle(meetingTitle);
+        meeting.setMeetingDate(meetingDate);
+        meeting.setLocation(meetingLocation);
+        meeting.setAgenda(meetingAgenda);
+        meeting.setResult(meetingResult);
+        meeting.setStartTime(startTime);
+        meeting.setEndTime(endTime);
+        meeting.setNextMeetingTime(nextMeetingTime);
 
-            uploadData();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Failed to save image", Toast.LENGTH_SHORT).show();
-        }
+        // Gọi API để tạo cuộc họp
+        Call<Void> call = meetingApi.createMeeting(meeting);
+        call.enqueue(new Callback<Void>() {
+
+
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(CreateMeetingActivity.this, "Tạo cuộc họp thành công.", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    String errorBody = "Lỗi không xác định.";
+                    try {
+                        // Kiểm tra nếu errorBody không phải là null
+                        if (response.errorBody() != null) {
+                            errorBody = response.errorBody().string();
+                        }
+                    } catch (IOException e) {
+                        Log.e("CreateMeetingActivity", "Lỗi khi đọc phản hồi lỗi: " + e.getMessage());
+                        errorBody = "Lỗi khi đọc phản hồi lỗi.";
+                    }
+                    Log.e("CreateMeetingActivity", "Mã lỗi: " + response.code());
+                    Log.e("CreateMeetingActivity", "Nội dung lỗi: " + errorBody);
+                    Toast.makeText(CreateMeetingActivity.this, "Lỗi khi tạo cuộc họp: " + errorBody, Toast.LENGTH_SHORT).show();
+                }
+            }
+
+
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Log.e("CreateMeetingActivity", "Lỗi kết nối: " + t.getMessage());
+                Toast.makeText(CreateMeetingActivity.this, "Lỗi kết nối.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
-    public void uploadData() {
-        String location = uploadLocation.getText().toString();
-        String topic = uploadTopic.getText().toString();
-        String docs =uploadDocsButton.getText().toString();
-        String result = uploadResult.getText().toString();
-        String participants = uploadParticipants.getText().toString();
-        // Hiển thị thông báo khi dữ liệu được lưu thành công
-
-    }
 }
-

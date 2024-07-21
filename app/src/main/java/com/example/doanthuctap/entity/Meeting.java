@@ -145,4 +145,6 @@ public class Meeting {
     public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
+
+
 }
