@@ -36,8 +36,9 @@ public class MeetingAdapter extends ArrayAdapter<Meeting> {
 
         TextView titleTextView = convertView.findViewById(R.id.titleTextView);
         TextView timeTextView = convertView.findViewById(R.id.timeTextView);
+        TextView dayTextView=convertView.findViewById(R.id.dayTextView);
 
-        titleTextView.setText(meeting.getTitle());
+        titleTextView.setText("Tên cuộc họp: " + meeting.getTitle());
 
         // Định dạng thời gian
         String startTime = "N/A";
@@ -51,8 +52,13 @@ public class MeetingAdapter extends ArrayAdapter<Meeting> {
             endTime = meeting.getEndTime();
         }
 
-        timeTextView.setText(startTime + " - " + endTime);
+        timeTextView.setText("Thời gian: " + startTime + " - " + endTime);
+        String day = "N/A";
+        if (meeting.getMeetingDate() != null) {
+            day = meeting.getMeetingDate().toString();
+        }
 
+        dayTextView.setText("Ngày: " + day);
         return convertView;
     }
 }

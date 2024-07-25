@@ -12,6 +12,7 @@
         android:layout_marginTop="10dp"
         android:gravity="start|center_vertical"
         android:hint="Tiêu đề"
+        android:text="Tên cuộc họp: "
         android:padding="4dp"
         android:textColor="@android:color/black"
         android:textSize="20sp"
@@ -24,6 +25,18 @@
         android:layout_marginTop="10dp"
         android:gravity="start|center_vertical"
         android:hint="Thời gian"
+        android:text="Thời gian: "
+        android:padding="4dp"
+        android:textColor="#757575"
+        android:textSize="16sp" />
+    <TextView
+        android:id="@+id/dayTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="start|center_vertical"
+        android:hint="Ngày"
+        android:text="Ngày : "
         android:padding="4dp"
         android:textColor="#757575"
         android:textSize="16sp" />
