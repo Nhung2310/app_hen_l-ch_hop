@@ -41,6 +41,45 @@
                 android:scaleType="fitXY"
                 android:src="@drawable/cuochop"/>
 
+            <!-- Ngày -->
+            <TextView
+                android:id="@+id/dateTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/lavender_border"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:text="Ngày: "
+                android:gravity="start|center_vertical"
+                android:textColor="@color/Lavender"
+                android:enabled="false"/>
+
+            <!-- Thời gian bắt đầu -->
+            <TextView
+                android:id="@+id/start_timeTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/lavender_border"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:text="Thời gian bắt đầu: "
+                android:gravity="start|center_vertical"
+                android:textColor="@color/Lavender"
+                android:enabled="false"/>
+
+            <!-- Thời gian kết thúc -->
+            <TextView
+                android:id="@+id/end_timeTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/lavender_border"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:text="Thời gian kết thúc: "
+                android:gravity="start|center_vertical"
+                android:textColor="@color/Lavender"
+                android:enabled="false"/>
+
             <!-- Địa điểm -->
             <TextView
                 android:id="@+id/locationTextView"
@@ -49,7 +88,7 @@
                 android:background="@drawable/lavender_border"
                 android:layout_marginTop="20dp"
                 android:padding="16dp"
-                android:hint="Địa điểm"
+                android:text="Địa điểm: "
                 android:gravity="start|center_vertical"
                 android:textColor="@color/Lavender"
                 android:enabled="false"/>
@@ -62,7 +101,7 @@
                 android:background="@drawable/lavender_border"
                 android:layout_marginTop="20dp"
                 android:padding="16dp"
-                android:hint="Vấn đề"
+                android:text="Vấn đề: "
                 android:gravity="start|center_vertical"
                 android:textColor="@color/Lavender"
                 android:enabled="false"/>
@@ -75,12 +114,19 @@
                 android:background="@drawable/lavender_border"
                 android:layout_marginTop="20dp"
                 android:padding="16dp"
-                android:hint="Kết quả phải đạt"
+                android:text="Kết quả phải đạt: "
                 android:gravity="start|center_vertical"
                 android:textColor="@color/Lavender"
                 android:enabled="false"/>
 
             <!-- Các thành viên tham dự -->
+            <ListView
+                android:id="@+id/participantsListView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@android:color/darker_gray"
+                android:dividerHeight="1dp"/>
+
             <TextView
                 android:id="@+id/participantsTextView"
                 android:layout_width="match_parent"
@@ -88,10 +134,22 @@
                 android:background="@drawable/lavender_border"
                 android:layout_marginTop="20dp"
                 android:padding="16dp"
-                android:hint="Các thành viên tham dự"
+                android:text="Các thành viên tham dự: "
                 android:gravity="start|center_vertical"
                 android:textColor="@color/Lavender"
                 android:enabled="false"/>
+            <TextView
+                android:id="@+id/documentsTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/lavender_border"
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:text="Tài liệu: "
+                android:gravity="start|center_vertical"
+                android:textColor="@color/Lavender"
+                android:enabled="false"/>
+
             <Button
                 android:id="@+id/summaryButton"
                 android:layout_width="match_parent"
@@ -104,6 +162,7 @@
                 android:textColor="@color/Lavender"
                 android:background="@drawable/lavender_button_border"
                 android:onClick="showSummaryActivity" />
+
             <!-- Nút chia sẻ -->
             <ImageButton
                 android:id="@+id/shareButton"

@@ -4,5 +4,8 @@ const participantsController = require('../controllers/meetingparticipantsContro
 
 router.get('/meetingparticipants',participantsController.getAllParticipants );
 router.post('/meetingparticipants',participantsController.createParticipant );
+// Route để lấy danh sách người tham gia dựa trên meeting_id
+router.get('/meetingparticipants/:meetingId', participantsController.getParticipantsByMeetingId);
+
 
 module.exports = router;

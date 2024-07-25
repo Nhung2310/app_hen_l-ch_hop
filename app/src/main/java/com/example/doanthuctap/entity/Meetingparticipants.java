@@ -1,15 +1,25 @@
 package com.example.doanthuctap.entity;
+
+
 import java.sql.Timestamp;
 public class Meetingparticipants {
 
 
 
         private int participantId;
+
+
         private int meetingId;
+
         private String participantName;
+
         private String email;
+
         private String role; // 'manager' or 'member'
-        private int userId;
+
+    private int userId;
+
+
         private String attendanceStatus;
         private Timestamp createdAt;
         private Timestamp updatedAt;

@@ -93,7 +93,10 @@ public class MeetingListActivity extends AppCompatActivity {
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                                     Meeting selectedMeeting = meetings.get(position);
                                     Intent intent = new Intent(MeetingListActivity.this, MeetingDetailsActivity.class);
-                                    intent.putExtra("meeting_id", selectedMeeting.getMeetingId());
+
+                                    intent.putExtra("meeting_id", String.valueOf(selectedMeeting.getMeetingId()));
+
+                                   // intent.putExtra("meeting_id", selectedMeeting.getMeetingId());
                                     intent.putExtra("meeting_title", selectedMeeting.getTitle());
                                     intent.putExtra("meeting_date", selectedMeeting.getMeetingDate().toString());
                                     intent.putExtra("start_time", selectedMeeting.getStartTime().toString());

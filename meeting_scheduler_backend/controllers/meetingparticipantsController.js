@@ -105,3 +105,35 @@ exports.getParticipantRole = async (req, res) => {
     res.status(500).json({ error: 'Server error' });
   }
 };
+exports.getParticipantsByMeetingId = async (req, res) => {
+  const { meetingId } = req.params;
+
+  try {
+    const participants = await MeetingParticipant.findAll({
+      where: {
+        meeting_id: meetingId
+      },
+      attributes: [
+        'participant_id', 
+        'meeting_id', 
+        'participant_name', 
+        'email', 
+        'role', 
+        'user_id', 
+        'attendance_status', 
+        'created_at', 
+        'updated_at'
+      ]
+    });
+
+    if (participants.length > 0) {
+      res.json(participants);
+    } else {
+      res.status(404).json({ error: 'No participants found for the given meeting ID' });
+    }
+  } catch (error) {
+    console.error('Error retrieving participants by meeting ID:', error);
+    res.status(500).json({ error: 'Error retrieving participants' });
+  }
+};
+
