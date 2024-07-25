@@ -1,5 +1,6 @@
 package com.example.doanthuctap.restful;
 
+import com.example.doanthuctap.Response.MeetingResponse;
 import com.example.doanthuctap.entity.Meeting;
 
 import java.util.List;
@@ -14,6 +15,9 @@ public interface MeetingApi {
     Call<List<Meeting>> getAllMeetings();
 
     @POST("/api/meeting/meetings")
-    Call<Void> createMeeting(@Body Meeting meeting);
+//  Call<Void> createMeeting(@Body Meeting meeting);
+    Call<Meeting> createMeeting(@Body Meeting meeting);
+   // @POST("/api/meeting/meetings")
+  //  Call<MeetingResponse> createMeeting(@Body Meeting meeting);
 
 }

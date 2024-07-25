@@ -1,9 +1,25 @@
 const db = require('../models');
-const Participant = db.Participant;
+const MeetingParticipant = db.MeetingParticipant;
 
 exports.createParticipant = async (req, res) => {
   try {
-    const participant = await Participant.create(req.body);
+    const { meetingId, participantName, email, role, userId, attendanceStatus } = req.body;
+
+    // Kiểm tra dữ liệu nhận được từ client
+    if (!meetingId || !participantName) {
+      return res.status(400).json({ error: 'Meeting ID and Participant Name are required' });
+    }
+
+    console.log("Request body:", req.body);
+
+    const participant = await MeetingParticipant.create({
+      meeting_id: meetingId,
+      participant_name: participantName,
+      email: email,
+      role: role,
+      user_id: userId,
+      attendance_status: attendanceStatus
+    });
 
     if (participant) {
       res.json(participant);
@@ -12,13 +28,15 @@ exports.createParticipant = async (req, res) => {
     }
 
   } catch (error) {
+    console.error('Error creating participant:', error);
     res.status(500).json({ error: 'Create participant failed' });
   }
 };
 
+
 exports.getAllParticipants = async (req, res) => {
   try {
-    const participants = await Participant.findAll();
+    const participants = await MeetingParticipant.findAll();
     res.json(participants);
   } catch (error) {
     res.status(500).json({ error: 'Get all participants failed' });
@@ -27,7 +45,7 @@ exports.getAllParticipants = async (req, res) => {
 
 exports.getParticipantById = async (req, res) => {
   try {
-    const participant = await Participant.findByPk(req.params.id);
+    const participant = await MeetingParticipant.findByPk(req.params.id);
     if (participant) {
       res.json(participant);
     } else {
@@ -40,7 +58,7 @@ exports.getParticipantById = async (req, res) => {
 
 exports.updateParticipant = async (req, res) => {
   try {
-    const participant = await Participant.findByPk(req.params.id);
+    const participant = await MeetingParticipant.findByPk(req.params.id);
     if (participant) {
       await participant.update(req.body);
       res.json(participant);
@@ -54,7 +72,7 @@ exports.updateParticipant = async (req, res) => {
 
 exports.deleteParticipant = async (req, res) => {
   try {
-    const participant = await Participant.findByPk(req.params.id);
+    const participant = await MeetingParticipant.findByPk(req.params.id);
     if (participant) {
       await participant.destroy();
       res.json({ message: 'Participant deleted' });
@@ -71,7 +89,7 @@ exports.getParticipantRole = async (req, res) => {
 
   try {
     // Tìm participant có userId và lấy vai trò (role)
-    const participant = await Participant.findOne({
+    const participant = await MeetingParticipant.findOne({
       where: {
         user_id: userId
       }

@@ -7,7 +7,7 @@ const userRoutes = require('./routes/userRoutes');
 const meetingsRoutes = require('./routes/meetingsRoutes');
 const meetingremindersRoutes = require('./routes/meetingremindersRoutes');
 const meetingresultsRoutes = require('./routes/meetingresultsRoutes');
-const participantsRoutes = require('./routes/participantsRoutes');
+const meetingparticipantsRoutes = require('./routes/meetingparticipantsRoutes');
 const summariesRoutes = require('./routes/summariesRoutes');
 const summaryapprovalRoutes = require('./routes/summaryapprovalRoutes');
 
@@ -21,7 +21,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/meeting', meetingsRoutes);
 app.use('/api/meetingreminders', meetingremindersRoutes);
 app.use('/api/meetingresults', meetingresultsRoutes);
-app.use('/api/participants', participantsRoutes);
+app.use('/api/meetingparticipants', meetingparticipantsRoutes);
 app.use('/api/summaries', summariesRoutes);
 app.use('/api/summaryapproval', summaryapprovalRoutes);
 

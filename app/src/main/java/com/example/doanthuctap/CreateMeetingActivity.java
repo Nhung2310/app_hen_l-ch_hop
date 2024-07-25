@@ -21,10 +21,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.doanthuctap.Adapter.EmployeeSelectionAdapter;
+import com.example.doanthuctap.Response.MeetingResponse;
 import com.example.doanthuctap.Retrofit.Constant;
 import com.example.doanthuctap.entity.Meeting;
+import com.example.doanthuctap.entity.Meetingparticipants;
 import com.example.doanthuctap.entity.User;
 import com.example.doanthuctap.restful.MeetingApi;
+import com.example.doanthuctap.restful.MeetingparticipantsApi;
 import com.example.doanthuctap.restful.UserApi;
 import com.example.doanthuctap.util.GsonProvider;
 
@@ -33,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import okhttp3.Headers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -48,6 +52,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
     private int startHour = -1, startMinute = -1, endHour = -1, endMinute = -1;
     private static final int PICK_DOCS_REQUEST_CODE = 1;
     private MeetingApi meetingApi;
+    private MeetingparticipantsApi meetingparticipantsApi;
 
     private UserApi userApi;
     private List<User> userList;
@@ -73,6 +78,14 @@ public class CreateMeetingActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         userApi = userRetrofit.create(UserApi.class);
+
+
+        Retrofit retrofitParticipants = new Retrofit.Builder()
+                .baseUrl(Constant.URL + "/api/meetingparticipants/meetingparticipants/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        meetingparticipantsApi = retrofitParticipants.create(MeetingparticipantsApi.class);
+
 
         // Initialize views
         title = findViewById(R.id.uploadtitle);
@@ -321,14 +334,14 @@ public class CreateMeetingActivity extends AppCompatActivity {
         String meetingLocation = uploadLocation.getText().toString().trim();
         String meetingAgenda = uploadAgenda.getText().toString().trim();
         String meetingResult = uploadResult.getText().toString().trim();
-       // String meetingParticipants = .getText().toString().trim();
+        // String meetingParticipants = .getText().toString().trim();
         String meetingDate = meetingDateButton.getText().toString().trim();
         String startTime = startTimeButton.getText().toString().trim();
         String endTime = endTimeButton.getText().toString().trim();
         String nextMeetingTime = nextMeetingTimeButton.getText().toString().trim();
 
         if (meetingTitle.isEmpty() || meetingLocation.isEmpty() || meetingAgenda.isEmpty() ||
-                meetingResult.isEmpty()  || meetingDate.isEmpty() ||
+                meetingResult.isEmpty() || meetingDate.isEmpty() ||
                 startTime.isEmpty() || endTime.isEmpty() || nextMeetingTime.isEmpty()) {
             Toast.makeText(CreateMeetingActivity.this, "Vui lòng điền tất cả các trường.", Toast.LENGTH_SHORT).show();
             return;
@@ -344,20 +357,40 @@ public class CreateMeetingActivity extends AppCompatActivity {
         meeting.setEndTime(endTime);
         meeting.setNextMeetingTime(nextMeetingTime);
 
+       //  Gọi API để tạo cuộc họp
+//         Call<Void> call = meetingApi.createMeeting(meeting);
+//
+//            call.enqueue(new Callback<Void>() {
+//
+//
+//            @Override
+//            public void onResponse(Call<Void> call, Response<Void> response) {
+//                if (response.isSuccessful()) {
+//                    // Lấy ID cuộc họp từ phản hồi nếu có
+//                    String meetingIdHeader = response.headers().get("meeting_id");
+//                    int meetingId = meetingIdHeader != null ? Integer.parseInt(meetingIdHeader) : -1;
+//
+//                    if (meetingId != -1) {
+//                        saveParticipants(meetingId);
+//                    } else {
+//                        Toast.makeText(CreateMeetingActivity.this, "Không thể lấy ID cuộc họp.", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
         // Gọi API để tạo cuộc họp
-        Call<Void> call = meetingApi.createMeeting(meeting);
-        call.enqueue(new Callback<Void>() {
 
-
+        Call<Meeting> call = meetingApi.createMeeting(meeting);
+        call.enqueue(new Callback<Meeting>() {
             @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
+            public void onResponse(Call<Meeting> call, Response<Meeting> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(CreateMeetingActivity.this, "Tạo cuộc họp thành công.", Toast.LENGTH_SHORT).show();
-                    finish();
+                    Meeting createdMeeting = response.body();
+                    if (createdMeeting != null) {
+                        int meetingId = createdMeeting.getMeetingId();
+                        saveParticipants(meetingId);
+                    }
                 } else {
                     String errorBody = "Lỗi không xác định.";
                     try {
-                        // Kiểm tra nếu errorBody không phải là null
                         if (response.errorBody() != null) {
                             errorBody = response.errorBody().string();
                         }
@@ -371,14 +404,58 @@ public class CreateMeetingActivity extends AppCompatActivity {
                 }
             }
 
-
-
             @Override
-            public void onFailure(Call<Void> call, Throwable t) {
+            public void onFailure(Call<Meeting> call, Throwable t) {
                 Log.e("CreateMeetingActivity", "Lỗi kết nối: " + t.getMessage());
                 Toast.makeText(CreateMeetingActivity.this, "Lỗi kết nối.", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    private void saveParticipants(int meetingId) {
+        Log.d("CreateMeetingActivity", "Meeting ID: " + meetingId);
+        for (User user : selectedUsers) {
+            Meetingparticipants participant = new Meetingparticipants();
+            participant.setMeetingId(meetingId);
+            participant.setUserId(user.getUserId());
+            participant.setParticipantName(user.getFullName()); // Cập nhật các trường cần thiết
+            participant.setEmail(user.getEmail());
+            participant.setRole(user.getRole());
+            participant.setAttendanceStatus("Pending"); // Hoặc giá trị mặc định khác
+            Log.d("CreateMeetingActivity", "Participant: " + participant.toString());
+            Call<Void> call = meetingparticipantsApi.createParticipant(participant);
+            call.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
+                    if (!response.isSuccessful()) {
+                        String errorBody = "Lỗi không xác định.";
+                        try {
+                            if (response.errorBody() != null) {
+                                errorBody = response.errorBody().string();
+                            }
+                        } catch (IOException e) {
+                            Log.e("CreateMeetingActivity", "Lỗi khi đọc phản hồi lỗi: " + e.getMessage());
+                            errorBody = "Lỗi khi đọc phản hồi lỗi.";
+                        }
+                        Log.e("CreateMeetingActivity", "Mã lỗi: " + response.code());
+                        Log.e("CreateMeetingActivity", "Nội dung lỗi: " + errorBody);
+                        Toast.makeText(CreateMeetingActivity.this, "Lỗi khi thêm người tham dự: " + errorBody, Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    Log.e("CreateMeetingActivity", "Lỗi kết nối: " + t.getMessage());
+                    Toast.makeText(CreateMeetingActivity.this, "Lỗi kết nối.", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        // Đóng hoạt động sau khi tất cả các người tham gia đã được lưu
+        Toast.makeText(CreateMeetingActivity.this, "Cuộc họp đã được tạo thành công!", Toast.LENGTH_SHORT).show();
+        finish(); // Đóng hoạt động
+    }
+
+
 }
+
+
