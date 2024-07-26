@@ -124,8 +124,12 @@
                 android:id="@+id/participantsListView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:divider="@android:color/darker_gray"
-                android:dividerHeight="1dp"/>
+                android:layout_marginTop="20dp"
+                android:padding="16dp"
+                android:textColor="@color/Lavender"
+                android:background="@drawable/lavender_border" />
+
+
 
             <TextView
                 android:id="@+id/participantsTextView"

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <Button
+        android:id="@+id/filter_latest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sắp xếp theo thời gian từ muộn đến sớm"
+        android:background="@android:color/transparent"
+        android:textColor="@android:color/black"/>
+
+    <Button
+        android:id="@+id/filter_oldest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:text="Sắp xếp theo thời gian từ sớm đến muộn"
+        android:background="@android:color/transparent" />
+</LinearLayout>

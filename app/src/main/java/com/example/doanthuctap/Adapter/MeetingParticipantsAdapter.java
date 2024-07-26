@@ -1,6 +1,7 @@
 package com.example.doanthuctap.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,23 +25,47 @@ public class MeetingParticipantsAdapter extends ArrayAdapter<Meetingparticipants
     }
 
     @Override
+    public int getCount() {
+        return participants.size();
+    }
+
+    @Override
+    public Meetingparticipants getItem(int position) {
+        return participants.get(position);
+    }
+
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.meeting_participant_item, parent, false);
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            convertView = inflater.inflate(R.layout.meeting_participant_item, parent, false);
         }
 
-        Meetingparticipants participant = participants.get(position);
-
+        // Initialize TextViews
         TextView nameTextView = convertView.findViewById(R.id.participantNameTextView);
         TextView emailTextView = convertView.findViewById(R.id.participantEmailTextView);
-        TextView roleTextView = convertView.findViewById(R.id.participantRoleTextView);
-        TextView statusTextView = convertView.findViewById(R.id.participantStatusTextView);
 
-        nameTextView.setText(participant.getParticipantName());
-        emailTextView.setText(participant.getEmail());
-        roleTextView.setText(participant.getRole());
-        statusTextView.setText(participant.getAttendanceStatus());
+        // Get the current participant
+        Meetingparticipants participant = getItem(position);
+
+        // Check if participant is not null before setting text
+        if (participant != null) {
+            nameTextView.setText(participant.getParticipantName());
+            emailTextView.setText(participant.getEmail());
+        } else {
+            // Handle case where participant is null
+            Log.e("MeetingParticipantsAdapter", "Participant is null at position: " + position);
+        }
 
         return convertView;
     }
+
+
 }

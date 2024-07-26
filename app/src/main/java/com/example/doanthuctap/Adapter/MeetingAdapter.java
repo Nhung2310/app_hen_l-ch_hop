@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.doanthuctap.R;
 import com.example.doanthuctap.entity.Meeting;
 
+import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
 import org.threeten.bp.LocalTime;
 
@@ -19,6 +20,7 @@ public class MeetingAdapter extends ArrayAdapter<Meeting> {
     private final Context context;
     private final List<Meeting> meetings;
     private final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Khai báo định dạng ngày
 
     public MeetingAdapter(Context context, List<Meeting> meetings) {
         super(context, R.layout.item_meeting, meetings);
@@ -59,6 +61,16 @@ public class MeetingAdapter extends ArrayAdapter<Meeting> {
         }
 
         dayTextView.setText("Ngày: " + day);
+
+        LocalDate today = LocalDate.now();
+
+        LocalDate meetingDate = LocalDate.parse(meeting.getMeetingDate(), dateFormatter);
+
+        if (meetingDate.isBefore(today)) {
+            convertView.setBackgroundColor(context.getResources().getColor(R.color.past_meeting_color)); // Xám tối cho cuộc họp đã qua
+        } else {
+            convertView.setBackgroundColor(context.getResources().getColor(R.color.future_meeting_color)); // Trắng cho cuộc họp tương lai
+        }
         return convertView;
     }
 }

@@ -3,6 +3,7 @@ package com.example.doanthuctap;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -37,6 +38,7 @@ public class MeetingDetailsActivity extends AppCompatActivity {
     private ListView participantsListView;
 
 
+    @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,8 +53,8 @@ public class MeetingDetailsActivity extends AppCompatActivity {
         start_timeTextView = findViewById(R.id.start_timeTextView);
         end_timeTextView = findViewById(R.id.end_timeTextView);
         documentsTextView = findViewById(R.id.documentsTextView);
-        // Khởi tạo ListView
-        participantsListView = findViewById(R.id.participantsListView);
+        //Khởi tạo ListView
+       participantsListView = findViewById(R.id.participantsListView);
 
         // Lấy Intent và dữ liệu từ Intent
         Intent intent = getIntent();
@@ -106,9 +108,18 @@ public class MeetingDetailsActivity extends AppCompatActivity {
                     Toast.makeText(MeetingDetailsActivity.this, "Failed to fetch participants!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
+//
+//                List<Meetingparticipants> participants = response.body();
+//                if (participants != null) {
+//                    MeetingParticipantsAdapter adapter = new MeetingParticipantsAdapter(MeetingDetailsActivity.this, participants);
+//                    participantsListView.setAdapter(adapter);
                 List<Meetingparticipants> participants = response.body();
                 if (participants != null) {
+                    Log.d("MeetingDetailsActivity", "Number of participants: " + participants.size());
+                    for (Meetingparticipants participant : participants) {
+                        Log.d("MeetingDetailsActivity", "Participant: " + participant.getParticipantId());
+                    }
+
                     MeetingParticipantsAdapter adapter = new MeetingParticipantsAdapter(MeetingDetailsActivity.this, participants);
                     participantsListView.setAdapter(adapter);
                 } else {
