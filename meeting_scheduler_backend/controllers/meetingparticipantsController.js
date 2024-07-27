@@ -3,35 +3,42 @@ const MeetingParticipant = db.MeetingParticipant;
 
 exports.createParticipant = async (req, res) => {
   try {
-    const { meetingId, participantName, email, role, userId, attendanceStatus } = req.body;
+    // Lấy dữ liệu từ body của yêu cầu
+    const { meeting_id, participant_name, email, role, user_id, attendance_status } = req.body;
 
-    // Kiểm tra dữ liệu nhận được từ client
-    if (!meetingId || !participantName) {
+    // Log dữ liệu nhận được để kiểm tra
+    console.log("Request body:", req.body);
+
+    // Kiểm tra xem Meeting ID và Participant Name có được cung cấp không
+    if (!meeting_id || !participant_name) {
       return res.status(400).json({ error: 'Meeting ID and Participant Name are required' });
     }
 
-    console.log("Request body:", req.body);
-
+    // Tạo participant mới trong cơ sở dữ liệu
     const participant = await MeetingParticipant.create({
-      meeting_id: meetingId,
-      participant_name: participantName,
+      meeting_id: meeting_id, // Đảm bảo trường này trong cơ sở dữ liệu là đúng
+      participant_name: participant_name, // Đảm bảo trường này trong cơ sở dữ liệu là đúng
       email: email,
       role: role,
-      user_id: userId,
-      attendance_status: attendanceStatus
+      user_id: user_id,
+      attendance_status: attendance_status
     });
 
+    // Kiểm tra xem participant có được tạo thành công không
     if (participant) {
-      res.json(participant);
+      res.status(201).json(participant); // Sử dụng mã trạng thái 201 cho việc tạo tài nguyên thành công
     } else {
-      return res.status(404).json({ error: 'Create participant failed' });
+      res.status(500).json({ error: 'Failed to create participant' });
     }
-
+    
   } catch (error) {
     console.error('Error creating participant:', error);
-    res.status(500).json({ error: 'Create participant failed' });
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 };
+
+
+
 
 
 exports.getAllParticipants = async (req, res) => {

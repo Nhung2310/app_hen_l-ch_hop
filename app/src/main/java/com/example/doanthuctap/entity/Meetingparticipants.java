@@ -1,34 +1,47 @@
 package com.example.doanthuctap.entity;
 
+import com.google.gson.annotations.SerializedName;
 
 import java.sql.Timestamp;
+
 public class Meetingparticipants {
 
+    @SerializedName("participant_id")
+    private int participantId; // Chỉnh sửa từ participant_id thành participantId
 
+    @SerializedName("meeting_id")
+    private int meetingId;
 
-        private int participantId;
+    @SerializedName("participant_name")
+    private String participantName;
 
+    @SerializedName("email")
+    private String email;
 
-        private int meetingId;
+    @SerializedName("role")
+    private String role; // 'manager' or 'member'
 
-        private String participantName;
-
-        private String email;
-
-        private String role; // 'manager' or 'member'
-
+    @SerializedName("user_id")
     private int userId;
 
+    @SerializedName("attendance_status")
+    private String attendanceStatus; // Chỉnh sửa từ attendance_status thành attendanceStatus
 
-        private String attendanceStatus;
-        private Timestamp createdAt;
-        private Timestamp updatedAt;
+    @SerializedName("created_at")
+    private Timestamp createdAt; // Chỉnh sửa từ created_at thành createdAt
 
-    public int getParticipantId() {
+    @SerializedName("updated_at")
+    private Timestamp updatedAt; // Chỉnh sửa từ updated_at thành updatedAt
+
+    // Constructors
+    public Meetingparticipants() {
+    }
+
+    public int getParticipantId() { // Chỉnh sửa từ getParticipant_id thành getParticipantId
         return participantId;
     }
 
-    public void setParticipantId(int participantId) {
+    public void setParticipantId(int participantId) { // Chỉnh sửa từ setParticipant_id thành setParticipantId
         this.participantId = participantId;
     }
 
@@ -72,27 +85,27 @@ public class Meetingparticipants {
         this.userId = userId;
     }
 
-    public String getAttendanceStatus() {
+    public String getAttendanceStatus() { // Chỉnh sửa từ getAttendance_status thành getAttendanceStatus
         return attendanceStatus;
     }
 
-    public void setAttendanceStatus(String attendanceStatus) {
+    public void setAttendanceStatus(String attendanceStatus) { // Chỉnh sửa từ setAttendance_status thành setAttendanceStatus
         this.attendanceStatus = attendanceStatus;
     }
 
-    public Timestamp getCreatedAt() {
+    public Timestamp getCreatedAt() { // Chỉnh sửa từ getCreated_at thành getCreatedAt
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(Timestamp createdAt) { // Chỉnh sửa từ setCreated_at thành setCreatedAt
         this.createdAt = createdAt;
     }
 
-    public Timestamp getUpdatedAt() {
+    public Timestamp getUpdatedAt() { // Chỉnh sửa từ getUpdated_at thành getUpdatedAt
         return updatedAt;
     }
 
-    public void setUpdatedAt(Timestamp updatedAt) {
+    public void setUpdatedAt(Timestamp updatedAt) { // Chỉnh sửa từ setUpdated_at thành setUpdatedAt
         this.updatedAt = updatedAt;
     }
 

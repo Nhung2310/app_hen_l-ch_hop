@@ -153,9 +153,37 @@ public class MeetingDetailsActivity extends AppCompatActivity {
                 if (email.isEmpty()) {
                     Toast.makeText(MeetingDetailsActivity.this, "Email không được để trống", Toast.LENGTH_SHORT).show();
                 } else {
-                    // Thực hiện hành động chia sẻ ở đây
-                    // Ví dụ: gửi email hoặc thông báo
-                    Toast.makeText(MeetingDetailsActivity.this, "Chia sẻ đến " + email, Toast.LENGTH_SHORT).show();
+                    // Lấy thông tin cuộc họp từ TextView
+                    String meetingDate = dateTextView.getText().toString();
+                    String startTime = start_timeTextView.getText().toString();
+                    String endTime = end_timeTextView.getText().toString();
+                    String location = locationTextView.getText().toString();
+                    String agenda = topicTextView.getText().toString();
+                    String result = resultTextView.getText().toString();
+                    String documents = documentsTextView.getText().toString();
+
+                    // Tạo nội dung email
+                    String emailSubject = "Thông tin cuộc họp";
+                    String emailBody =  meetingDate + "\n" +
+                            startTime + "\n" +
+                            endTime + "\n" +
+                             location + "\n" +
+                             agenda + "\n" +
+                             result + "\n" +
+                             documents;
+
+                    // Tạo Intent để gửi email
+                    Intent emailIntent = new Intent(Intent.ACTION_SEND);
+                    emailIntent.setType("message/rfc822");
+                    emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{email});
+                    emailIntent.putExtra(Intent.EXTRA_SUBJECT, emailSubject);
+                    emailIntent.putExtra(Intent.EXTRA_TEXT, emailBody);
+
+                    try {
+                        startActivity(Intent.createChooser(emailIntent, "Gửi email bằng..."));
+                    } catch (android.content.ActivityNotFoundException ex) {
+                        Toast.makeText(MeetingDetailsActivity.this, "Không có ứng dụng email nào được cài đặt", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
@@ -170,6 +198,7 @@ public class MeetingDetailsActivity extends AppCompatActivity {
 
         builder.show();
     }
+
 
     public void showSummaryActivity(View view) {
         Intent intent = new Intent(this, MeetingSummaryActivity.class);

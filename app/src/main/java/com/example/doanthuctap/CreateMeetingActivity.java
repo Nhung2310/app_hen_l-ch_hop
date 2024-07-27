@@ -334,11 +334,19 @@ public class CreateMeetingActivity extends AppCompatActivity {
         String meetingLocation = uploadLocation.getText().toString().trim();
         String meetingAgenda = uploadAgenda.getText().toString().trim();
         String meetingResult = uploadResult.getText().toString().trim();
-        // String meetingParticipants = .getText().toString().trim();
         String meetingDate = meetingDateButton.getText().toString().trim();
         String startTime = startTimeButton.getText().toString().trim();
         String endTime = endTimeButton.getText().toString().trim();
         String nextMeetingTime = nextMeetingTimeButton.getText().toString().trim();
+        // Thêm kiểm tra và ghi nhật ký
+        Log.d("SaveData", "Meeting Title: " + meetingTitle);
+        Log.d("SaveData", "Meeting Date: " + meetingDate);
+        Log.d("SaveData", "Start Time: " + startTime);
+        Log.d("SaveData", "End Time: " + endTime);
+        Log.d("SaveData", "Location: " +  meetingLocation);
+        Log.d("SaveData", "Agenda: " + meetingAgenda);
+        Log.d("SaveData", "Result: " + meetingResult);
+        Log.d("SaveData", "Next Meeting Time: " + nextMeetingTime);
 
         if (meetingTitle.isEmpty() || meetingLocation.isEmpty() || meetingAgenda.isEmpty() ||
                 meetingResult.isEmpty() || meetingDate.isEmpty() ||
@@ -357,27 +365,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
         meeting.setEndTime(endTime);
         meeting.setNextMeetingTime(nextMeetingTime);
 
-       //  Gọi API để tạo cuộc họp
-//         Call<Void> call = meetingApi.createMeeting(meeting);
-//
-//            call.enqueue(new Callback<Void>() {
-//
-//
-//            @Override
-//            public void onResponse(Call<Void> call, Response<Void> response) {
-//                if (response.isSuccessful()) {
-//                    // Lấy ID cuộc họp từ phản hồi nếu có
-//                    String meetingIdHeader = response.headers().get("meeting_id");
-//                    int meetingId = meetingIdHeader != null ? Integer.parseInt(meetingIdHeader) : -1;
-//
-//                    if (meetingId != -1) {
-//                        saveParticipants(meetingId);
-//                    } else {
-//                        Toast.makeText(CreateMeetingActivity.this, "Không thể lấy ID cuộc họp.", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
         // Gọi API để tạo cuộc họp
-
         Call<Meeting> call = meetingApi.createMeeting(meeting);
         call.enqueue(new Callback<Meeting>() {
             @Override
@@ -410,6 +398,9 @@ public class CreateMeetingActivity extends AppCompatActivity {
                 Toast.makeText(CreateMeetingActivity.this, "Lỗi kết nối.", Toast.LENGTH_SHORT).show();
             }
         });
+
+
+
     }
 
     private void saveParticipants(int meetingId) {
@@ -451,8 +442,8 @@ public class CreateMeetingActivity extends AppCompatActivity {
             });
         }
         // Đóng hoạt động sau khi tất cả các người tham gia đã được lưu
-        Toast.makeText(CreateMeetingActivity.this, "Cuộc họp đã được tạo thành công!", Toast.LENGTH_SHORT).show();
-        finish(); // Đóng hoạt động
+       // Toast.makeText(CreateMeetingActivity.this, "Cuộc họp đã được tạo thành công!", Toast.LENGTH_SHORT).show();
+       // finish(); // Đóng hoạt động
     }
 
 
