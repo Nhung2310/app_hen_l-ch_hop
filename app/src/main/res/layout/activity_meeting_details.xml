@@ -123,7 +123,7 @@
             <ListView
                 android:id="@+id/participantsListView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="200dp"
                 android:layout_marginTop="20dp"
                 android:padding="16dp"
                 android:textColor="@color/Lavender"
@@ -131,17 +131,6 @@
 
 
 
-            <TextView
-                android:id="@+id/participantsTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/lavender_border"
-                android:layout_marginTop="20dp"
-                android:padding="16dp"
-                android:text="Các thành viên tham dự: "
-                android:gravity="start|center_vertical"
-                android:textColor="@color/Lavender"
-                android:enabled="false"/>
             <TextView
                 android:id="@+id/documentsTextView"
                 android:layout_width="match_parent"

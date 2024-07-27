@@ -30,13 +30,12 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MeetingDetailsActivity extends AppCompatActivity {
- private MeetingparticipantsApi meetingparticipantsApi;
+    private MeetingparticipantsApi meetingparticipantsApi;
     private TextView locationTextView, dateTextView, start_timeTextView, end_timeTextView, documentsTextView;
     private TextView topicTextView;
     private TextView resultTextView;
     private TextView participantsTextView;
     private ListView participantsListView;
-
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -48,13 +47,14 @@ public class MeetingDetailsActivity extends AppCompatActivity {
         locationTextView = findViewById(R.id.locationTextView);
         topicTextView = findViewById(R.id.topicTextView);
         resultTextView = findViewById(R.id.resultTextView);
-        participantsTextView = findViewById(R.id.participantsTextView);
+
         dateTextView = findViewById(R.id.dateTextView);
         start_timeTextView = findViewById(R.id.start_timeTextView);
         end_timeTextView = findViewById(R.id.end_timeTextView);
         documentsTextView = findViewById(R.id.documentsTextView);
-        //Khởi tạo ListView
-       participantsListView = findViewById(R.id.participantsListView);
+
+        // Khởi tạo ListView
+        participantsListView = findViewById(R.id.participantsListView);
 
         // Lấy Intent và dữ liệu từ Intent
         Intent intent = getIntent();
@@ -79,8 +79,7 @@ public class MeetingDetailsActivity extends AppCompatActivity {
         topicTextView.setText("Vấn đề: " + agenda);
         resultTextView.setText("Kết quả phải đạt: " + result);
         documentsTextView.setText("Tài liệu: " + documents);
-        participantsTextView.setText("Các thành viên tham dự: Chưa có thông tin"); // Bạn cần cập nhật thông tin thành viên tham dự nếu có
-
+        
         // Khởi tạo Retrofit
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constant.URL + "/api/meetingparticipants/meetingparticipants/")
@@ -99,7 +98,6 @@ public class MeetingDetailsActivity extends AppCompatActivity {
 
     private void fetchParticipants(String meetingId) {
         meetingparticipantsApi.getParticipantsByMeetingId(meetingId).enqueue(new Callback<List<Meetingparticipants>>() {
-
             @Override
             public void onResponse(Call<List<Meetingparticipants>> call, Response<List<Meetingparticipants>> response) {
                 if (!response.isSuccessful()) {
@@ -108,20 +106,19 @@ public class MeetingDetailsActivity extends AppCompatActivity {
                     Toast.makeText(MeetingDetailsActivity.this, "Failed to fetch participants!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-//
-//                List<Meetingparticipants> participants = response.body();
-//                if (participants != null) {
-//                    MeetingParticipantsAdapter adapter = new MeetingParticipantsAdapter(MeetingDetailsActivity.this, participants);
-//                    participantsListView.setAdapter(adapter);
+
                 List<Meetingparticipants> participants = response.body();
                 if (participants != null) {
                     Log.d("MeetingDetailsActivity", "Number of participants: " + participants.size());
                     for (Meetingparticipants participant : participants) {
-                        Log.d("MeetingDetailsActivity", "Participant: " + participant.getParticipantId());
+                        Log.d("MeetingDetailsActivity", "Participant ID: " + participant.getParticipantId());
+                        Log.d("MeetingDetailsActivity", "Participant Name: " + participant.getParticipantName());
+                        Log.d("MeetingDetailsActivity", "Participant Role: " + participant.getRole());
                     }
 
                     MeetingParticipantsAdapter adapter = new MeetingParticipantsAdapter(MeetingDetailsActivity.this, participants);
                     participantsListView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged(); // ensure the adapter refreshes the ListView
                 } else {
                     Toast.makeText(MeetingDetailsActivity.this, "Không có người tham gia", Toast.LENGTH_SHORT).show();
                 }
@@ -132,9 +129,11 @@ public class MeetingDetailsActivity extends AppCompatActivity {
                 Log.e("MeetingDetailsActivity", "Error: " + t.getMessage());
                 Toast.makeText(MeetingDetailsActivity.this, "Error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
             }
-
         });
     }
+
+
+
     public void showEmailDialog(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Nhập email để chia sẻ");
@@ -164,13 +163,13 @@ public class MeetingDetailsActivity extends AppCompatActivity {
 
                     // Tạo nội dung email
                     String emailSubject = "Thông tin cuộc họp";
-                    String emailBody =  meetingDate + "\n" +
+                    String emailBody = meetingDate + "\n" +
                             startTime + "\n" +
                             endTime + "\n" +
-                             location + "\n" +
-                             agenda + "\n" +
-                             result + "\n" +
-                             documents;
+                            location + "\n" +
+                            agenda + "\n" +
+                            result + "\n" +
+                            documents;
 
                     // Tạo Intent để gửi email
                     Intent emailIntent = new Intent(Intent.ACTION_SEND);
@@ -198,7 +197,6 @@ public class MeetingDetailsActivity extends AppCompatActivity {
 
         builder.show();
     }
-
 
     public void showSummaryActivity(View view) {
         Intent intent = new Intent(this, MeetingSummaryActivity.class);

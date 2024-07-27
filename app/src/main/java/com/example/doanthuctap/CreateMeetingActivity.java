@@ -442,8 +442,8 @@ public class CreateMeetingActivity extends AppCompatActivity {
             });
         }
         // Đóng hoạt động sau khi tất cả các người tham gia đã được lưu
-       // Toast.makeText(CreateMeetingActivity.this, "Cuộc họp đã được tạo thành công!", Toast.LENGTH_SHORT).show();
-       // finish(); // Đóng hoạt động
+       Toast.makeText(CreateMeetingActivity.this, "Cuộc họp đã được tạo thành công!", Toast.LENGTH_SHORT).show();
+        finish(); // Đóng hoạt động
     }
 
 
