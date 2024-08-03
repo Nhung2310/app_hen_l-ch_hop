@@ -2,6 +2,7 @@ package com.example.doanthuctap;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -38,11 +39,21 @@ public class MemberActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // Handle logout logic here
                 Toast.makeText(MemberActivity.this, "Logged out!", Toast.LENGTH_SHORT).show();
-                finish(); // Close the MemberActivity
+
+                // Redirect to login screen
+                Intent intent = new Intent(MemberActivity.this, LoginActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 
+
         // Retrieve and display the list of meetings
        // getMeetings();
+    }
+    public void DanhsachcuochopOnclick(View view) {
+        // Redirect to MeetingListActivity
+        Intent intent = new Intent(this, MeetingListActivity.class);
+        startActivity(intent);
     }
 }
