@@ -1,6 +1,61 @@
+const cron = require('node-cron');
 const db = require('../models');
 const Meeting = db.Meeting;
-const moment = require('moment'); // Make sure to install moment.js
+const moment = require('moment-timezone'); // Use moment-timezone if you need to handle timezones
+const axios = require('axios');
+
+// Schedule a job to run every minute
+cron.schedule('* * * * *', async () => {
+  try {
+    const now = moment();
+    const currentDate = now.format('YYYY-MM-DD');
+    const currentTime = now.format('HH:mm:ss');
+
+    let meetingDate = moment.tz(currentDate, "YYYY-MM-DD HH:mm:ss", "UTC")
+      .add(7, 'hours')
+      .format('YYYY-MM-DD HH:mm:ss');
+    let startTime = moment.tz(currentTime, "HH:mm:ss", "UTC")
+      .add(30, 'minutes')
+      .format('HH:mm:ss');
+
+    // Find meetings that are scheduled to start at the current date and time
+    const meetings = await Meeting.findAll({
+      where: {
+        meeting_date: meetingDate,
+        start_time: startTime
+      }
+    });
+
+    // Send email for each meeting found
+    for (const meeting of meetings) {
+      const allMembers = await db.MeetingParticipant.findAll({
+        where: {
+          meeting_id: meeting.meeting_id
+        }
+      });
+
+      for (const member of allMembers) {
+        await sendEmail(member, meeting);
+      }
+
+      console.log(`Email sent for meeting ID: ${meeting.meeting_id}`);
+    }
+  } catch (error) {
+    console.error('Error checking meetings:', error);
+  }
+});
+
+const sendEmail = async (member, meeting) => {
+  await axios.post('http://localhost:3500/api/email/send-email', { 
+    email: member.email, 
+    title: meeting.title,
+    agenda: meeting.agenda,
+    meeting_date: meeting.meeting_date,
+    start_time: meeting.start_time,
+    end_time: meeting.end_time,
+    location: meeting.location
+  });
+}
 
 exports.createMeeting = async (req, res) => {
   try {
