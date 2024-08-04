@@ -18,14 +18,21 @@ import org.threeten.bp.format.DateTimeFormatter;
 import java.util.List;
 
 public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListAdapter.MeetingViewHolder> {
+
+    public interface OnItemClickListener {
+        void onItemClick(MeetingResponse meeting);
+    }
+
     private final Context context;
     private final List<MeetingResponse> meetingList;
     private final DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Khai báo định dạng ngày
+    private final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private final OnItemClickListener listener;
 
-    public MeetingListAdapter(Context context, List<MeetingResponse> meetingList) {
+    public MeetingListAdapter(Context context, List<MeetingResponse> meetingList, OnItemClickListener listener) {
         this.context = context;
         this.meetingList = meetingList;
+        this.listener = listener;
     }
 
     @NonNull
@@ -74,16 +81,20 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListAdapter.
 
         if (meetingDate != null) {
             if (meetingDate.isBefore(today)) {
-                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.past_meeting_color)); // Xám tối cho cuộc họp đã qua
+                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.past_meeting_color));
             } else {
-                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.future_meeting_color)); // Trắng cho cuộc họp tương lai
+                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.future_meeting_color));
             }
         } else {
-            // Bạn có thể đặt màu nền mặc định hoặc làm gì đó khác nếu ngày không hợp lệ
-            holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.past_meeting_color)); // Ví dụ: màu nền mặc định
+            holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.past_meeting_color));
         }
-    }
 
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onItemClick(meeting);
+            }
+        });
+    }
 
     @Override
     public int getItemCount() {

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,7 +42,7 @@ public class MeetingListMemberActivity extends AppCompatActivity {
 
         meetingRecyclerView = findViewById(R.id.meeting_list);
         meetingRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new MeetingListAdapter(this, meetingList);
+        adapter = new MeetingListAdapter(this, meetingList, this::onMeetingItemClick);
         meetingRecyclerView.setAdapter(adapter);
 
         Retrofit retrofit1 = new Retrofit.Builder()
@@ -52,7 +53,6 @@ public class MeetingListMemberActivity extends AppCompatActivity {
                 .baseUrl(Constant.URL + "/api/meetingparticipants/meeting-ids/")
                 .addConverterFactory(GsonConverterFactory.create(GsonProvider.getGson()))
                 .build();
-
 
         meetingApi = retrofit1.create(MeetingApi.class);
         meetingparticipantsApi = retrofit2.create(MeetingparticipantsApi.class);
@@ -68,23 +68,17 @@ public class MeetingListMemberActivity extends AppCompatActivity {
     private void fetchMeetingIdsForUser(int userId) {
         Call<List<MeetingIdResponse>> call = meetingparticipantsApi.getMeetingIdsForUser(userId);
         call.enqueue(new Callback<List<MeetingIdResponse>>() {
-
             @Override
             public void onResponse(Call<List<MeetingIdResponse>> call, Response<List<MeetingIdResponse>> response) {
-                if (response.isSuccessful()) {
-                    if (response.body() != null) {
-                        List<MeetingIdResponse> meetingIdResponses = response.body();
-                        List<Integer> meetingIds = new ArrayList<>();
-                        for (MeetingIdResponse meetingIdResponse : meetingIdResponses) {
-                            meetingIds.add(meetingIdResponse.getMeetingId());
-                        }
-                        fetchMeetingDetails(meetingIds);
-                    } else {
-                        Toast.makeText(MeetingListMemberActivity.this, "No data received", Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful() && response.body() != null) {
+                    List<MeetingIdResponse> meetingIdResponses = response.body();
+                    List<Integer> meetingIds = new ArrayList<>();
+                    for (MeetingIdResponse meetingIdResponse : meetingIdResponses) {
+                        meetingIds.add(meetingIdResponse.getMeetingId());
                     }
+                    fetchMeetingDetails(meetingIds);
                 } else {
-                    Log.e("API Error", "Response not successful. Code: " + response.code() + ", Message: " + response.message());
-                    Toast.makeText(MeetingListMemberActivity.this, "Response not successful: " + response.message(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MeetingListMemberActivity.this, "No data received", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -95,25 +89,18 @@ public class MeetingListMemberActivity extends AppCompatActivity {
         });
     }
 
-
     private void fetchMeetingDetails(List<Integer> meetingIds) {
         for (int id : meetingIds) {
             Call<MeetingResponse> call = meetingApi.getMeetingById(id);
             call.enqueue(new Callback<MeetingResponse>() {
-
                 @Override
                 public void onResponse(Call<MeetingResponse> call, Response<MeetingResponse> response) {
-                    if (response.isSuccessful()) {
-                        if (response.body() != null) {
-                            MeetingResponse meeting = response.body();
-                            meetingList.add(meeting);
-                            adapter.notifyDataSetChanged();
-                        } else {
-                            Toast.makeText(MeetingListMemberActivity.this, "No data received for meeting ID: " + id, Toast.LENGTH_SHORT).show();
-                        }
+                    if (response.isSuccessful() && response.body() != null) {
+                        MeetingResponse meeting = response.body();
+                        meetingList.add(meeting);
+                        adapter.notifyDataSetChanged();
                     } else {
-                        Log.e("API Error", "Response not successful for meeting ID: " + id + ". Code: " + response.code() + ", Message: " + response.message());
-                        Toast.makeText(MeetingListMemberActivity.this, "Response not successful: " + response.message(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MeetingListMemberActivity.this, "No data received for meeting ID: " + id, Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -124,5 +111,21 @@ public class MeetingListMemberActivity extends AppCompatActivity {
             });
         }
     }
-}
 
+    private void onMeetingItemClick(MeetingResponse meeting) {
+        Intent intent = new Intent(MeetingListMemberActivity.this, MeetingDetailsActivity.class);
+        intent.putExtra("meeting_id", String.valueOf(meeting.getMeetingId()));
+        // Log giá trị meeting_id
+        Log.d("MeetingListMemberActivity", "Passing meeting_id: " + meeting.getMeetingId());
+        intent.putExtra("meeting_title", meeting.getTitle());
+        intent.putExtra("meeting_date", meeting.getMeetingDate());
+        intent.putExtra("start_time", meeting.getStartTime());
+        intent.putExtra("end_time", meeting.getEndTime());
+        intent.putExtra("location", meeting.getLocation());
+        intent.putExtra("agenda", meeting.getAgenda());
+        intent.putExtra("documents", meeting.getDocuments());
+        intent.putExtra("result", meeting.getResult());
+        intent.putExtra("next_meeting_time", meeting.getNextMeetingTime());
+        startActivity(intent);
+    }
+}
