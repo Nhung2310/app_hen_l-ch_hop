@@ -56,22 +56,34 @@ public class MeetingListAdapter extends RecyclerView.Adapter<MeetingListAdapter.
 
         holder.timeTextView.setText("Thời gian: " + startTime + " - " + endTime);
         String day = "N/A";
+        LocalDate meetingDate = null;
+
         if (meeting.getMeetingDate() != null) {
-            day = meeting.getMeetingDate();
+            try {
+                day = meeting.getMeetingDate();
+                meetingDate = LocalDate.parse(meeting.getMeetingDate(), dateFormatter);
+            } catch (Exception e) {
+                day = "Ngày không hợp lệ";
+            }
         }
 
         holder.dayTextView.setText("Ngày: " + day);
 
         // Định dạng và so sánh ngày
         LocalDate today = LocalDate.now();
-        LocalDate meetingDate = LocalDate.parse(meeting.getMeetingDate(), dateFormatter);
 
-        if (meetingDate.isBefore(today)) {
-            holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.past_meeting_color)); // Xám tối cho cuộc họp đã qua
+        if (meetingDate != null) {
+            if (meetingDate.isBefore(today)) {
+                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.past_meeting_color)); // Xám tối cho cuộc họp đã qua
+            } else {
+                holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.future_meeting_color)); // Trắng cho cuộc họp tương lai
+            }
         } else {
-            holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.future_meeting_color)); // Trắng cho cuộc họp tương lai
+            // Bạn có thể đặt màu nền mặc định hoặc làm gì đó khác nếu ngày không hợp lệ
+            holder.itemView.setBackgroundColor(context.getResources().getColor(R.color.past_meeting_color)); // Ví dụ: màu nền mặc định
         }
     }
+
 
     @Override
     public int getItemCount() {

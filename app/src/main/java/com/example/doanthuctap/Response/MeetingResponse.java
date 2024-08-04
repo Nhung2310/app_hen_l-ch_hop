@@ -1,9 +1,6 @@
 package com.example.doanthuctap.Response;
 
-import com.example.doanthuctap.entity.Meeting;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
 
 public class MeetingResponse {
     @SerializedName("meeting_id")

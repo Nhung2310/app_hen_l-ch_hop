@@ -9,6 +9,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 
 public interface MeetingApi {
     @GET("/api/meeting/meetings")
@@ -19,5 +20,7 @@ public interface MeetingApi {
     Call<Meeting> createMeeting(@Body Meeting meeting);
    // @POST("/api/meeting/meetings")
   //  Call<MeetingResponse> createMeeting(@Body Meeting meeting);
+   @GET("/api/meeting/meetings/{id}")
+   Call<MeetingResponse> getMeetingById(@Path("id") int meetingId);
 
 }
