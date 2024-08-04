@@ -1,5 +1,6 @@
 package com.example.doanthuctap.restful;
 
+import com.example.doanthuctap.Response.MeetingResponse;
 import com.example.doanthuctap.entity.Meeting;
 import com.example.doanthuctap.entity.Meetingparticipants;
 
@@ -10,6 +11,7 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface MeetingparticipantsApi {
     @POST("/api/meetingparticipants/meetingparticipants")
@@ -18,5 +20,8 @@ public interface MeetingparticipantsApi {
    // Call<List<Meetingparticipants>> getParticipantsByMeetingId(@Path("meetingId") String meetingId);
     @GET("{meetingId}") // Định nghĩa tham số động
     Call<List<Meetingparticipants>> getParticipantsByMeetingId(@Path("meetingId") String meetingId);
+
+    @GET("/api/meetingparticipants/meetingparticipants")
+    Call<List<MeetingResponse>> getMeetingIdsForUser(@Query("user_id") int userId);
 
 }

@@ -3,7 +3,9 @@ package com.example.doanthuctap;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -47,13 +49,20 @@ public class MemberActivity extends AppCompatActivity {
             }
         });
 
+        SharedPreferences sharedPreferences = getSharedPreferences("app_prefs", MODE_PRIVATE);
+        int userId = sharedPreferences.getInt("user_id", -1);
 
-        // Retrieve and display the list of meetings
-       // getMeetings();
+        if (userId != -1) {
+            // Use user_id as needed
+            Log.d("MemberActivity", "User ID: " + userId);
+        } else {
+            Log.d("MemberActivity", "User ID not found.");
+        }
+
     }
     public void DanhsachcuochopOnclick(View view) {
         // Redirect to MeetingListActivity
-        Intent intent = new Intent(this, MeetingListActivity.class);
+        Intent intent = new Intent(this, MeetingListMemberActivity.class);
         startActivity(intent);
     }
 }

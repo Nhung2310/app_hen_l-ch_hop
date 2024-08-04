@@ -144,3 +144,35 @@ exports.getParticipantsByMeetingId = async (req, res) => {
   }
 };
 
+exports.getMeetingIdsByUserId = async (req, res) => {
+  const userId = parseInt(req.params.userId, 10);
+  
+  if (isNaN(userId)) {
+    return res.status(400).json({ error: 'Invalid user ID' });
+  }
+
+  try {
+    // Sử dụng Sequelize để lấy danh sách meeting_id duy nhất cho user_id
+    const meetings = await MeetingParticipant.findAll({
+      where: { user_id: userId },
+      attributes: ['meeting_id'],
+      group: ['meeting_id']
+    });
+
+    if (meetings.length > 0) {
+      // Trả về danh sách meeting_id
+      res.json(meetings.map(meeting => ({ meeting_id: meeting.meeting_id })));
+    } else {
+      res.status(404).json({ error: 'No meetings found for the given user ID' });
+    }
+  } catch (error) {
+    console.error('Error retrieving meeting IDs by user ID:', error);
+    res.status(500).json({ error: 'Error retrieving meeting IDs' });
+  }
+};
+
+
+
+
+
+

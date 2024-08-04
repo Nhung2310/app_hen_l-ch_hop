@@ -2,6 +2,7 @@ package com.example.doanthuctap;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -77,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 // Call the login API
                 userApi.login(loginRequest).enqueue(new Callback<User>() {
+
                     @Override
                     public void onResponse(Call<User> call, Response<User> response) {
                         if (!response.isSuccessful()) {
@@ -86,6 +88,11 @@ public class LoginActivity extends AppCompatActivity {
 
                         User user = response.body();
                         if (user != null) {
+                            Log.d("LoginActivity", "User: " + user.toString()); // Thêm log để xem user object
+                            SharedPreferences sharedPreferences = getSharedPreferences("app_prefs", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putInt("user_id", user.getUserId()); // Lưu user_id
+                            editor.apply();
                             String role = user.getRole();
                             if (role != null) {
                                 Log.d("LoginActivity", "Role: " + role);
