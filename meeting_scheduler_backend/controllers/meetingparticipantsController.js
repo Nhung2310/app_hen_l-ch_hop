@@ -1,5 +1,19 @@
 const db = require('../models');
 const MeetingParticipant = db.MeetingParticipant;
+const axios = require('axios');
+
+const sendEmail = async (option, member, meeting) => {
+  await axios.post('http://localhost:3500/api/email/send-email', { 
+    option: option,
+    email: member.email, 
+    title: meeting.title,
+    agenda: meeting.agenda,
+    meeting_date: meeting.meeting_date,
+    start_time: meeting.start_time,
+    end_time: meeting.end_time,
+    location: meeting.location
+  });
+}
 
 exports.createParticipant = async (req, res) => {
   try {
@@ -26,6 +40,14 @@ exports.createParticipant = async (req, res) => {
 
     // Kiểm tra xem participant có được tạo thành công không
     if (participant) {
+      // Fetch the meeting details to include in the email
+      const meeting = await db.Meeting.findByPk(meeting_id);
+
+      if (meeting) {
+        // Send email to the newly created participant
+        await sendEmail(0, participant, meeting);
+      }
+
       res.status(201).json(participant); // Sử dụng mã trạng thái 201 cho việc tạo tài nguyên thành công
     } else {
       res.status(500).json({ error: 'Failed to create participant' });
@@ -36,10 +58,6 @@ exports.createParticipant = async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 };
-
-
-
-
 
 exports.getAllParticipants = async (req, res) => {
   try {

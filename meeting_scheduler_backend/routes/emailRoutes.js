@@ -3,11 +3,13 @@ const axios = require('axios');
 const router = express.Router();
 
 router.post('/send-email', async (req, res) => {
-    const { email, title, agenda, meeting_date, start_time, end_time, location } = req.body;
+    const { option, email, title, agenda, meeting_date, start_time, end_time, location } = req.body;
+
+    const templateId = option === 1 ? 'template_xovxuko' : 'template_2jxurco';
 
     const formData = new URLSearchParams();
     formData.append('service_id', 'service_ao9lzzk');
-    formData.append('template_id', 'template_xovxuko');
+    formData.append('template_id', templateId);
     formData.append('user_id', 'h-VQgL9Yx3ksmrZ6O');
     formData.append('accessToken', 'E9dtak2r9Q-MKru6AIx3S');
     formData.append('email', email);

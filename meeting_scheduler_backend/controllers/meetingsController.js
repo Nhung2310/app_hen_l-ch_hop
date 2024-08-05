@@ -35,7 +35,7 @@ cron.schedule('* * * * *', async () => {
       });
 
       for (const member of allMembers) {
-        await sendEmail(member, meeting);
+        await sendEmail(1, member, meeting);
       }
 
       console.log(`Email sent for meeting ID: ${meeting.meeting_id}`);
@@ -45,8 +45,9 @@ cron.schedule('* * * * *', async () => {
   }
 });
 
-const sendEmail = async (member, meeting) => {
+const sendEmail = async (option, member, meeting) => {
   await axios.post('http://localhost:3500/api/email/send-email', { 
+    option: option,
     email: member.email, 
     title: meeting.title,
     agenda: meeting.agenda,
@@ -59,7 +60,7 @@ const sendEmail = async (member, meeting) => {
 
 exports.createMeeting = async (req, res) => {
   try {
-    const { meeting_date, next_meeting_time, ...otherData } = req.body;
+    const { meeting_date, next_meeting_time, participants, ...otherData } = req.body;
 
     // Try parsing the meeting date with multiple formats
     const dateFormats = ['DD/MM/YYYY', 'MM/DD/YYYY', 'YYYY-MM-DD', 'MMMM D, YYYY', 'DD-MM-YYYY'];
@@ -97,18 +98,27 @@ exports.createMeeting = async (req, res) => {
     const meeting = await Meeting.create({ meeting_date: formattedDate, next_meeting_time: formattedNextMeetingTime, ...otherData });
 
     if (meeting) {
+      // Fetch all participants associated with the meeting
+      const allMembers = await db.MeetingParticipant.findAll({
+        where: {
+          meeting_id: meeting.meeting_id
+        }
+      });
+
+      // Send email to each participant
+      for (const member of allMembers) {
+        await sendEmail(0, member, meeting);
+      }
+
       res.json(meeting);
     } else {
       return res.status(404).json({ error: 'Create meeting failed' });
     }
 
   } catch (error) {
-    console.log("@@@@" + error);
     res.status(500).json({ error: 'Create meeting failed' });
   }
 };
-
-
 
 exports.getAllMeetings = async (req, res) => {
   try {
