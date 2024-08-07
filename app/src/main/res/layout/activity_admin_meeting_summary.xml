@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:fillViewport="true"
+    tools:context=".AdminMeetingSummaryActivity">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center_horizontal"
+            android:padding="20dp"
+            android:background="@drawable/lavender_border">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kết quả cuộc họp"
+                android:textSize="30sp"
+                android:textAlignment="center"
+                android:textColor="@color/Lavender"/>
+
+
+            <TextView
+
+                android:id="@+id/tvNoSummaries"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="Chưa có kết luận, hãy thêm kết luận của cuộc họp"
+                android:textSize="16sp"
+                android:textColor="#5A5858"
+                android:textStyle="italic"
+            android:visibility="gone" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewSummaries"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="20dp">
+                <Button
+                    android:id="@+id/btnAddSummary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/lavender_button_border"
+                    android:gravity="start|center_vertical"
+                    android:padding="16dp"
+                    android:scrollbars="vertical"
+                    android:text="Thêm mới tóm tắt"
+                    android:textColor="@color/Lavender"
+                    android:textSize="13sp" />
+                <Button
+
+                    android:id="@+id/btnManageApprovals"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+
+                    android:background="@drawable/lavender_button_border"
+                    android:textSize="13sp"
+                    android:padding="16dp"
+                    android:gravity="center"
+                    android:text="Quản lý phê duyệt"
+                    android:textColor="@color/Lavender"/>
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+</ScrollView>

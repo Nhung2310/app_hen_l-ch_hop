@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:id="@+id/tvSummaryId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Summary ID"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvUserId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="User ID" />
+
+    <TextView
+        android:id="@+id/tvApprovalStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Approval Status" />
+
+    <TextView
+        android:id="@+id/tvReviewSuggestion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Review Suggestion" />
+</androidx.constraintlayout.widget.ConstraintLayout>

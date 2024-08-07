@@ -17,6 +17,15 @@
         android:theme="@style/Theme.Doanthuctap"
         tools:targetApi="31">
         <activity
+            android:name=".AdminSummaryApprovalActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminAddUpdateSummaryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminMeetingSummaryActivity"
+            android:exported="false" />
+        <activity
             android:name=".MeetingListMemberActivity"
             android:exported="false" />
         <activity

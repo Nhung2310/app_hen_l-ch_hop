@@ -50,6 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         editPassword = findViewById(R.id.login_password);
         passwordToggle = findViewById(R.id.password_toggle);
 
+
         // Set onClickListener for the password toggle
         passwordToggle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d("LoginActivity", "User: " + user.toString()); // Thêm log để xem user object
                             SharedPreferences sharedPreferences = getSharedPreferences("app_prefs", MODE_PRIVATE);
                             SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("role", user.getRole()); // Lưu role
                             editor.putInt("user_id", user.getUserId()); // Lưu user_id
                             editor.apply();
                             String role = user.getRole();

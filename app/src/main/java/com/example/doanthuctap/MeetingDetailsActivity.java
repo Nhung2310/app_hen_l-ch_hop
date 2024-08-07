@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
@@ -199,8 +200,27 @@ public class MeetingDetailsActivity extends AppCompatActivity {
     }
 
     public void showSummaryActivity(View view) {
-        Intent intent = new Intent(this, MeetingSummaryActivity.class);
-        // Thêm dữ liệu vào Intent nếu cần
-        startActivity(intent);
+        Intent intent = null; // Khởi tạo intent với giá trị ban đầu là null
+        SharedPreferences sharedPreferences = getSharedPreferences("app_prefs", MODE_PRIVATE);
+        String role = sharedPreferences.getString("role", null);
+
+        // Kiểm tra vai trò người dùng
+        if (role != null) {
+            if (role.equals("manager")) {
+                intent = new Intent(this, AdminMeetingSummaryActivity.class);
+            } else if (role.equals("member")) {
+                intent = new Intent(this, MeetingSummaryActivity.class);
+            }
+        }
+
+        // Kiểm tra xem intent có được khởi tạo không trước khi gọi startActivity
+        if (intent != null) {
+
+            intent.putExtra("meeting_id", getIntent().getStringExtra("meeting_id"));
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Không thể xác định vai trò người dùng hoặc vai trò không hợp lệ!", Toast.LENGTH_SHORT).show();
+        }
     }
+
 }

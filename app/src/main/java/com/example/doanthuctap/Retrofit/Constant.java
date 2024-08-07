@@ -1,5 +1,5 @@
 package com.example.doanthuctap.Retrofit;
 
 public class Constant {
-    public static final String URL = "http://192.168.0.110:3500";
+    public static final String URL = "http://192.168.1.8:3500";
 }
