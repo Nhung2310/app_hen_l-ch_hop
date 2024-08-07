@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,6 +23,8 @@ import com.example.doanthuctap.entity.Meetingparticipants;
 import com.example.doanthuctap.restful.MeetingparticipantsApi;
 import com.example.doanthuctap.util.GsonProvider;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import retrofit2.Call;
@@ -37,6 +40,7 @@ public class MeetingDetailsActivity extends AppCompatActivity {
     private TextView resultTextView;
     private TextView participantsTextView;
     private ListView participantsListView;
+    private Button btnConcludeMeeting; // Khai báo nút "Kết luận cuộc họp"
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -48,21 +52,17 @@ public class MeetingDetailsActivity extends AppCompatActivity {
         locationTextView = findViewById(R.id.locationTextView);
         topicTextView = findViewById(R.id.topicTextView);
         resultTextView = findViewById(R.id.resultTextView);
-
         dateTextView = findViewById(R.id.dateTextView);
         start_timeTextView = findViewById(R.id.start_timeTextView);
         end_timeTextView = findViewById(R.id.end_timeTextView);
         documentsTextView = findViewById(R.id.documentsTextView);
-
-        // Khởi tạo ListView
         participantsListView = findViewById(R.id.participantsListView);
+        btnConcludeMeeting = findViewById(R.id.btnConcludeMeeting); // Khởi tạo nút "Kết luận cuộc họp"
 
         // Lấy Intent và dữ liệu từ Intent
         Intent intent = getIntent();
         String meetingId = intent.getStringExtra("meeting_id");
-
         Log.d("MeetingDetailsActivity", "Meeting ID: " + meetingId);
-
         String meetingDate = intent.getStringExtra("meeting_date");
         String startTime = intent.getStringExtra("start_time");
         String endTime = intent.getStringExtra("end_time");
@@ -80,13 +80,12 @@ public class MeetingDetailsActivity extends AppCompatActivity {
         topicTextView.setText("Vấn đề: " + agenda);
         resultTextView.setText("Kết quả phải đạt: " + result);
         documentsTextView.setText("Tài liệu: " + documents);
-        
+
         // Khởi tạo Retrofit
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constant.URL + "/api/meetingparticipants/meetingparticipants/")
                 .addConverterFactory(GsonConverterFactory.create(GsonProvider.getGson()))
                 .build();
-
         meetingparticipantsApi = retrofit.create(MeetingparticipantsApi.class);
 
         // Lấy danh sách người tham gia
@@ -94,6 +93,27 @@ public class MeetingDetailsActivity extends AppCompatActivity {
             fetchParticipants(meetingId);
         } else {
             Toast.makeText(MeetingDetailsActivity.this, "Không có ID cuộc họp", Toast.LENGTH_SHORT).show();
+        }
+
+        // Kiểm tra thời gian kết thúc cuộc họp
+        if (endTime != null) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+            LocalDateTime endDateTime = LocalDateTime.parse(meetingDate + " " + endTime, formatter);
+            LocalDateTime currentDateTime = LocalDateTime.now();
+
+            if (currentDateTime.isAfter(endDateTime) || currentDateTime.isEqual(endDateTime)) {
+                btnConcludeMeeting.setVisibility(View.VISIBLE);
+                btnConcludeMeeting.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Mở activity hoặc dialog để kết luận cuộc họp
+                        showSummaryActivity(v);
+                    }
+                });
+            } else {
+                btnConcludeMeeting.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -133,8 +153,6 @@ public class MeetingDetailsActivity extends AppCompatActivity {
         });
     }
 
-
-
     public void showEmailDialog(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Nhập email để chia sẻ");
@@ -172,23 +190,18 @@ public class MeetingDetailsActivity extends AppCompatActivity {
                             result + "\n" +
                             documents;
 
-                    // Tạo Intent để gửi email
+                    // Mở Intent để gửi email
                     Intent emailIntent = new Intent(Intent.ACTION_SEND);
-                    emailIntent.setType("message/rfc822");
+                    emailIntent.setType("text/plain");
                     emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{email});
                     emailIntent.putExtra(Intent.EXTRA_SUBJECT, emailSubject);
                     emailIntent.putExtra(Intent.EXTRA_TEXT, emailBody);
-
-                    try {
-                        startActivity(Intent.createChooser(emailIntent, "Gửi email bằng..."));
-                    } catch (android.content.ActivityNotFoundException ex) {
-                        Toast.makeText(MeetingDetailsActivity.this, "Không có ứng dụng email nào được cài đặt", Toast.LENGTH_SHORT).show();
-                    }
+                    startActivity(Intent.createChooser(emailIntent, "Chọn ứng dụng email"));
                 }
             }
         });
 
-        // Nút hủy bỏ
+        // Nút hủy
         builder.setNegativeButton("Hủy", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -222,5 +235,6 @@ public class MeetingDetailsActivity extends AppCompatActivity {
             Toast.makeText(this, "Không thể xác định vai trò người dùng hoặc vai trò không hợp lệ!", Toast.LENGTH_SHORT).show();
         }
     }
+
 
 }

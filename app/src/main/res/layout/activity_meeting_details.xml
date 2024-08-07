@@ -144,13 +144,14 @@
                 android:enabled="false"/>
 
             <Button
-                android:id="@+id/summaryButton"
+                android:id="@+id/btnConcludeMeeting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="16dp"
                 android:text="Kết luận cuộc họp"
+                android:visibility="gone"
                 android:textSize="18sp"
                 android:textColor="@color/Lavender"
                 android:background="@drawable/lavender_button_border"
