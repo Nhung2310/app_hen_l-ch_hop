@@ -80,7 +80,7 @@ public class MemberSummaryAdapter extends RecyclerView.Adapter<MemberSummaryAdap
         RadioButton radioApprove = dialogView.findViewById(R.id.radioApprove);
         RadioButton radioRequestReview = dialogView.findViewById(R.id.radioRequestReview);
         EditText etSuggestion = dialogView.findViewById(R.id.etSuggestion);
-
+      //  etSuggestion.setVisibility(View.VISIBLE);
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             if (checkedId == R.id.radioRequestReview) {
                 etSuggestion.setVisibility(View.VISIBLE);

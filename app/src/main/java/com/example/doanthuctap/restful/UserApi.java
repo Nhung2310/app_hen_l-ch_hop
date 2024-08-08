@@ -18,7 +18,8 @@ public interface UserApi {
     @GET("/api/user/users")
     Call<List<User>> getAllUsers();
 
-
+    @GET("/api/user/users/{id}")
+    Call<User> getUserById(@Path("id") int userId);
     @GET("/api/user/role/{userId}")
     Call<String> getUserRole(@Path("userId") int userId);
 

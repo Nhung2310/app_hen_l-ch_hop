@@ -1,5 +1,6 @@
 package com.example.doanthuctap.Adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.doanthuctap.DetailSummaryApprovalActivity;
 import com.example.doanthuctap.R;
 import com.example.doanthuctap.entity.Summary;
 
@@ -39,7 +41,11 @@ public class AdminSummaryAdapter extends RecyclerView.Adapter<AdminSummaryAdapte
         holder.arrowImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Xử lý hành động khi nhấp vào ImageView
+                // Tạo Intent để chuyển sang DetailSummaryApprovalActivity
+                Intent intent = new Intent(v.getContext(), DetailSummaryApprovalActivity.class);
+                // Truyền summary_id qua Intent
+                intent.putExtra("summary_id", summary.getSummaryId());
+                v.getContext().startActivity(intent);
             }
         });
     }

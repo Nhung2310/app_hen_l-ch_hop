@@ -26,6 +26,8 @@ exports.getAllSummaryApprovals = async (req, res) => {
   }
 };
 
+
+
 exports.getSummaryApprovalById = async (req, res) => {
   try {
     const summaryApproval = await SummaryApproval.findByPk(req.params.id);
@@ -66,3 +68,19 @@ exports.deleteSummaryApproval = async (req, res) => {
     res.status(500).json({ error: 'Delete summary approval failed' });
   }
 };
+
+exports.getSummaryApprovalsBySummaryId = async (req, res) => {
+  try {
+    const summaryId = req.params.summary_id;
+    const summaryApprovals = await SummaryApproval.findAll({ where: { summary_id: summaryId } });
+
+    if (summaryApprovals.length > 0) {
+      res.json(summaryApprovals);
+    } else {
+      res.status(404).json({ error: 'No summary approvals found for the given summary_id' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Get summary approvals by summary_id failed' });
+  }
+};
+
