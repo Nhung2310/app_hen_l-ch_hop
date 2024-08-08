@@ -29,13 +29,25 @@ import com.example.doanthuctap.restful.MeetingparticipantsApi;
 import com.example.doanthuctap.restful.UserApi;
 import com.example.doanthuctap.util.GsonProvider;
 
+
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
-
+import java.util.Locale;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -44,6 +56,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+
 
 public class CreateMeetingActivity extends AppCompatActivity {
 
@@ -186,6 +199,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
                         startHour = hourOfDay;
                         startMinute = selectedMinute;
                         startTimeButton.setText(String.format("%02d:%02d", startHour, startMinute));
+                       
                     } else {
                         if (startHour == -1) {
                             Toast.makeText(CreateMeetingActivity.this, "Vui lòng chọn thời gian bắt đầu trước.", Toast.LENGTH_SHORT).show();
@@ -198,6 +212,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
                             endHour = hourOfDay;
                             endMinute = selectedMinute;
                             endTimeButton.setText(String.format("%02d:%02d", endHour, endMinute));
+                            fetchAllMeetingsAndCheckOverlap();
                         }
                     }
                 }, hour, minute, true);
@@ -410,6 +425,7 @@ public class CreateMeetingActivity extends AppCompatActivity {
                 Toast.makeText(CreateMeetingActivity.this, "Lỗi kết nối.", Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
 
@@ -455,6 +471,94 @@ public class CreateMeetingActivity extends AppCompatActivity {
        Toast.makeText(CreateMeetingActivity.this, "Cuộc họp đã được tạo thành công!", Toast.LENGTH_SHORT).show();
         finish(); // Đóng hoạt động
     }
+
+    private void fetchAllMeetingsAndCheckOverlap() {
+        Call<List<Meeting>> call = meetingApi.getAllMeetings();
+        call.enqueue(new Callback<List<Meeting>>() {
+            @Override
+            public void onResponse(Call<List<Meeting>> call, Response<List<Meeting>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    List<Meeting> existingMeetings = response.body();
+                    // Gọi phương thức để kiểm tra sự trùng lặp
+                    checkForOverlaps(existingMeetings);
+                } else {
+                    Toast.makeText(CreateMeetingActivity.this, "Không thể lấy danh sách cuộc họp.", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Meeting>> call, Throwable t) {
+                Toast.makeText(CreateMeetingActivity.this, "Lỗi kết nối mạng.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void checkForOverlaps(List<Meeting> existingMeetings) {
+        String newMeetingDate = meetingDateButton.getText().toString().trim();
+        String newStartTime = startTimeButton.getText().toString().trim();
+        String newEndTime = endTimeButton.getText().toString().trim();
+
+        if (newMeetingDate.isEmpty() || newStartTime.isEmpty() || newEndTime.isEmpty()) {
+            Toast.makeText(CreateMeetingActivity.this, "Vui lòng điền đầy đủ thông tin cuộc họp.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Chuyển đổi đầu vào thành LocalDateTime
+        LocalDateTime newStartDateTime = convertToLocalDateTime(newMeetingDate, newStartTime);
+        LocalDateTime newEndDateTime = convertToLocalDateTime(newMeetingDate, newEndTime);
+
+        if (newStartDateTime == null || newEndDateTime == null) {
+            Toast.makeText(CreateMeetingActivity.this, "Ngày hoặc giờ không hợp lệ.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        boolean isOverlapping = false;
+        String overlappingMeetingDetails = "";
+
+        for (Meeting meeting : existingMeetings) {
+            LocalDateTime existingStartDateTime = LocalDateTime.of(
+                    LocalDate.parse(meeting.getMeetingDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                    LocalTime.parse(meeting.getStartTime(), DateTimeFormatter.ofPattern("HH:mm:ss"))
+            );
+            LocalDateTime existingEndDateTime = LocalDateTime.of(
+                    LocalDate.parse(meeting.getMeetingDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                    LocalTime.parse(meeting.getEndTime(), DateTimeFormatter.ofPattern("HH:mm:ss"))
+            );
+
+            if (newStartDateTime.isBefore(existingEndDateTime) && newEndDateTime.isAfter(existingStartDateTime)) {
+                isOverlapping = true;
+                overlappingMeetingDetails = "Cuộc họp từ " + meeting.getStartTime() + " đến " + meeting.getEndTime();
+                break;
+            }
+        }
+
+        if (isOverlapping) {
+            Toast.makeText(CreateMeetingActivity.this, "Cuộc họp bị trùng lặp với thời gian: " + overlappingMeetingDetails, Toast.LENGTH_LONG).show();
+            // Giữ nguyên thông tin đã nhập để người dùng có thể sửa lại
+        } else {
+            // Proceed with saving the meeting if no overlap
+            saveData();
+        }
+    }
+
+    private LocalDateTime convertToLocalDateTime(String date, String time) {
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm");
+
+        try {
+            LocalDate localDate = LocalDate.parse(date, dateFormatter);
+            LocalTime localTime = LocalTime.parse(time, timeFormatter);
+            return LocalDateTime.of(localDate, localTime);
+        } catch (DateTimeParseException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Lỗi phân tích ngày hoặc giờ.", Toast.LENGTH_SHORT).show();
+            return null;
+        }
+    }
+
+
+
+
 }
 
 
