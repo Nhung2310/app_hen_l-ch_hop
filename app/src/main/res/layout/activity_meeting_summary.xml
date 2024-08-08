@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:orientation="vertical"
+    android:fillViewport="true"
+    tools:context=".MeetingSummaryActivity">
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_gravity="center_horizontal"
+        android:padding="20dp"
+        android:background="@drawable/lavender_border">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -15,64 +25,29 @@
             android:textSize="30sp"
             android:textAlignment="center"
             android:textColor="@color/Lavender"/>
-        <!-- Thông tin cuộc họp -->
-        <TextView
-            android:id="@+id/tvMeetingTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tên cuộc họp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
+
 
         <TextView
-            android:id="@+id/tvMeetingTime"
+
+            android:id="@+id/tvNoSummaries"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Thời gian"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="Hiện tạị người quản lý chưa thêm kết luận, hãy chờ thêm một thời gian nhé"
             android:textSize="16sp"
-            android:layout_marginBottom="16dp"/>
+            android:textColor="#5A5858"
+            android:textStyle="italic"
+            android:visibility="gone" />
 
-        <!-- Tóm tắt nội dung cuộc họp -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nội dung chính"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
-
-        <TextView
-            android:id="@+id/tvMeetingSummary"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nội dung chi tiết"
-            android:textSize="16sp"
-            android:layout_marginBottom="16dp"/>
-
-        <!-- Kết luận cuộc họp -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Kết luận"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:layout_marginBottom="8dp"/>
-
-        <!-- Danh sách kết luận -->
-        <LinearLayout
-            android:id="@+id/llConclusions"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewSummaries"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-        </LinearLayout>
+            android:layout_height="0dp"
+            android:layout_weight="1"/>
 
-        <!-- Nút lưu -->
-        <Button
-            android:id="@+id/btnSave"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Lưu"/>
 
     </LinearLayout>
+
 </ScrollView>
+

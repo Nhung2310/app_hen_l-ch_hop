@@ -3,6 +3,8 @@ const db = require('../models');
 const Meeting = db.Meeting;
 const moment = require('moment-timezone'); // Use moment-timezone if you need to handle timezones
 const axios = require('axios');
+const multer = require('multer');
+const path = require('path');
 
 // Schedule a job to run every minute
 cron.schedule('* * * * *', async () => {
@@ -57,6 +59,19 @@ const sendEmail = async (option, member, meeting) => {
     location: meeting.location
   });
 }
+
+// Cấu hình Multer để lưu tệp vào thư mục 'uploads'
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ storage: storage });
+
 
 exports.createMeeting = async (req, res) => {
   try {
@@ -119,6 +134,8 @@ exports.createMeeting = async (req, res) => {
     res.status(500).json({ error: 'Create meeting failed' });
   }
 };
+
+
 
 exports.getAllMeetings = async (req, res) => {
   try {

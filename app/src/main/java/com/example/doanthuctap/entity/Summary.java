@@ -2,7 +2,7 @@ package com.example.doanthuctap.entity;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 public class Summary {
     @SerializedName("summary_id")
@@ -76,6 +76,8 @@ public class Summary {
         this.conclusion = conclusion;
         this.coordinatorId = coordinatorId;
     }
+    // Add this to hold SummaryApproval objects
+
     @Override
     public String toString() {
         return "Summary{" +

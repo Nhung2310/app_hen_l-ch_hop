@@ -12,6 +12,7 @@ exports.createSummaryApproval = async (req, res) => {
     }
 
   } catch (error) {
+    console.error('Error creating summary approval:', error); 
     res.status(500).json({ error: 'Create summary approval failed' });
   }
 };

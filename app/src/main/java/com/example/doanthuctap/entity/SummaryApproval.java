@@ -21,10 +21,10 @@ public class SummaryApproval {
     private String reviewSuggestion;
 
     @SerializedName("created_at")
-    private LocalDateTime createdAt;
+    private String createdAt;
 
     @SerializedName("updated_at")
-    private LocalDateTime updatedAt;
+    private String updatedAt;
 
     public int getApprovalId() {
         return approvalId;
@@ -66,19 +66,24 @@ public class SummaryApproval {
         this.reviewSuggestion = reviewSuggestion;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
+
+    public SummaryApproval(int summaryId, int userId, String approvalStatus, String reviewSuggestion) {
+        this.summaryId = summaryId;
+        this.userId = userId;
+        this.approvalStatus = approvalStatus;
+        this.reviewSuggestion = reviewSuggestion;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
+    @Override
+    public String toString() {
+        return "SummaryApproval{" +
+                "approvalId=" + approvalId +
+                ", summaryId=" + summaryId +
+                ", userId=" + userId +
+                ", approvalStatus='" + approvalStatus + '\'' +
+                ", reviewSuggestion='" + reviewSuggestion + '\'' +
+                ", createdAt=" + createdAt +
+                ", updatedAt=" + updatedAt +
+                '}';
     }
 }
