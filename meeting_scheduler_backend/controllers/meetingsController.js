@@ -5,6 +5,7 @@ const moment = require('moment-timezone'); // Use moment-timezone if you need to
 const axios = require('axios');
 const multer = require('multer');
 const path = require('path');
+const fs = require('fs')
 
 // Configure multer for file uploads
 const storage = multer.diskStorage({
@@ -265,4 +266,23 @@ exports.deleteMeeting = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Delete meeting failed' });
   }
+};
+
+exports.downloadFile = (req, res) => {
+  const filename = req.params.filename;
+  const filePath = path.join(__dirname, '../uploads', filename);
+
+  // Check if the file exists
+  fs.access(filePath, fs.constants.F_OK, (err) => {
+    if (err) {
+      return res.status(404).json({ error: 'File not found' });
+    }
+
+    // Send the file to the client
+    res.download(filePath, filename, (err) => {
+      if (err) {
+        return res.status(500).json({ error: 'Error downloading file' });
+      }
+    });
+  });
 };

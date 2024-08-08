@@ -18,5 +18,6 @@ router.put('/meetings/:id', meetingsController.updateMeeting);
 // Route để xóa một cuộc họp theo ID
 router.delete('/meetings/:id', meetingsController.deleteMeeting);
 
+router.get('/download/:filename', meetingsController.downloadFile);
 
 module.exports = router;

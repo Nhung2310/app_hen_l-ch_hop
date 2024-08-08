@@ -2,12 +2,21 @@ package com.example.doanthuctap;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
@@ -20,13 +29,19 @@ import android.widget.Toast;
 import com.example.doanthuctap.Adapter.MeetingParticipantsAdapter;
 import com.example.doanthuctap.Retrofit.Constant;
 import com.example.doanthuctap.entity.Meetingparticipants;
+import com.example.doanthuctap.restful.MeetingApi;
 import com.example.doanthuctap.restful.MeetingparticipantsApi;
 import com.example.doanthuctap.util.GsonProvider;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,12 +50,18 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MeetingDetailsActivity extends AppCompatActivity {
     private MeetingparticipantsApi meetingparticipantsApi;
+    private MeetingApi meetingApi;
+
     private TextView locationTextView, dateTextView, start_timeTextView, end_timeTextView, documentsTextView;
     private TextView topicTextView;
     private TextView resultTextView;
     private TextView participantsTextView;
     private ListView participantsListView;
     private Button btnConcludeMeeting; // Khai báo nút "Kết luận cuộc họp"
+    private Button btnDownloadDocument;
+
+    private static final int PERMISSION_REQUEST_CODE = 100;
+    private String documents;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -68,7 +89,7 @@ public class MeetingDetailsActivity extends AppCompatActivity {
         String endTime = intent.getStringExtra("end_time");
         String location = intent.getStringExtra("location");
         String agenda = intent.getStringExtra("agenda");
-        String documents = intent.getStringExtra("documents");
+        documents = intent.getStringExtra("documents");
         String result = intent.getStringExtra("result");
         String nextMeetingTime = intent.getStringExtra("next_meeting_time");
 
@@ -87,6 +108,12 @@ public class MeetingDetailsActivity extends AppCompatActivity {
                 .addConverterFactory(GsonConverterFactory.create(GsonProvider.getGson()))
                 .build();
         meetingparticipantsApi = retrofit.create(MeetingparticipantsApi.class);
+
+        Retrofit retrofit1 = new Retrofit.Builder()
+                .baseUrl(Constant.URL + "/api/meeting/meetings/")
+                .addConverterFactory(GsonConverterFactory.create(GsonProvider.getGson()))
+                .build();
+        meetingApi = retrofit1.create(MeetingApi.class);
 
         // Lấy danh sách người tham gia
         if (meetingId != null) {
@@ -115,6 +142,20 @@ public class MeetingDetailsActivity extends AppCompatActivity {
                 btnConcludeMeeting.setVisibility(View.GONE);
             }
         }
+
+        btnDownloadDocument = findViewById(R.id.btnDownloadDocument);
+
+        // Set click listener for the download button
+        btnDownloadDocument.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (checkPermission()) {
+                    downloadDocument();
+                } else {
+                    requestPermission();
+                }
+            }
+        });
     }
 
     private void fetchParticipants(String meetingId) {
@@ -236,5 +277,117 @@ public class MeetingDetailsActivity extends AppCompatActivity {
         }
     }
 
+    private boolean checkPermission() {
+        int result = ContextCompat.checkSelfPermission(MeetingDetailsActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        return result == PackageManager.PERMISSION_GRANTED;
+    }
 
+    private void requestPermission() {
+        ActivityCompat.requestPermissions(MeetingDetailsActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            downloadDocument();
+//            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//
+//            } else {
+//                Toast.makeText(MeetingDetailsActivity.this, "Permission Denied", Toast.LENGTH_SHORT).show();
+//            }
+        }
+    }
+
+    private void downloadDocument() {
+        String documentUrl = Constant.URL + "/api/meeting/download/" + documents; // Replace with your document URL
+        Call<ResponseBody> call = meetingApi.downloadDocument(documentUrl);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    boolean writtenToDisk = writeResponseBodyToDisk(response.body());
+                    Toast.makeText(MeetingDetailsActivity.this, "Download " + (writtenToDisk ? "successful" : "failed"), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MeetingDetailsActivity.this, "Server returned an error", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(MeetingDetailsActivity.this, "Download failed: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private boolean writeResponseBodyToDisk(ResponseBody body) {
+        // Use MediaStore API for Android 10 and above
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            ContentValues values = new ContentValues();
+            values.put(MediaStore.MediaColumns.DISPLAY_NAME, "document.pdf");
+            values.put(MediaStore.MediaColumns.MIME_TYPE, "application/pdf");
+            values.put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS);
+
+            Uri uri = getContentResolver().insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values);
+
+            if (uri == null) {
+                return false;
+            }
+
+            try (InputStream inputStream = body.byteStream();
+                 FileOutputStream outputStream = (FileOutputStream) getContentResolver().openOutputStream(uri)) {
+
+                byte[] fileReader = new byte[4096];
+                long fileSize = body.contentLength();
+                long fileSizeDownloaded = 0;
+
+                while (true) {
+                    int read = inputStream.read(fileReader);
+
+                    if (read == -1) {
+                        break;
+                    }
+
+                    outputStream.write(fileReader, 0, read);
+                    fileSizeDownloaded += read;
+
+                    Log.d("MeetingDetailsActivity", "file download: " + fileSizeDownloaded + " of " + fileSize);
+                }
+
+                outputStream.flush();
+                return true;
+            } catch (IOException e) {
+                return false;
+            }
+        } else {
+            // For Android 9 and below
+            File futureStudioIconFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS), "document.pdf");
+
+            try (InputStream inputStream = body.byteStream();
+                 FileOutputStream outputStream = new FileOutputStream(futureStudioIconFile)) {
+
+                byte[] fileReader = new byte[4096];
+                long fileSize = body.contentLength();
+                long fileSizeDownloaded = 0;
+
+                while (true) {
+                    int read = inputStream.read(fileReader);
+
+                    if (read == -1) {
+                        break;
+                    }
+
+                    outputStream.write(fileReader, 0, read);
+                    fileSizeDownloaded += read;
+
+                    Log.d("MeetingDetailsActivity", "file download: " + fileSizeDownloaded + " of " + fileSize);
+                }
+
+                outputStream.flush();
+                return true;
+            } catch (IOException e) {
+                return false;
+            }
+        }
+    }
 }

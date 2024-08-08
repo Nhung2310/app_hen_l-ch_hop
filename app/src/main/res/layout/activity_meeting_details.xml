@@ -144,6 +144,13 @@
                 android:enabled="false"/>
 
             <Button
+                android:id="@+id/btnDownloadDocument"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Download Document" />
+
+
+            <Button
                 android:id="@+id/btnConcludeMeeting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -156,6 +163,7 @@
                 android:textColor="@color/Lavender"
                 android:background="@drawable/lavender_button_border"
                 android:onClick="showSummaryActivity" />
+
 
             <!-- Nút chia sẻ -->
             <ImageButton
@@ -171,6 +179,7 @@
                 android:src="@drawable/baseline_arrow_forward_24"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
