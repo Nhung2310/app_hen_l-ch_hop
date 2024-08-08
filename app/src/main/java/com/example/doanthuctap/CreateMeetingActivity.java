@@ -29,7 +29,9 @@ import com.example.doanthuctap.restful.MeetingparticipantsApi;
 import com.example.doanthuctap.restful.UserApi;
 import com.example.doanthuctap.util.GsonProvider;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -39,6 +41,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 public class CreateMeetingActivity extends AppCompatActivity {
 
@@ -226,7 +231,6 @@ public class CreateMeetingActivity extends AppCompatActivity {
         builder.show();
     }
 
-
     private void fetchEmployees() {
         userApi.getAllUsers().enqueue(new Callback<List<User>>() {
             @Override
@@ -260,7 +264,6 @@ public class CreateMeetingActivity extends AppCompatActivity {
         });
     }
 
-
     private void openFileChooser() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.setType("*/*");
@@ -291,7 +294,11 @@ public class CreateMeetingActivity extends AppCompatActivity {
         }
     }
 
+    private List<Uri> selectedFileUris = new ArrayList<>();
+
     private void handleSelectedFiles(ArrayList<Uri> fileUris) {
+        selectedFileUris.clear();
+        selectedFileUris.addAll(fileUris);
         StringBuilder fileNames = new StringBuilder("Selected Files:\n");
         for (Uri uri : fileUris) {
             String fileName = getFileName(uri);
@@ -334,15 +341,6 @@ public class CreateMeetingActivity extends AppCompatActivity {
         String startTime = startTimeButton.getText().toString().trim();
         String endTime = endTimeButton.getText().toString().trim();
         String nextMeetingTime = nextMeetingTimeButton.getText().toString().trim();
-        // Thêm kiểm tra và ghi nhật ký
-        Log.d("SaveData", "Meeting Title: " + meetingTitle);
-        Log.d("SaveData", "Meeting Date: " + meetingDate);
-        Log.d("SaveData", "Start Time: " + startTime);
-        Log.d("SaveData", "End Time: " + endTime);
-        Log.d("SaveData", "Location: " +  meetingLocation);
-        Log.d("SaveData", "Agenda: " + meetingAgenda);
-        Log.d("SaveData", "Result: " + meetingResult);
-        Log.d("SaveData", "Next Meeting Time: " + nextMeetingTime);
 
         if (meetingTitle.isEmpty() || meetingLocation.isEmpty() || meetingAgenda.isEmpty() ||
                 meetingResult.isEmpty() || meetingDate.isEmpty() ||
@@ -351,18 +349,36 @@ public class CreateMeetingActivity extends AppCompatActivity {
             return;
         }
 
-        Meeting meeting = new Meeting();
-        meeting.setTitle(meetingTitle);
-        meeting.setMeetingDate(meetingDate);
-        meeting.setLocation(meetingLocation);
-        meeting.setAgenda(meetingAgenda);
-        meeting.setResult(meetingResult);
-        meeting.setStartTime(startTime);
-        meeting.setEndTime(endTime);
-        meeting.setNextMeetingTime(nextMeetingTime);
+        RequestBody titlePart = RequestBody.create(MediaType.parse("text/plain"), meetingTitle);
+        RequestBody meetingDatePart = RequestBody.create(MediaType.parse("text/plain"), meetingDate);
+        RequestBody locationPart = RequestBody.create(MediaType.parse("text/plain"), meetingLocation);
+        RequestBody agendaPart = RequestBody.create(MediaType.parse("text/plain"), meetingAgenda);
+        RequestBody resultPart = RequestBody.create(MediaType.parse("text/plain"), meetingResult);
+        RequestBody startTimePart = RequestBody.create(MediaType.parse("text/plain"), startTime);
+        RequestBody endTimePart = RequestBody.create(MediaType.parse("text/plain"), endTime);
+        RequestBody nextMeetingTimePart = RequestBody.create(MediaType.parse("text/plain"), nextMeetingTime);
 
-        // Gọi API để tạo cuộc họp
-        Call<Meeting> call = meetingApi.createMeeting(meeting);
+        List<MultipartBody.Part> fileParts = new ArrayList<>();
+        for (Uri uri : selectedFileUris) {
+            try {
+                String fileName = getFileName(uri);
+                InputStream inputStream = getContentResolver().openInputStream(uri);
+                byte[] fileBytes = new byte[inputStream.available()];
+                inputStream.read(fileBytes);
+                RequestBody fileBody = RequestBody.create(MediaType.parse(getContentResolver().getType(uri)), fileBytes);
+                MultipartBody.Part filePart = MultipartBody.Part.createFormData("files", fileName, fileBody);
+                fileParts.add(filePart);
+            } catch (IOException e) {
+                e.printStackTrace();
+                Toast.makeText(this, "Failed to read file: " + uri, Toast.LENGTH_SHORT).show();
+                return;
+            }
+        }
+
+        Call<Meeting> call = meetingApi.createMeetingWithFiles(
+                titlePart, meetingDatePart, locationPart, agendaPart, resultPart, startTimePart, endTimePart, nextMeetingTimePart, fileParts
+        );
+
         call.enqueue(new Callback<Meeting>() {
             @Override
             public void onResponse(Call<Meeting> call, Response<Meeting> response) {
@@ -394,10 +410,8 @@ public class CreateMeetingActivity extends AppCompatActivity {
                 Toast.makeText(CreateMeetingActivity.this, "Lỗi kết nối.", Toast.LENGTH_SHORT).show();
             }
         });
-
-
-
     }
+
 
     private void saveParticipants(int meetingId) {
         Log.d("CreateMeetingActivity", "Meeting ID: " + meetingId);
@@ -441,8 +455,6 @@ public class CreateMeetingActivity extends AppCompatActivity {
        Toast.makeText(CreateMeetingActivity.this, "Cuộc họp đã được tạo thành công!", Toast.LENGTH_SHORT).show();
         finish(); // Đóng hoạt động
     }
-
-
 }
 
 

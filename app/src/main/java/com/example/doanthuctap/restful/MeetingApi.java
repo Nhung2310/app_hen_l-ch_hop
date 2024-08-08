@@ -19,11 +19,23 @@ public interface MeetingApi {
     @GET("/api/meeting/meetings")
     Call<List<Meeting>> getAllMeetings();
 
-  @POST("/api/meeting/meetings")
-  Call<Meeting> createMeeting(@Body Meeting meeting);
+    @POST("/api/meeting/meetings")
+    Call<Meeting> createMeeting(@Body Meeting meeting);
 
-   @GET("/api/meeting/meetings/{id}")
-   Call<MeetingResponse> getMeetingById(@Path("id") int meetingId);
+    @GET("/api/meeting/meetings/{id}")
+    Call<MeetingResponse> getMeetingById(@Path("id") int meetingId);
 
-
+    @Multipart
+    @POST("/api/meeting/meetings-with-files")
+    Call<Meeting> createMeetingWithFiles(
+            @Part("title") RequestBody title,
+            @Part("meeting_date") RequestBody meetingDate,
+            @Part("location") RequestBody location,
+            @Part("agenda") RequestBody agenda,
+            @Part("result") RequestBody result,
+            @Part("start_time") RequestBody startTime,
+            @Part("end_time") RequestBody endTime,
+            @Part("next_meeting_time") RequestBody nextMeetingTime,
+            @Part List<MultipartBody.Part> files
+    );
 }

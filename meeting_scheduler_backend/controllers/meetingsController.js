@@ -6,6 +6,18 @@ const axios = require('axios');
 const multer = require('multer');
 const path = require('path');
 
+// Configure multer for file uploads
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads/');
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}-${file.originalname}`);
+  }
+});
+
+const upload = multer({ storage: storage });
+
 // Schedule a job to run every minute
 cron.schedule('* * * * *', async () => {
   try {
@@ -59,19 +71,6 @@ const sendEmail = async (option, member, meeting) => {
     location: meeting.location
   });
 }
-
-// Cấu hình Multer để lưu tệp vào thư mục 'uploads'
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/');
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  }
-});
-
-const upload = multer({ storage: storage });
-
 
 exports.createMeeting = async (req, res) => {
   try {
@@ -135,7 +134,88 @@ exports.createMeeting = async (req, res) => {
   }
 };
 
+// Add a new route to handle file uploads and meeting creation
+exports.createMeetingWithFiles = [
+  upload.array('files', 10), // Handle up to 10 files
+  async (req, res) => {
+    try {
+      const { meeting_date, next_meeting_time, participants, ...otherData } = req.body;
 
+      // Try parsing the meeting date with multiple formats
+      const dateFormats = ['DD/MM/YYYY', 'MM/DD/YYYY', 'YYYY-MM-DD', 'MMMM D, YYYY', 'DD-MM-YYYY'];
+      let formattedDate = null;
+
+      for (const format of dateFormats) {
+        const date = moment(meeting_date, format, true); // true for strict parsing
+        if (date.isValid()) {
+          formattedDate = date.format('YYYY-MM-DD');
+          break;
+        }
+      }
+
+      if (!formattedDate) {
+        return res.status(400).json({ error: 'Invalid meeting date format' });
+      }
+
+      // Try parsing the next meeting time
+      const timeFormats = ['DD/MM/YYYY HH:mm', 'MM/DD/YYYY HH:mm', 'YYYY-MM-DD HH:mm', 'MMMM D, YYYY HH:mm', 'DD-MM-YYYY HH:mm'];
+      let formattedNextMeetingTime = null;
+
+      for (const format of timeFormats) {
+        const time = moment(next_meeting_time, format, true); // true for strict parsing
+        if (time.isValid()) {
+          formattedNextMeetingTime = time.format('YYYY-MM-DD HH:mm:ss');
+          break;
+        }
+      }
+
+      if (!formattedNextMeetingTime) {
+        return res.status(400).json({ error: 'Invalid next meeting time format' });
+      }
+
+      // Create the meeting with the formatted date and next meeting time
+      const meeting = await Meeting.create({ meeting_date: formattedDate, next_meeting_time: formattedNextMeetingTime, ...otherData });
+
+      if (meeting) {
+        // Save file information to the meeting (if needed)
+        const files = req.files;
+        if (files && files.length > 0) {
+          const fileInfos = files.map(file => ({
+            filename: file.filename,
+            path: file.path,
+            originalname: file.originalname,
+            mimetype: file.mimetype,
+            size: file.size
+          }));
+          // You can save fileInfos to the database if needed
+          meeting.documents = files[0].filename;
+          await meeting.save();
+        }
+
+        // Fetch all participants associated with the meeting
+        const allMembers = await db.MeetingParticipant.findAll({
+          where: {
+            meeting_id: meeting.meeting_id
+          }
+        });
+
+        // Send email to each participant
+        for (const member of allMembers) {
+          await sendEmail(0, member, meeting);
+        }
+
+        res.json(meeting);
+      } else {
+        console.log("@@@");
+        return res.status(404).json({ error: 'Create meeting failed' });
+      }
+
+    } catch (error) {
+      console.error("An error occurred:", error);
+      res.status(500).json({ error: 'Create meeting failed' });
+    }
+  }
+];
 
 exports.getAllMeetings = async (req, res) => {
   try {
