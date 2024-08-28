@@ -1,20 +1,28 @@
 CHƯƠNG 1: GIỚI THIỆU ĐỀ TÀI
 
 1.1 Tổng quan về đề tài 
+
 1.1.1 Lí do chọn đề tài
+
 Ngày nay, điện thoại di động trở thành thiết bị không thể thiếu trong cuộc sống, thay thế cho máy tính truyền thống trong nhiều tác vụ. Nhu cầu họp hành ngày càng cao trong môi trường làm việc hiện đại, đòi hỏi một công cụ hỗ trợ hiệu quả và tiện lợi. Do đó, ứng dụng tạo lịch họp trên điện thoại di động ra đời nhằm đáp ứng nhu cầu này.
 Ứng dụng cần có những tính năng cơ bản như tạo lịch họp, mời tham dự, xác nhận tham dự, nhắc nhở. Ngoài ra, một số tính năng nâng cao như lặp lại, lịch trình, tích hợp lịch, chia sẻ tài liệu, ghi chép biên bản, bình luận, thăm dò ý kiến, video họp cũng cần được tích hợp để tăng hiệu quả sử dụng. Giao diện ứng dụng cần đơn giản, dễ sử dụng, tối ưu cho màn hình điện thoại di động và hỗ trợ đa ngôn ngữ. Bảo mật thông tin người dùng và cuộc họp là yếu tố quan trọng cần được đảm bảo.
 Ứng dụng tạo lịch họp trên điện thoại di động mang lại nhiều lợi ích như tiết kiệm thời gian, tăng hiệu quả họp, cải thiện giao tiếp và thể hiện sự chuyên nghiệp. Một số ứng dụng phổ biến hiện nay là Google Calendar, Microsoft Outlook, Doodle, Zoom và Slack.
 Với tiềm năng phát triển to lớn và sự hỗ trợ của các công nghệ mới như trí tuệ nhân tạo và học máy, ứng dụng tạo lịch họp trên điện thoại di động hứa hẹn sẽ trở thành công cụ hữu ích cho cá nhân và tổ chức trong tương lai.
+
 1.1.2 Mục đích 
+
 Trong thời đại số, việc quản lý thời gian và công việc hiệu quả trở nên quan trọng hơn bao giờ hết. Ứng dụng tạo lịch họp trên điện thoại di động ra đời như một giải pháp thông minh, giúp người dùng tối ưu hóa quá trình lên kế hoạch và tổ chức các cuộc họp. Với tính năng đa dạng như tạo cuộc họp lặp lại, tích hợp với các phần mềm quản lý dự án, và chia sẻ tài liệu dễ dàng, ứng dụng không chỉ tiết kiệm thời gian mà còn đảm bảo tất cả các hoạt động diễn ra một cách chuyên nghiệp và hiệu quả. Nhờ đó, các doanh nghiệp có thể giảm thiểu thời gian tổ chức họp, nâng cao hiệu quả làm việc nhóm và tạo ra một môi trường làm việc chuyên nghiệp. Với giao diện trực quan và dễ sử dụng, ứng dụng có thể được truy cập mọi lúc mọi nơi, giúp người dùng luôn nắm bắt được lịch trình của mình.  
+
 1.1.2 Mục tiêu 
+
 Ứng dụng tập trung giải quyết các vấn đề sau đây và hướng tới các đối tượng người dùng cụ thể: 
 Quản lý lịch họp: Ứng dụng giúp người quản lý sắp xếp, theo dõi và cập nhật lịch họp một cách dễ dàng và hiệu quả 
 Thông báo và nhắc nhở: Ứng dụng gửi thông báo và nhắc nhở cho các thành viên về thời gian và địa điểm của các cuộc họp, đảm bảo mọi người đều được thông báo kịp thời. 
 Theo dõi và cập nhật kết quả cuộc họp: Ứng dụng cho phép cập nhật và lưu trữ kết quả các cuộc họp, giúp dễ dàng theo dõi tiến trình và kết quả công việc. 
 Hỗ trợ việc chia sẻ thông tin cuộc họp: Giúp người dùng có thể chia sẻ các thông tin cuộc họp với nhau. 
+
 1.1.3 Phương pháp tiến hành 
+
 Phương pháp phát triển ứng dụng được tiến hành theo hướng phân tích và thiết kế hướng đối tượng (Object-Oriented Analysis and Design - OOAD). Quá trình phát triển gồm các bước chính sau: 
 Phân tích yêu cầu: Thu thập và phân tích các yêu cầu từ người dùng để xác định các chức năng cần có của ứng dụng. 
 Thiết kế hệ thống: Thiết kế kiến trúc tổng thể của ứng dụng, bao gồm thiết kế cơ sở dữ liệu, thiết kế giao diện người dùng, và các module chức năng. 
@@ -26,24 +34,34 @@ Bảo trì và nâng cấp: Liên tục cập nhật và nâng cấp ứng dụn
 CHƯƠNG 2: CƠ SỞ LÝ THUYẾT ĐỀ TÀI
 
 2.1 Tổng quan về công nghệ thông tin và quản lý công việc
+
 2.1.1 Khái niệm công nghệ thông tin và quản lý công việc
+
 Sự phát triển không ngừng của công nghệ thông tin (IT) đã tạo nên một cuộc cách mạng trong cách thức chúng ta làm việc và quản lý công việc. Công nghệ thông tin là một lĩnh vực bao trùm tất cả các khía cạnh liên quan đến việc sử dụng máy tính, phần mềm, mạng và các thiết bị để lưu trữ, xử lý, truyền tải và bảo vệ thông tin. Trong bối cảnh này, ứng dụng công nghệ thông tin vào quản lý công việc giúp tối ưu hóa hiệu quả và năng suất làm việc.
 Quản lý công việc (task management) là quá trình theo dõi, lập kế hoạch, tổ chức và quản lý các nhiệm vụ và dự án từ khi bắt đầu đến khi hoàn thành. Việc ứng dụng công nghệ thông tin vào quản lý công việc giúp tự động hóa các quy trình, tăng cường sự phối hợp giữa các thành viên, và cải thiện khả năng giám sát và đánh giá hiệu quả công việc.
+
 2.1.2 Sự kết hợp giữa công nghệ thông tin và quản lý công việc
+
 Sự kết hợp giữa CNTT và quản lý công việc đã tạo ra một cuộc cách mạng trong cách thức chúng ta làm việc. Các công cụ và phần mềm quản lý công việc dựa trên CNTT giúp tự động hóa nhiều quy trình, nâng cao hiệu suất làm việc, và tạo điều kiện thuận lợi cho sự hợp tác giữa các thành viên trong nhóm.
+
 2.1.3 Các hình thức ứng dụng công nghệ thông tin trong quản lý công việc
+
 	Ứng dụng quản lý dự án: Các phần mềm như Trello, Asana, Microsoft Project giúp lên kế hoạch, theo dõi tiến độ, phân công nhiệm vụ và quản lý tài nguyên của dự án.
 	Ứng dụng quản lý tác vụ: Các ứng dụng như Todoist, Google Tasks, Microsoft To-Do giúp cá nhân hóa việc quản lý công việc hàng ngày, tạo danh sách việc cần làm, đặt nhắc nhở và theo dõi tiến độ.
 	Công cụ giao tiếp và hợp tác: Các nền tảng như Slack, Microsoft Teams, Zoom giúp các nhóm làm việc kết nối, chia sẻ thông tin, tổ chức cuộc họp trực tuyến và làm việc cùng nhau một cách hiệu quả.
 	Hệ thống quản lý tài liệu: Các công cụ như Google Drive, Dropbox giúp lưu trữ, chia sẻ và đồng bộ hóa tài liệu một cách an toàn và tiện lợi.
 	Trí tuệ nhân tạo (AI) và máy học: Các công cụ AI được tích hợp vào các phần mềm quản lý công việc để tự động hóa các tác vụ lặp đi lặp lại, dự đoán rủi ro và đưa ra các đề xuất tối ưu hóa.
+
 2.1.4 Lợi ích của việc ứng dụng công nghệ thông tin trong quản lý công việc
+
 	Tăng năng suất: Tự động hóa các quy trình, giảm thiểu thời gian thực hiện các tác vụ thủ công.
 	Cải thiện sự phối hợp: Tạo điều kiện cho các thành viên trong nhóm làm việc cùng nhau một cách hiệu quả, bất kể khoảng cách địa lý.
 	Nâng cao tính minh bạch: Tất cả các thông tin về dự án và công việc được lưu trữ và chia sẻ một cách minh bạch, giúp mọi người hiểu rõ về tiến độ và trách nhiệm của mình.
 	Đưa ra quyết định tốt hơn: Các dữ liệu được thu thập và phân tích giúp người quản lý đưa ra các quyết định dựa trên cơ sở khoa học.
 	Tiết kiệm chi phí: Giảm thiểu chi phí in ấn, giấy tờ và các nguồn lực khác.
+
 2.1.5 Thách thức và giải pháp
+
 	Thách thức: 
 	Bảo mật thông tin: Áp dụng các biện pháp bảo mật mạnh mẽ để bảo vệ dữ liệu nhạy cảm.
 	Chi phí đầu tư: Đầu tư vào các công cụ và phần mềm quản lý công việc có thể đòi hỏi chi phí ban đầu lớn.
@@ -57,11 +75,14 @@ Sự kết hợp giữa CNTT và quản lý công việc đã tạo ra một cu�
 	Xây dựng kế hoạch dự phòng: Có kế hoạch dự phòng để đối phó với các tình huống khẩn cấp
 
 2.2 Giới thiệu về lập trình Android
+
 2.2.1 Tổng quan về android
+
 Android là hệ điều hành trên điện thoại di động (và hiện nay là cả trên một số đầu phát HD, HD Player, TV) phát triển bởi Google và dựa trên nền tảng Linux. Lập trình android là một lập trình ứng dụng di động phổ biến. Trước đây, Android được phát triển bởi công ty liên hợp Android (sau đó được Google mua lại vào năm 2005).
 Các nhà phát triển viết ứng dụng cho Android dựa trên ngôn ngữ Java. Sự ra mắt của Android vào ngày 5 tháng 11 năm 2007 gắn với sự thành lập của liên minh thiết bị cầm tay mã nguồn mở, bao gồm 78 công ty phần cứng, phần mềm và viễn thông nhằm mục đính tạo nên một chuẩn mở cho điện thoại di động trong tương lai.
  
 2.2.1 Kiến trúc cơ bản của hệ điều hành Android
+
 Android gồm 5 phần chính sau được chứa trong 4 lớp:
 	Nhân Linux: Đây là nhân nền tảng mà hệ điều hành Android dựa vào nó để phát triển. Đâu là lớp chứa tất cả các thiết bị giao tiếp ở mức thấp dùng để điều khiển các phần cứng khác trên thiết bị Android.
 	Thư viện: Chứa tất cả các mã cái mà cung cấp cấp những tính năng chính của hệ điều hành Android, đôi với ví dụ này thì SQLite là thư viện cung cấp việc hộ trợ làm việc với database dùng để chứa dữ liệu. Hoặc Webkit là thư viện cung cấp những tính năng cho trình duyệt Web.
@@ -70,7 +91,9 @@ Android gồm 5 phần chính sau được chứa trong 4 lớp:
 	Application:Tầng ứng dụng là tầng bạn có thể tìm thấy chuyển các thiết bị Android như Contact, trình duyệt…Và mọi ứng dụng bạn viết đều nằm trên tầng này.
 
 2.3 Giới thiệu về Java
+
 2.3.1 Tổng quan về Java
+
 Java là một ngôn ngữ lập trình hướng đối tượng thuần túy, được phát triển bởi Sun Microsystems vào năm 1995 và hiện thuộc sở hữu của Oracle Corporation. Java được thiết kế để có cú pháp đơn giản, dễ học và dễ sử dụng. Một trong những đặc điểm nổi bật của Java là khả năng "viết một lần, chạy ở mọi nơi" (write once, run anywhere), tức là mã Java đã biên dịch có thể chạy trên mọi nền tảng hỗ trợ Java mà không cần biên dịch lại.
 Java nổi bật với các tính năng như:
 	Hướng đối tượng: Java cho phép lập trình viên xây dựng ứng dụng bằng cách sử dụng các đối tượng và lớp, giúp mã nguồn có cấu trúc rõ ràng và dễ bảo trì.
@@ -79,6 +102,7 @@ Java nổi bật với các tính năng như:
 	Khả năng tương thích đa nền tảng: Mã Java được biên dịch thành bytecode và chạy trên Java Virtual Machine (JVM), giúp ứng dụng Java có thể chạy trên nhiều nền tảng khác nhau.
 
 2.3.2 Ưu nhược điểm của Java
+
 	Có rất nhiều lợi thế khi sử dụng Java làm ngôn ngữ lập trình, bao gồm:
 	Đơn giản: Java là ngôn ngữ lập trình dễ học và dễ hiểu. Ngoài ra, Java còn loại bỏ được tất cả các tính năng phức tạp của C và C++ như con trỏ, cấu trúc, liên kết và làm cho việc triển khai mã dễ dàng hơn.
 	Hướng đối tượng (OOP): Một trong những ưu điểm chính của Java là nó là ngôn ngữ lập trình hướng đối tượng. Chúng ta đều biết rằng ngôn ngữ lập trình thủ tục rất phức tạp và khó thực hiện. Rõ ràng việc sử dụng khái niệm OOP làm cho Java dễ triển khai hơn và an toàn hơn nhiều. Nó cũng giúp duy trì đoạn mã lớn bằng cách chia chúng thành các đoạn nhỏ hơn được đặt tên.
@@ -108,14 +132,18 @@ Chúng ta có thể thấy mã Java đôi khi có thể hơi phức tạp vì l�
 Song, tựu chung lại, Java vẫn là ngôn ngữ lập trình tuyệt vời và đáng để học hỏi. Từ máy tính xách tay đến trung tâm dữ liệu, bảng điều khiển trò chơi đến siêu máy tính khoa học, điện thoại di động đến Internet, Java có mặt ở khắp mọi nơi. 
 Dựa trên dữ liệu gần đây, Java được 2,6% trang web sử dụng làm ngôn ngữ lập trình phía máy chủ. Mặc dù ngôn ngữ này dường như không được nhiều trang web sử dụng, nhưng các trang web được viết bằng Java đều là các trang web có lưu lượng truy cập cao, chẳng hạn như LinkedIn, Spotify, Netflix, Airbnb, Salesforce.com, Chase, Indeed.com, Pinterest,...Điều này chứng tỏ được tính phổ biến và hiệu quả của nó. 
 Những công ty nhỏ hơn có thể chọn bắt đầu xây dựng chương trình bằng một ngôn ngữ khác, nhưng khi trang web ngày càng phát triển và đòi hỏi tốc độ cũng như độ ổn định cao hơn thì họ thường chuyển sang lập trình bằng Java. Twitter chính là một minh chứng hoàn hảo.
+
 2.3.3 Java trong lập trình ứng dụng
+
 Java là một ngôn ngữ lập trình phổ biến và được sử dụng rộng rãi trong nhiều lĩnh vực khác nhau. Dưới đây là một số lĩnh vực mà Java thường được sử dụng:
 	Phát triển ứng dụng doanh nghiệp: Java là ngôn ngữ chính trong phát triển các ứng dụng doanh nghiệp lớn, nhờ vào các framework mạnh mẽ như Spring và Java EE.
 	Phát triển ứng dụng web: Với sự hỗ trợ của các framework như Spring MVC và JavaServer Faces (JSF), Java là lựa chọn phổ biến cho việc xây dựng các ứng dụng web mạnh mẽ và linh hoạt.
 	Phát triển ứng dụng di động: Java là ngôn ngữ chính thức đầu tiên được sử dụng để phát triển ứng dụng Android, với hàng triệu ứng dụng Android được viết bằng Java.
 	Phát triển ứng dụng desktop: Java Swing và JavaFX là hai bộ công cụ phổ biến để phát triển các ứng dụng desktop với giao diện đồ họa.
 	Phát triển hệ thống nhúng: Java cũng được sử dụng trong các hệ thống nhúng, nhờ vào khả năng đa nền tảng và hiệu suất cao.
+
 2.3.4 Lợi ích của việc sử dụng Java trong lập trình ứng dụng
+
 	Đa nền tảng: Mã Java đã biên dịch có thể chạy trên mọi nền tảng hỗ trợ JVM, giúp ứng dụng Java có khả năng tương thích cao.
 	Bảo mật: Java có các cơ chế bảo mật mạnh mẽ, giúp bảo vệ ứng dụng khỏi các lỗ hổng bảo mật.
 	Hiệu suất cao: JVM sử dụng các kỹ thuật như Just-In-Time (JIT) compilation để tối ưu hóa hiệu suất của mã Java.
@@ -123,10 +151,14 @@ Java là một ngôn ngữ lập trình phổ biến và được sử dụng r�
 	Thư viện phong phú: Java cung cấp một loạt các thư viện và framework giúp lập trình viên nhanh chóng phát triển các ứng dụng phức tạp.
 
 2.4 Giới thiệu về Node.js
+
 2.4.1 Tổng quan về Node.js
+
 Node.js là một nền tảng mã nguồn mở, đa nền tảng được phát triển bởi Ryan Dahl vào năm 2009. Nó cho phép chạy mã JavaScript bên ngoài trình duyệt web. Node.js được xây dựng trên công cụ JavaScript V8 của Google Chrome, giúp nó thực thi mã JavaScript một cách nhanh chóng và hiệu quả.
 Node.js được thiết kế để xây dựng các ứng dụng mạng có khả năng mở rộng cao, cho phép xử lý nhiều kết nối đồng thời với hiệu suất cao. Một trong những điểm mạnh chính của Node.js là kiến trúc hướng sự kiện và mô hình bất đồng bộ (asynchronous), giúp tối ưu hóa việc sử dụng tài nguyên và nâng cao hiệu suất của ứng dụng.
+
 2.4.2 Các tính năng nổi bật của Node.js
+
 	Mô hình bất đồng bộ và hướng sự kiện: Node.js sử dụng mô hình lập trình bất đồng bộ và hướng sự kiện, cho phép xử lý nhiều yêu cầu cùng một lúc mà không bị chặn (non-blocking). Điều này giúp tăng cường khả năng chịu tải và hiệu suất của ứng dụng.
 	Nhanh chóng và hiệu quả: Nhờ vào công cụ V8 JavaScript của Google, Node.js có thể thực thi mã JavaScript với tốc độ nhanh chóng và hiệu quả cao.
 	Đơn luồng nhưng mạnh mẽ: Mặc dù Node.js chạy trên một luồng duy nhất (single-threaded), nhưng nó có thể xử lý hàng ngàn kết nối đồng thời nhờ vào mô hình sự kiện bất đồng bộ.
@@ -134,6 +166,7 @@ Node.js được thiết kế để xây dựng các ứng dụng mạng có kh�
 	Khả năng mở rộng dễ dàng: Node.js hỗ trợ việc mở rộng ứng dụng bằng cách sử dụng các kỹ thuật như clustering, cho phép chạy nhiều instance của Node.js trên các CPU khác nhau.
 
 2.4.3 Node js làm việc như thế nào?
+
 Node.js hoạt động dựa trên một số nguyên tắc cơ bản giúp nó hiệu quả trong việc xử lý các ứng dụng có nhiều hoạt động nhập/xuất (I/O) mà không bị chặn, đồng thời giảm đáng kể sự phức tạp trong quản lý các luồng thực thi. Dưới đây là một số thành phần chính giải thích cách thức hoạt động của Node.js:
 	Kiến trúc Non-blocking I/O và Event-Driven:
 Node.js sử dụng một mô hình non-blocking I/O (input/output) và event-driven, nghĩa là các hoạt động như đọc file, truy vấn cơ sở dữ liệu, hoặc giao tiếp mạng được thực hiện mà không chặn tiến trình chính. Điều này cho phép xử lý nhiều yêu cầu cùng lúc mà không cần tạo nhiều luồng (thread), giúp giảm bớt chi phí liên quan đến quản lý luồng và tối ưu hóa hiệu suất.
@@ -150,7 +183,9 @@ Khi thao tác I/O hoàn tất, hệ điều hành thông báo cho Node.js, và N
 	NPM (Node Package Manager)
 NPM là hệ thống quản lý gói cho Node.js, cho phép các nhà phát triển dễ dàng chia sẻ và sử dụng mã nguồn từ nhau. NPM là một trong những kho lưu trữ mã nguồn mở lớn nhất thế giới và chứa hàng ngàn module có thể được tích hợp vào ứng dụng của bạn.
 Tổng hợp lại, Node.js mang đến một mô hình hiệu quả và mạnh mẽ cho các ứng dụng web và máy chủ, nhờ khả năng xử lý đồng thời nhiều hoạt động I/O mà không bị chặn, và qua đó tối ưu hóa việc sử dụng tài nguyên và cải thiện hiệu suất.
+
 2.4.4 NPM: hệ thống quản lý gói cho Node.js 
+
 Khi thảo luận về Node js thì một điều chắc chắn không nên bỏ qua là xây dựng package quản lý sử dụng các cộng cụ NPM mà mặc định với mọi cài đặt Node js. Ý tưởng của mô-đun NPM là khá tương tự như Ruby-Gems: một tập hợp các hàm có sẵn có thể sử dụng được, thành phần tái sử dụng, tập hợp các cài đặt dễ dàng thông qua kho lưu trữ trực tuyến với các phiên bản quản lý khác nhau.
 Danh sách các mô-đun có thể tìm trên web NPM package hoặc có thể truy cập bằng cách sử dụng công cụ NPM CLI sẽ tự động cài đặt với Node js.
 Một số các module NPM phổ biến nhất hiện nay là:
@@ -163,19 +198,24 @@ Một số các module NPM phổ biến nhất hiện nay là:
 	coffee-script: CoffeeScript trình biên dịch cho phép developers viết các chương trình Node.js của họ dùng Coffee.
 	underscore (lodash, lazy): Thư viện tiện ích phổ biến nhất trong JavaScript, package được sử dụng với Node.js, cũng như hai đối tác của mình, hứa hẹn hiệu suất tốt hơn bằng cách lấy một cách tiếp cận thực hiện hơi khác nhau.
 	forever: Có lẽ là tiện ích phổ biến nhất để đảm bảo rằng một kịch bản nút cho chạy liên tục. Giữ quá trình Node.js của bạn lên trong sản xuất đối mặt với bất kỳ thất bại không ngờ tới.
+
 2.4.5 Node.js trong phát triển ứng dụng
+
 Node.js là lựa chọn phổ biến cho việc phát triển các ứng dụng web và API nhờ vào tính năng hiệu suất cao và khả năng mở rộng. Dưới đây là một số lĩnh vực mà Node.js thường được sử dụng:
 	Phát triển ứng dụng web: Với các framework như Express.js, Koa.js và Hapi.js, Node.js giúp lập trình viên dễ dàng xây dựng các ứng dụng web mạnh mẽ và linh hoạt.
 	Phát triển API: Node.js là một lựa chọn lý tưởng cho việc phát triển các RESTful API và GraphQL API, nhờ vào khả năng xử lý đồng thời nhiều yêu cầu và tích hợp dễ dàng với các dịch vụ web khác.
 	Phát triển ứng dụng thời gian thực: Node.js rất phù hợp cho các ứng dụng yêu cầu xử lý thời gian thực, chẳng hạn như chat ứng dụng, ứng dụng game trực tuyến và các hệ thống giám sát.
 	Ứng dụng I/O cao: Các ứng dụng yêu cầu xử lý nhiều I/O, như ứng dụng stream video, xử lý file lớn và ứng dụng mạng, đều được hưởng lợi từ mô hình I/O không đồng bộ của Node.js.
+
 2.4.6 Lợi ích của việc sử dụng Node.js
+
 	Hiệu suất cao: Node.js cho phép xử lý nhiều kết nối đồng thời mà không bị chặn, giúp nâng cao hiệu suất và khả năng chịu tải của ứng dụng.
 	Tiết kiệm tài nguyên: Với mô hình bất đồng bộ, Node.js tối ưu hóa việc sử dụng tài nguyên hệ thống, giúp giảm thiểu chi phí và tối ưu hóa hiệu suất.
 	Dễ học và sử dụng: Đối với các lập trình viên đã quen thuộc với JavaScript, việc học và sử dụng Node.js trở nên dễ dàng và nhanh chóng.
 	Cộng đồng mạnh mẽ: Node.js có một cộng đồng phát triển lớn và năng động, cung cấp nhiều tài liệu, module và thư viện hữu ích giúp lập trình viên dễ dàng phát triển và mở rộng ứng dụng.
 	NPM: Hệ thống quản lý gói NPM cung cấp hàng nghìn module mã nguồn mở, giúp lập trình viên dễ dàng tích hợp và sử dụng các chức năng bổ sung trong ứng dụng.
 2.4.7 Cách cài đặt Node.js
+
 Để cài đặt Node.js, bạn có thể làm theo các bước sau:
 	Tải Node.js từ trang chủ:
 	Truy cập vào trang web chính thức của Node.js: https://nodejs.org.
@@ -188,37 +228,42 @@ Sau khi cài đặt xong, mở Command Prompt và nhập node -v để kiểm tr
 Mở tệp cài đặt đã tải xuống (ví dụ: node-v14.17.0.pkg).
 Làm theo các bước hướng dẫn của trình cài đặt.
 Sau khi cài đặt xong, mở Terminal và nhập node -v để kiểm tra phiên bản Node.js đã cài đặt.
-	Cài đặt Node.js trên Linux:
-Mở Terminal và nhập các lệnh sau để cài đặt Node.js từ NodeSource:
- 
-Hình 2.2 Cài Node.js
-Sau khi cài đặt xong, nhập node -v để kiểm tra phiên bản Node.js đã cài đặt.
 	Cài đặt NPM:
 NPM (Node Package Manager) thường đi kèm với Node.js. Để kiểm tra phiên bản NPM, bạn nhập npm -v trong Command Prompt hoặc Terminal.
 
 2.5 Giới thiệu về MySQL
+
 2.5.1 Tổng quan về MySQL
+
 MySQL là một hệ quản trị cơ sở dữ liệu quan hệ (RDBMS) mã nguồn mở, được phát triển bởi MySQL AB, sau này thuộc sở hữu của Sun Microsystems và hiện tại là một phần của Oracle Corporation. MySQL sử dụng ngôn ngữ truy vấn SQL (Structured Query Language) để quản lý và truy xuất dữ liệu trong cơ sở dữ liệu.
 MySQL nổi bật với khả năng mở rộng, hiệu suất cao và tính dễ sử dụng, là một trong những hệ quản trị cơ sở dữ liệu phổ biến nhất trên thế giới, đặc biệt trong các ứng dụng web và dịch vụ trực tuyến.
+
 2.5.2 Các tính năng nổi bật của MySQL
+
 	Mã nguồn mở: MySQL là phần mềm mã nguồn mở, có thể được tải xuống, sử dụng và chỉnh sửa miễn phí theo giấy phép GPL (General Public License).
 	Hiệu suất cao: MySQL tối ưu hóa việc thực hiện các truy vấn và xử lý dữ liệu, hỗ trợ nhiều cơ chế lưu trữ và chỉ mục giúp cải thiện hiệu suất.
 	Khả năng mở rộng: MySQL có khả năng mở rộng linh hoạt, hỗ trợ các hệ thống từ nhỏ đến lớn, từ các ứng dụng cá nhân đến các ứng dụng doanh nghiệp quy mô lớn.
 	Độ tin cậy: MySQL cung cấp các tính năng sao lưu và phục hồi dữ liệu, quản lý giao dịch, và khả năng xử lý lỗi để đảm bảo độ tin cậy của hệ thống.
 	Bảo mật: MySQL hỗ trợ nhiều cơ chế bảo mật bao gồm mã hóa dữ liệu, xác thực người dùng và phân quyền truy cập để bảo vệ dữ liệu khỏi các truy cập trái phép.
 	Dễ dàng tích hợp: MySQL có thể dễ dàng tích hợp với các ngôn ngữ lập trình và công nghệ khác, như PHP, Java, Python và các framework như Laravel, Django, và Spring.
+
 2.4.3 MySQL trong phát triển ứng dụng
+
 MySQL là một lựa chọn phổ biến cho việc lưu trữ và quản lý dữ liệu trong các ứng dụng web và doanh nghiệp. Dưới đây là một số lĩnh vực mà MySQL thường được sử dụng:
 	Ứng dụng web: MySQL thường được sử dụng để lưu trữ dữ liệu trong các ứng dụng web, bao gồm các trang web thương mại điện tử, hệ thống quản lý nội dung (CMS), và các dịch vụ trực tuyến.
 	Ứng dụng doanh nghiệp: Các ứng dụng quản lý doanh nghiệp, hệ thống ERP, CRM và các công cụ phân tích dữ liệu đều sử dụng MySQL để quản lý và lưu trữ dữ liệu.
 	Dịch vụ trực tuyến: MySQL cung cấp nền tảng vững chắc cho các dịch vụ trực tuyến như diễn đàn, mạng xã hội, và các ứng dụng chia sẻ nội dung.
+
 2.5.4 Lợi ích của việc sử dụng MySQL
+
 Miễn phí và mã nguồn mở: MySQL là phần mềm mã nguồn mở miễn phí, giúp giảm chi phí và cung cấp khả năng tùy chỉnh theo nhu cầu của người dùng.
 	Hiệu suất tốt: MySQL cung cấp hiệu suất cao với khả năng xử lý nhanh chóng các truy vấn và giao dịch.
 	Độ tin cậy cao: MySQL hỗ trợ các cơ chế bảo vệ dữ liệu và phục hồi, giúp đảm bảo tính toàn vẹn và độ tin cậy của dữ liệu.
 	Cộng đồng lớn: MySQL có một cộng đồng phát triển lớn và năng động, cung cấp nhiều tài liệu, hướng dẫn và hỗ trợ kỹ thuật.
 	Tích hợp dễ dàng: MySQL dễ dàng tích hợp với nhiều công nghệ và ngôn ngữ lập trình, giúp phát triển ứng dụng nhanh chóng và hiệu quả.
+
 2.5.5 Cách cài đặt MySQL
+
 Để cài đặt MySQL, bạn có thể làm theo các bước sau:
 	Tải MySQL từ trang chủ:
 •	Truy cập vào trang web chính thức của MySQL: https://dev.mysql.com/downloads/.
@@ -229,9 +274,13 @@ Miễn phí và mã nguồn mở: MySQL là phần mềm mã nguồn mở miễn
 •	Sau khi cài đặt xong, mở MySQL Workbench (hoặc công cụ quản lý MySQL khác) để kết nối và quản lý cơ sở dữ liệu.
 
 2.6 Giới thiệu về SDK của Điện thoại Di động
+
 2.6.1 Tổng quan về SDK
+
 SDK (Software Development Kit) là một tập hợp các công cụ, thư viện, tài liệu, và hướng dẫn mà các nhà phát triển sử dụng để xây dựng ứng dụng cho một nền tảng cụ thể. SDK cung cấp các API, các công cụ lập trình, và môi trường cần thiết để phát triển phần mềm cho các thiết bị di động, như smartphone và tablet.
+
 2.6.2 Các Thành Phần Chính của SDK
+
 	API: Các giao diện lập trình ứng dụng (API) cung cấp các phương thức và lớp để truy cập các tính năng và dịch vụ của hệ điều hành hoặc nền tảng di động. Ví dụ, các API của Android cho phép truy cập vào các dịch vụ như GPS, camera, và cảm biến.
 	Thư Viện: Bộ thư viện chứa các mã nguồn, hàm và lớp đã được lập trình sẵn để thực hiện các chức năng cụ thể, như xử lý đồ họa, kết nối mạng, và lưu trữ dữ liệu.
 	Trình Biên Dịch và Công Cụ Phát Triển: Các công cụ giúp biên dịch mã nguồn thành mã máy có thể thực thi trên thiết bị di động. Ví dụ, Android SDK bao gồm trình biên dịch dx để chuyển đổi mã Java thành bytecode cho máy ảo Dalvik.
@@ -256,7 +305,9 @@ SDK (Software Development Kit) là một tập hợp các công cụ, thư việ
 •	React Native: Cung cấp công cụ để phát triển ứng dụng di động bằng JavaScript và React. Hỗ trợ cả Android và iOS.
 •	Flutter: Cung cấp công cụ để phát triển ứng dụng di động bằng Dart. Hỗ trợ cả Android và iOS.
 •	Xamarin: Cung cấp công cụ để phát triển ứng dụng di động bằng C#. Hỗ trợ cả Android và iOS.
-	Cài Đặt Android SDK:
+	
+
+Cài Đặt Android SDK:
 Bước 1: Tải xuống và cài đặt Android Studio từ trang web chính thức của Google.
 Bước 2: Trong quá trình cài đặt, Android Studio sẽ tự động cài đặt Android SDK và các công cụ cần thiết.
 Bước 3: Sau khi cài đặt, bạn có thể cấu hình và cập nhật SDK thông qua Android Studio bằng cách vào File > Settings > Appearance & Behavior > System Settings > Android SDK.
@@ -291,7 +342,9 @@ CHƯƠNG 3: PHÂN TÍCH HỆ THỐNG
 	Nhắc nhở cuộc họp: Các nhắc nhở cuộc họp bao gồm mã nhắc nhở (reminder_id), mã cuộc họp (meeting_id), thời gian nhắc nhở (reminder_time), mô tả nhắc nhở (reminder_description), mã người dùng nhận nhắc nhở (user_id), và trạng thái nhắc nhở (status). Thời điểm tạo và cập nhật nhắc nhở cũng được ghi lại.
 
 3.2 Các chức năng của hệ thống. 
+
 3.2.1 Yêu cầu chức năng của hệ thống:
+
 	Đối tượng tham gia hệ thống:
 	Người quản lý cuộc họp.
 	Thành viên tham gia cuộc họp.
@@ -310,7 +363,9 @@ CHƯƠNG 3: PHÂN TÍCH HỆ THỐNG
 	Tham gia và quản lý cuộc họp: Đưa ra ý kiến về các kết luận cuộc họp (tick vào phần phê duyệt kết luận). Đề xuất xem xét lại các kết luận nếu cần thiết.
 
 3.3 Bối cảnh của hệ thống 
+
 3.3.1 Định nghĩa vấn đề mà đề tài sẽ giải quyết 
+
 Mục tiêu của đề tài là phát triển một ứng dụng di động giúp người dùng quản lý và tổ chức các cuộc họp hiệu quả. Hiện tại, quản lý lịch họp chủ yếu dựa vào các phương pháp thủ công hoặc công cụ không chuyên biệt. Ứng dụng di động sẽ giải quyết các vấn đề hiện tại bằng cách cung cấp một nền tảng tích hợp để:
 	Lên lịch cuộc họp, bao gồm các thông tin như tiêu đề, thời gian, địa điểm và tài liệu liên quan.
 	Theo dõi và quản lý danh sách người tham gia.
@@ -319,6 +374,7 @@ Mục tiêu của đề tài là phát triển một ứng dụng di động gi�
 	Tạo báo cáo và phân tích kết quả cuộc họp.
 
 3.3.2 Hiện trạng trước khi sử dụng phần mềm:
+
 Trước khi có phần mềm, quy trình quản lý lịch họp diễn ra như sau:
 	Người dùng (Nhân viên, Quản lý):
 	Hiện trạng: Sử dụng các công cụ như email, lịch giấy hoặc các phần mềm lịch cá nhân để tổ chức và quản lý cuộc họp. Việc tạo và gửi lời mời họp, cũng như cập nhật thông tin về cuộc họp và người tham gia, thường diễn ra qua email hoặc thông báo qua tin nhắn.
@@ -331,7 +387,9 @@ Trước khi có phần mềm, quy trình quản lý lịch họp diễn ra như
 	Quản lý (Người tổ chức cuộc họp):
 	Hiện trạng: Tạo và quản lý lịch họp bằng các công cụ thủ công hoặc phần mềm lịch cá nhân. Phải tự thực hiện việc gửi thông báo, theo dõi sự tham gia và quản lý tài liệu.
 	Vấn đề: Thiếu khả năng theo dõi và quản lý cuộc họp một cách tập trung và tự động, dẫn đến việc quản lý kém hiệu quả và khả năng theo dõi không đầy đủ.
+
 3.3.3 Đề xuất giải pháp của đề tài
+
 Khi so sánh việc thiết lập cuộc họp bằng ứng dụng quản lý cuộc họp với các phương pháp tổ chức họp truyền thống như gửi email, ứng dụng này mang lại nhiều ưu điểm vượt trội. Dưới đây là ba ưu điểm chính của việc sử dụng ứng dụng quản lý cuộc họp:
 
 1.	Đảm Bảo Nhất Quán về Nội Dung Họp
@@ -360,6 +418,7 @@ Những ưu điểm này giúp tối ưu hóa quy trình tổ chức cuộc họ
 	Gửi nhắc nhở: Tạo cơ chế tự động để gửi nhắc nhở cho các thành viên về các cuộc họp sắp tới và các nhiệm vụ quan trọng.
 
 3.3.3.1 Use Case lập lịch họp
+
 •	Khi chưa có PM:
 1.	Người điều phối cuộc họp gửi email đến các thành viên để chọn thời gian phù hợp.
 2.	Nhận phản hồi từ các thành viên qua email.
@@ -390,6 +449,7 @@ Người điều phối cần tạo một cuộc họp mới. Họ mở ứng d�
 Sơ đồ 3.3 Sơ đồ tuần tự lập lịch họp
 
 3.3.3.2 Use Case quản lý danh sách tham dự
+
 •	Khi chưa có PM:
 1.	Người điều phối gửi email mời tham dự đến các thành viên.
 2.	Các thành viên trả lời email xác nhận tham dự.
@@ -407,6 +467,7 @@ Người điều phối nhập danh sách các thành viên vào hệ thống PM
 Sơ đồ 3.4 Sơ đồ tuần tự quản lý danh sách tham dự
 
 3.3.3.3 Use Case gửi kết quả họp
+
 •	Khi chưa có PM:
 1.	Người ghi chép viết biên bản cuộc họp.
 2.	Gửi email biên bản đến các thành viên.
@@ -420,7 +481,9 @@ Sau cuộc họp, người ghi chép nhập biên bản cuộc họp vào hệ t
 ![image](https://github.com/user-attachments/assets/fd2bb1f5-37fd-41e8-b21a-0b600f91cdc6)
 
 Sơ đồ 3.5 Sơ đồ tuần tự gửi kết quả cuộc họp
+
 3.3.3.4 Use Case đánh giá cuộc họp
+
 •	Khi chưa có PM:
 1.	Người điều phối gửi email khảo sát đánh giá cuộc họp đến các thành viên.
 2.	Các thành viên trả lời email với đánh giá của họ.
@@ -437,6 +500,7 @@ Hệ thống PM tự động gửi biểu mẫu đánh giá cuộc họp đến 
 Sơ đồ 3.6 Sơ đồ tuần tự gửi kết đánh giá cuộc họp
 
 3.3.3.5 Use Case gửi nhắc nhở
+
 •	Khi chưa có PM:
 1.	Người điều phối gửi email nhắc nhở cuộc họp đến các thành viên.
 2.	Các thành viên kiểm tra email để nắm bắt thông tin nhắc nhở.
@@ -449,9 +513,13 @@ Hệ thống PM tự động gửi nhắc nhở đến các thành viên theo th
 ![image](https://github.com/user-attachments/assets/d4f1b26b-bed7-495a-bc56-77442f9daeee)
 
 Sơ đồ 3.7 Sơ đồ tuần tự gửi nhắc nhở
+
 3.4 Định nghĩa các tương tác cần thiết trên PM 
+
 3.4.1. Lược đồ Use Case
+
 3.4.1.1 Người tổ chức cuộc họp (Meeting Organizer)
+
 	Use Case 1: Tạo Cuộc họp
 
 ![image](https://github.com/user-attachments/assets/279b3883-0207-492e-ac1b-77e8cc7d396f)
@@ -506,6 +574,7 @@ Sơ đồ 3.12 Sơ đồ Use Case 3: Quản lý người dùng
 ![image](https://github.com/user-attachments/assets/b11f21e6-12e7-45f2-8dfb-66f3fc5213c2)
 
 Sơ đồ 3.13 Sơ đồ tuần tự quản lý người dùng
+
 	Use Case 4: Nội Dung Họp
 
 ![image](https://github.com/user-attachments/assets/98f5e78e-69d6-43c8-8645-995d6c0594ec)
@@ -523,7 +592,9 @@ Sơ đồ 3.14 Sơ đồ tuần tự nội dung họp
 •	Chủ trì tổng hợp các ý kiến và kết quả bình chọn.
 •	Chủ trì đưa ra kết luận cuộc họp.
 •	Các Thành Viên ký tên xác nhận kết luận cuộc họp.
+
 3.4.1.2	 Người Tham Gia Cuộc Họp (Meeting Participant)
+
 	Use Case 5: Xem Thông Tin Cuộc Họp
 
 ![image](https://github.com/user-attachments/assets/1d4a7c0f-bc25-41b6-bc14-b0f841526709)
@@ -543,6 +614,7 @@ Sơ đồ 3.14 Sơ đồ Use Case 5: Xem Thông Tin Cuộc Họp
 Sơ đồ 3.15 Sơ đồ tuần tự xem thông tin cuộc họp
 
 3.5  Định nghĩa yêu cầu và ràng buộc đối với phần mềm
+
 3.5.1 Yêu cầu từ môi trường nghiệp vụ (business) 
 
 ![image](https://github.com/user-attachments/assets/208fb90c-9f62-47f9-8f0e-e2779ceabcad)
@@ -550,6 +622,7 @@ Sơ đồ 3.15 Sơ đồ tuần tự xem thông tin cuộc họp
 Bảng 3.1 Yêu cầu từ môi trường nghiệp vụ
 
 3.5.2 Yêu cầu từ môi trường vận hành (operation) 
+
 3.5.2.1 Các yêu cầu chức năng:
 
 ![image](https://github.com/user-attachments/assets/7081cedf-67c0-41cf-b500-e783f7433054)
@@ -563,6 +636,7 @@ Bảng 3.2 Các yêu cầu chức năng
 Bảng 3.3 Các yêu cầu chất lượng
 
 3.5.3 Yêu cầu từ môi trường phát triển (development) 
+
 3.5.3.1 Ràng buộc về phương pháp/công nghệ: 
 
 ![image](https://github.com/user-attachments/assets/490af1c4-42e9-40b3-8b98-f0b1e21dca1b)
@@ -576,15 +650,19 @@ Bảng 3.4 Ràng buộc về phương pháp/công nghệ
 Bảng 3.5 Ràng buộc về phương pháp/công nghệ
 
 CHƯƠNG 4: THIẾT KẾ PHẦN MỀM
+
 4.1 Lược đồ usecase
+
 4.1.1 Use case tổng quát 
 
 ![image](https://github.com/user-attachments/assets/d9f355de-6f95-4a29-a528-9c38498df519)
 
 Sơ đồ 4.1 Use case tổng quát
+
 	Người Quản Lý có thể thực hiện các chức năng: Tạo Cuộc Họp, Cập Nhật Kết Quả Cuộc Họp, Yêu Cầu Phát Sinh, Tạo Cuộc Họp Tiếp Theo, và Chia Sẻ Lịch Họp.
 	Thành Viên có thể thực hiện các chức năng: Xem Chi Tiết Cuộc Họp, Bổ Sung Ý Kiến, và Chia Sẻ Lịch Họp.
 	Hệ Thống sẽ tự động thực hiện chức năng Nhắc Lịch Họp.
+
 4.1.2 Use case đăng nhập, đăng ký
 
 ![image](https://github.com/user-attachments/assets/1257dc49-0c84-4bf8-bbbe-085968f1c802)
@@ -593,7 +671,9 @@ Sơ đồ 4.2 Use case đăng nhập, đăng ký
 
 	Người dùng sẽ điền thông tin cá nhân để đăng ký vào hệ thống.
 	Người dùng sẽ nhập thông tin và mật khẩu để đăng nhập vào hệ thống, người có quyền manager sẽ vào trang chủ admin còn người có quyền member sẽ vào trang người dùng.
+
 4.1.3 Use case họp
+
 
 ![image](https://github.com/user-attachments/assets/34ce8e92-996f-4706-9017-b5e261628c05)
 
@@ -606,8 +686,11 @@ Người dùng sẽ được nhắc nhở khi cuộc họp sắp xảy ra. Và s
 ![image](https://github.com/user-attachments/assets/449100f1-4b99-4121-8ffe-61458766a1d8)
 
 Sơ đồ 4.4 Use case kết thúc cuộc họp
+
 Người dùng sẽ xác nhận kết thúc cuộc họp, và Manager sẽ đưa ra kết luận của cuộc họp cho người dùng tick vào có đồng ý hay không nếu không đồng ý thì sẽ nêu ý kiến.
+
 4.2 Sơ đồ tuần tự
+
 4.2.1 Sơ đồ tuần tự đăng nhập
 
 ![image](https://github.com/user-attachments/assets/adfe97c7-93f8-4739-bc75-5bed8217713e)
@@ -642,11 +725,13 @@ Giải thích:
 	PM -> Email: Hệ thống PM yêu cầu dịch vụ email gửi thông báo về cuộc họp.
 	Email -> Người_tham_gia: Dịch vụ email gửi chi tiết cuộc họp đến các người tham gia.
 Mục đích: Tạo và thông báo cuộc họp đến các thành viên.
+
 4.2.3 Sơ đồ tuần tự xem danh sách cuộc họp
 
 ![image](https://github.com/user-attachments/assets/a1b947a4-d11e-4af3-9ef7-6c2e5e4fc5b1)
 
 Sơ đồ 4.7 Sơ đồ tuần tự xem danh sách cuộc họp
+
 	Actors:
 	Admin: Người quản trị hệ thống.
 	Người_tham_gia: Thành viên tham dự cuộc họp.
@@ -658,11 +743,13 @@ Sơ đồ 4.7 Sơ đồ tuần tự xem danh sách cuộc họp
 	Người_tham_gia -> PM: Người tham gia yêu cầu xem danh sách cuộc họp từ hệ thống PM.
 	PM -> Người_tham_gia: Hệ thống PM gửi danh sách cuộc họp cho Người tham gia.
 Mục đích: Đảm bảo rằng cả Admin và Người tham gia đều có thể truy cập và xem danh sách cuộc họp từ hệ thống PM.
+
 4.2.4 Sơ đồ tuần tự nội dung họp
 
 ![image](https://github.com/user-attachments/assets/755c75b6-18b6-4cc5-953f-626b200961db)
 
 Sơ đồ 4.8 Sơ đồ tuần tự nội dung họp
+
 	Actors:
 	Người_tham_gia (thành viên tham gia).
 	Chủ_trì (người chủ trì cuộc họp).
@@ -673,8 +760,11 @@ Sơ đồ 4.8 Sơ đồ tuần tự nội dung họp
 	Chủ_trì -> PM: Chủ trì cuộc họp đưa ra kết luận cuối cùng.
 	Người_tham_gia -> PM: Các thành viên xác nhận kết luận của cuộc họp.
 Mục đích: Đảm bảo tất cả các thành viên có thể đóng góp ý kiến, bình chọn và xác nhận kết luận cuối cùng của cuộc họp thông qua hệ thống.
+
 4.3 Thiết kế các thành phần của phần mềm
+
 4.3.1 Đăng ký 
+
 4.3.1.1 Form: Đăng Ký
 
 ![image](https://github.com/user-attachments/assets/3cca2279-e042-4dcc-9fee-30be118ef38b)
@@ -705,7 +795,9 @@ Hình 4.1Đăng Ký
 	Dùng API: registerUser để gửi dữ liệu đăng ký từ form đến server.
 	Kiểm tra dữ liệu: Xác thực tính hợp lệ của dữ liệu đầu 
 	Xử lý API: Gửi yêu cầu POST tới /signup để thực hiện đăng ký.
+
 4.3.1.2 API/Service: Đăng Ký
+
 	Tên API/Service: registerUser
 	Inputs: Full Name: full_name, Email: email, Username: username, Password: password
 	Outputs:
@@ -721,7 +813,9 @@ Truy xuất DB qua DBMS:
 	Gọi User.create(req.body) để lưu thông tin người dùng vào cơ sở dữ liệu.
 Gọi các dịch vụ từ actors:
 	Tạo tài khoản mới cho người dùng, gửi thông tin về thành công hay lỗi đến client.
+
 4.3.1.3 DBMS Procedure: Đăng Ký Người Dùng
+
 	Tên Procedure: SP_User_Register
 	Inputs: Full Name: @full_name, Email: @email, Username: @username, Password: @password
 	Outputs:
@@ -733,6 +827,7 @@ Thông báo xác thực và lưu trữ thành công hoặc lỗi
 Hình 4.2 SP_User_Register
 
 4.3.2 Đăng nhập
+
 4.3.2.1 Form: Đăng nhập người dùng
 
 ![image](https://github.com/user-attachments/assets/7de824f4-7f36-4497-9228-698357635d81)
@@ -751,7 +846,9 @@ Hình 4. 3 Đăng nhập người dùng
 	Inputs: Mật khẩu nhập từ form
 	Outputs: Mật khẩu được gửi đến API để xác thực người dùng.
 	Xử lý: Sử dụng API checkLogin để gửi dữ liệu đăng nhập (email và password) đến server để xác thực người dùng.
+
 4.3.2.2 API/Service: Đăng nhập người dung
+
 	Tên API/Service: checkLogin
 	Inputs: email (Email người dùng), npassword (Mật khẩu người dùng)
 	Outputs: Xác nhận đăng nhập thành công hoặc lỗi nếu không thể xác thực người dùng.
@@ -759,7 +856,9 @@ Hình 4. 3 Đăng nhập người dùng
 	Kiểm tra dữ liệu: Xác thực dữ liệu đầu vào từ form (email và mật khẩu).
 	Truy xuất DB qua DBMS: Sử dụng Sequelize để gọi User.findOne({ where: { email, password } }) để kiểm tra xem người dùng có tồn tại trong cơ sở dữ liệu với email và mật khẩu cung cấp không.
 	Gọi các dịch vụ từ actors: Xác thực người dùng và phản hồi kết quả về client.
+
 4.3.2.3 DBMS Procedure: Đăng nhập
+
 	Tên Procedure: SP_User_Login
 	Inputs: p_email (Email người dùng), p_password (Mật khẩu người dùng)
 	Outputs: Xác nhận đăng nhập thành công hoặc thông báo lỗi nếu không thể xác thực người dùng.
@@ -768,6 +867,7 @@ Hình 4. 3 Đăng nhập người dùng
 ![image](https://github.com/user-attachments/assets/72795b70-adb2-416b-8ba3-347d2eb30907)
 
 Hình 4.4 SP_User_Login
+
 4.3.3 Trang chủ admin
 
 ![image](https://github.com/user-attachments/assets/4d3c046e-b93e-4658-911a-c33566205185)
@@ -777,6 +877,7 @@ Hình 4.5 Trang chủ admin
 Admin đăng nhập vào bằng tài khoản của mình và có thể thực hiện được các chức năng bằng cách nhấp vào các form đang hiện.
 
 4.3.4 Tạo cuộc họp 
+
 4.3.4.1 Form: Tạo cuộc họp
 
 ![image](https://github.com/user-attachments/assets/44454431-c7c1-4685-b007-464b61b8fdb5)
@@ -828,13 +929,16 @@ Hình 4.7 Tạo cuộc họp
 	Xử lý: Kiểm tra tính hợp lệ của Next Meeting Time.
 
 4.3.4.2 API/Service: Tạo cuộc họp
+
 	Tên API/Service: createMeeting
 	Inputs: Title, Meeting Date, Start Time, End Time, Location, Agenda, Documents, Result, Next Meeting Time
 	Outputs: Xác thực thành công hoặc lỗi
 	Xử lý:
 Kiểm tra dữ liệu: Xác thực thông tin cuộc họp.
 Truy xuất DB qua DBMS: Gọi stored procedure để lưu thông tin cuộc họp mới vào cơ sở dữ liệu.
+
 4.3.4.3 DBMS Procedure: Tạo cuộc họp
+
 	Tên Procedure: SP_Create_Meeting
 	Inputs: Title, Meeting Date, Start Time, End Time, Location, Agenda, Documents, Result, Next Meeting Time
 	Outputs: Thông báo thành công hoặc lỗi.
@@ -845,11 +949,13 @@ Tables: Bảng meetings.
 Hình 4.8 SP_Create_Meeting
 
 4.3.5 Xem danh sách nhân viên
+
 4.3.5.1 Form: danh sách nhân viên
 
 ![image](https://github.com/user-attachments/assets/acac43d6-22c5-4f35-9985-fed7b2297e96)
 
 Hình 4.9 danh sách nhân viên
+
 	Giao tiếp:
 	Actor: Người Quản Lý hoặc Nhân Viên có quyền xem danh sách nhân viên
 	Vai trò: Xem thông tin chi tiết về các nhân viên trong hệ thống
@@ -860,7 +966,9 @@ Hình 4.9 danh sách nhân viên
 	Xử lý:
 Gọi API getAllUsers để lấy dữ liệu danh sách nhân viên từ server.
 Hiển thị danh sách nhân viên trên giao diện.
+
 4.3.5.2 API/Service: Get All Users
+
 	Tên API/Service: getAllUsers
 	Inputs: Không có tham số đầu vào.
 	Outputs: Danh sách nhân viên (bao gồm các trường thông tin như user_id, username, password, email, full_name, role, created_at, updated_at).
@@ -868,7 +976,9 @@ Hiển thị danh sách nhân viên trên giao diện.
 	Kiểm tra quyền truy cập của người dùng để đảm bảo họ có quyền xem danh sách nhân viên.
 	Gửi yêu cầu đến endpoint API /api/user/users để lấy danh sách nhân viên.
 	Nhận dữ liệu từ server và trả về cho giao diện để hiển thị.
+
 4.3.5.3 DBMS Procedure: Lấy danh sách nhân viên
+
 	Stored Procedure SP_Get_Employee_List thực hiện truy vấn dữ liệu từ bảng users để lấy danh sách nhân viên.
 	Kết quả được trả về dưới dạng danh sách nhân viên với các thông tin chi tiết.
 	Table: bảng User
@@ -876,7 +986,9 @@ Hiển thị danh sách nhân viên trên giao diện.
 ![image](https://github.com/user-attachments/assets/2919ccdc-0d24-4b6d-8461-3584240b8bd2)
 
 Hình 4.10 SP_Get_Employee_List
+
 4.3.6 Xem danh sách cuộc họp và chi tiết cuộc họp
+
 4.3.6.1 Form: danh sách cuộc họp và chi tiết cuộc họp
 
 ![image](https://github.com/user-attachments/assets/5165f422-9ea9-4bf1-b9d1-6dc3b7110367)
@@ -887,6 +999,7 @@ Hình 4. 11 danh sách cuộc họp
 
 
 Hình 4.12 Chi tiết cuộc họp
+
 Mannager và Admin có thể xem danh sách các cuộc họp. Muốn xem chi tiết cuộc họp chỉ cần nhấp vào cuộc họp đó sẽ chuyển sang trang chi tiết cuộc họp. Màu xanh là cuộc họp chưa diễn ra, màu đỏ là cuộc họp đã xảy ra.
 	Giao tiếp:
 	Actor: Người Quản Lý hoặc Nhân Viên có quyền xem danh sách cuộc họp.
@@ -916,7 +1029,9 @@ Mannager và Admin có thể xem danh sách các cuộc họp. Muốn xem chi ti
 
 
 Hình 4.13 SP_Get_Meeting_List
+
 4.3.7 Danh sách người tham gia trong một cuộc họp
+
 4.3.7.1 Form: Danh sách người tham gia một cuộc họp
 
 ![image](https://github.com/user-attachments/assets/b31f7a1b-5977-496d-a210-d393fab9f077)
@@ -934,7 +1049,9 @@ Hình 4.14 Danh sách người tham gia một cuộc họp
 	Xử lý:
 	Gọi API getMeetingParticipants để lấy dữ liệu danh sách người tham gia từ server.
 	Hiển thị danh sách người tham gia trên giao diện.
+
 4.3.7.2 API/Service: Get Meeting Participants
+
 	Tên API/Service: getMeetingParticipants
 	Inputs: Không có tham số đầu vào.
 	Outputs: Danh sách người tham gia cuộc họp (bao gồm các trường thông tin như participant_id, meeting_id, participant_name, email, role, user_id, attendance_status, created_at, updated_at).
@@ -942,7 +1059,9 @@ Hình 4.14 Danh sách người tham gia một cuộc họp
 	Kiểm tra quyền truy cập của người dùng để đảm bảo họ có quyền xem danh sách người tham gia cuộc họp.
 	Gửi yêu cầu đến endpoint API /api/meetingparticipants để lấy danh sách người tham gia cuộc họp.
 	Nhận dữ liệu từ server và trả về cho giao diện để hiển thị.
+
 4.3.7.3 DBMS Procedure: Danh sách người tham gia 
+
 	Tên Procedure: SP_Get_Participants_By_Meeting
 	Inputs: Không có tham số đầu vào.
 	Outputs: Danh sách người tham gia cuộc họp với các thông tin chi tiết.
@@ -951,13 +1070,16 @@ Hình 4.14 Danh sách người tham gia một cuộc họp
 ![image](https://github.com/user-attachments/assets/3d7921c8-3e3b-4234-ad80-5ffa18f0d631)
 
 Hình 4.15 SP_Get_Participants_By_Meeting
+
 4.3.8 Xem kết quả cuộc họp
+
 4.3.8.1 Form: Kết quả cuộc họp với phê duyệt
 
 ![image](https://github.com/user-attachments/assets/bed2db43-34d2-4d6b-8b4d-57e15c20c2fd)
 
 
 Hình 4. 16 Kết quả cuộc họp với phê duyệt
+
 	Giao tiếp:
 	Actor: Người Quản Lý hoặc Nhân Viên có quyền xem và phê duyệt kết quả cuộc họp.
 	Vai trò: Xem kết quả cuộc họp và chọn trạng thái phê duyệt (đồng ý hoặc không đồng ý).
@@ -969,7 +1091,9 @@ Hình 4. 16 Kết quả cuộc họp với phê duyệt
 	Gọi API getMeetingResults để lấy dữ liệu kết quả cuộc họp từ server.
 	Hiển thị kết quả cuộc họp và tùy chọn phê duyệt trên giao diện.
 	Gửi trạng thái phê duyệt và (nếu cần) gợi ý xem xét lại đến server.
+
 4.3.8.2 API/Service: Kết quả cuộc họp với Phê duyệt
+
 	Tên API/Service: getMeetingResults
 	Inputs: meeting_id (ID của cuộc họp cần lấy kết quả)
 	Outputs: Danh sách kết quả cuộc họp (bao gồm các trường thông tin như result_id, meeting_id, result, new_requirements, created_at, updated_at).
@@ -986,7 +1110,9 @@ approval_status (Trạng thái phê duyệt, ví dụ: "approved" hoặc "reques
 	Kiểm tra quyền truy cập của người dùng.
 	Gửi yêu cầu đến endpoint API /api/summaryapproval để lưu trạng thái phê duyệt và gợi ý (nếu có).
 	Cập nhật trạng thái phê duyệt trong cơ sở dữ liệu.
+
 4.3.8.3 DBMS Procedure: Phê duyệt Kết quả cuộc họp
+
 	Tên Procedure: SP_Approve_Meeting_Result
 	Inputs: p_result_id (ID của kết quả cuộc họp cần phê duyệt), p_user_id (ID của người phê duyệt), p_approval_status (Trạng thái phê duyệt, ví dụ: "approved" hoặc "request_review"), p_review_suggestion (Gợi ý xem xét lại nếu không đồng ý)
 	Outputs: Xác nhận việc lưu trữ trạng thái phê duyệt.
@@ -996,6 +1122,7 @@ approval_status (Trạng thái phê duyệt, ví dụ: "approved" hoặc "reques
 
 
 4.3.9 Chia sẽ thông tin cuộc họp
+
 4.3.9.1 Form: Chia sẻ thông tin cuộc họp
 
 ![image](https://github.com/user-attachments/assets/70a2d1ab-d124-40e6-b877-8f75c6277a92)
@@ -1017,8 +1144,12 @@ Hình 4.18 Chia sẻ thông tin cuộc họp
 	Hiển thị thông báo xác nhận việc chia sẻ thông tin thành công hoặc thất bại trên giao diện người dùng.
 
 4.4 Thiết kế cơ sở dữ liệu và ràng buộc
+
 4.4.1 Thiết lập mô hình thực thể
+
+
 4.4.1.1 Xác định các thực thể
+
 	Users (user_id (PK), username, password, email, full_name, role, created_at, updated_at)
 	Meetings (meeting_id (PK), title, meeting_date, start_time, end_time, location, agenda, documents, result, next_meeting_time, created_at, updated_at)
 	MeetingParticipants (participant_id (PK), meeting_id (FK to Meetings), participant_name, email, role, user_id (FK to Users), attendance_status, created_at, updated_at)
@@ -1033,7 +1164,9 @@ Hình 4.18 Chia sẻ thông tin cuộc họp
 
 
 Sơ đồ 4.9 ERD
+
 4.4.1.2 Mô hình thực thể dạng chuẩn 3
+
 	Users (user_id (PK), username, password, email, full_name, role, created_at, updated_at)
 	Meetings (meeting_id (PK), title, meeting_date, start_time, end_time, location, agenda, documents, result, next_meeting_time, created_at, updated_at)
 	MeetingParticipants (participant_id (PK), meeting_id (FK to Meetings), participant_name, email, role, user_id (FK to Users), attendance_status, created_at, updated_at)
@@ -1045,7 +1178,9 @@ Sơ đồ 4.9 ERD
 	Ràng buộc (Constraints)
 	Primary Key (PK): Đảm bảo tính duy nhất của mỗi bản ghi trong bảng.
 	Foreign Key (FK): Đảm bảo rằng một giá trị trong bảng con phải tồn tại trong bảng cha, duy trì tính toàn vẹn của dữ liệu.
+
 4.4.2 Thiết kế cơ sở dữ liệu
+
 4.4.2.1 Mô hình diagram
 
 ![image](https://github.com/user-attachments/assets/c4cbccc8-95ac-436c-a1d4-584de512084f)
@@ -1059,6 +1194,7 @@ Sơ đồ 4.10  Diagram
 Sơ đồ 4.11 Sơ đồ lớp
 
 4.4.2.3 Chi tiết các bảng
+
 Dưới đây là cấu trúc chi tiết của từng bảng trong cơ sở dữ liệu meeting_scheduler:
 Bảng Users: Lưu trữ thông tin người dùng hệ thống.
 
@@ -1112,6 +1248,7 @@ Bảng 4.7 Bảng MeetingReminders
 CHƯƠNG 5. KẾT LUẬN - HƯỚNG PHÁT TRIỂN
 
 	Kết luận:
+
 Ứng dụng tạo lịch họp trên thiết bị di động là một giải pháp quan trọng trong bối cảnh công việc ngày càng yêu cầu sự linh hoạt và hiệu quả. Đề tài này, tuy không phải là hoàn toàn mới, nhưng mang đến giá trị thiết thực trong việc quản lý lịch họp và phối hợp công việc cho các tổ chức và cá nhân. Ứng dụng đã được triển khai thành công với những chức năng chính như tạo và quản lý lịch họp, theo dõi kết quả, và gửi nhắc nhở tự động, từ đó giúp người dùng dễ dàng sắp xếp và quản lý thời gian hiệu quả hơn.
 
 	Một số kết quả đạt được:
@@ -1120,27 +1257,37 @@ CHƯƠNG 5. KẾT LUẬN - HƯỚNG PHÁT TRIỂN
 	Gửi nhắc nhở tự động: Nhắc nhở cuộc họp giúp giảm thiểu khả năng quên và đảm bảo tất cả các thành viên đều được thông báo kịp thời.
 
 	Hướng phát triển
+
 1.	Tối ưu hóa hiệu suất:
 	Tối ưu hóa tốc độ: Cải thiện tốc độ xử lý và phản hồi của ứng dụng để mang lại trải nghiệm mượt mà hơn, giảm thiểu thời gian chờ đợi của người dùng.
 	Quản lý bộ nhớ: Giảm mức tiêu tốn bộ nhớ và tài nguyên hệ thống để ứng dụng hoạt động hiệu quả trên các thiết bị có cấu hình thấp hơn.
+
 2.	Tính năng thông minh và tự động:
+
 	Gợi ý thông minh: Phát triển các thuật toán gợi ý thông minh giúp người dùng dễ dàng sắp xếp lịch họp dựa trên thói quen và lịch sử hoạt động.
 	Nhắc nhở thông minh: Tích hợp các nhắc nhở tự động dựa trên lịch trình của người dùng và các sự kiện quan trọng.
+
 3.	Mở rộng khả năng tương thích và tích hợp:
+
 	Tương thích với các nền tảng khác: Đảm bảo ứng dụng hoạt động ổn định trên nhiều hệ điều hành và các thiết bị có kích thước màn hình khác nhau.
 	Tích hợp công cụ quản lý dự án: Phát triển các tính năng tích hợp với các công cụ quản lý dự án phổ biến để nâng cao hiệu quả làm việc nhóm.
+
 4.	Tăng cường tính bảo mật:
+
 	Cải thiện bảo mật dữ liệu: Thực hiện các biện pháp bảo mật nâng cao để bảo vệ thông tin người dùng và ngăn chặn các cuộc tấn công mạng.
 	Xác thực và phân quyền: Cung cấp các phương thức xác thực mạnh mẽ và kiểm soát quyền truy cập chi tiết để đảm bảo chỉ những người dùng được phép mới có thể truy cập vào các tính năng và dữ liệu nhạy cảm.
+
 DANH MỤC TÀI LIỆU THAM KHẢO
 
 Tiếng Việt:
+
 1.	Nguyễn Văn Cường, "Lập trình ứng dụng Android với Java", Nhà xuất bản Khoa học và Kỹ thuật, Hà Nội, 2018.
 2.	Trần Thị Lan, "Java và ứng dụng trong phát triển phần mềm", Nhà xuất bản Giáo dục, Hà Nội, 2016.
 3.	Hoàng Minh Tuấn, "Node.js và xây dựng ứng dụng web", Nhà xuất bản Bưu điện, Hà Nội, 2020.
 4.	Nguyễn Trung Hiếu, "Hệ quản trị cơ sở dữ liệu MySQL: Cơ bản và nâng cao", Nhà xuất bản Đại học Quốc gia Hà Nội, 2019.
 
 Tiếng Anh:
+
 1.	Biggs, J., & Collett, D. (2014), "Android Programming: The Big Nerd Ranch Guide", Big Nerd Ranch Guides, Atlanta.
 2.	Schildt, H. (2018), "Java: The Complete Reference", McGraw-Hill Education, New York.
 3.	Tilkov, S. & Vinoski, S. (2010), "Node.js: Real-Time Web Application Development", O'Reilly Media, Sebastopol.
@@ -1148,6 +1295,7 @@ Tiếng Anh:
 5.	Maughan, D. (2021), "Full-Stack JavaScript: Learn Backbone.js, Node.js and MongoDB", O'Reilly Media, Sebastopol.
 
 Danh mục các Website tham khảo:
+
 1.	Android Developer Documentation: https://developer.android.com/
 2.	Java Tutorials: https://docs.oracle.com/javase/tutorial/
 3.	Node.js Official Website: https://nodejs.org/
